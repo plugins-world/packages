@@ -133,7 +133,7 @@
 
                         <input type="text" name="inputUnikey" class="form-control" placeholder="插件 unikey" style="display: block;">
                         <input type="text" name="inputPackage" class="form-control" placeholder="扩展包 vendor/package" style="display: none;">
-                        <input type="text" name="inputDirectory" class="form-control" placeholder="extensions/plugins/<Unikey>" style="display: none;">
+                        <input type="text" name="inputDirectory" class="form-control" placeholder="插件 unikey 或插件目录的绝对路径" style="display: none;">
                         <input type="file" name="inputZipball" class="form-control" style="display: none;" accept=".zip">
                     </div>
                 </div>

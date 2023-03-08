@@ -36,6 +36,9 @@
         "fresns/market-manager": "dev-master",
         "fresns/plugin-manager": "2.x-dev"
     },
+    "require-dev": {
+        "orangehill/iseed": "^3.0"
+    },
     "extra": {
         "laravel": {
             "providers": [
