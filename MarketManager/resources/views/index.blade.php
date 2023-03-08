@@ -123,6 +123,7 @@
                         <button class="btn btn-outline-secondary dropdown-toggle" id="toggleInstallMentod" type="button" data-bs-toggle="dropdown" aria-expanded="false">输入标识名</button>
                         <ul class="dropdown-menu">
                             <li><a class="dropdown-item active" href="#" data-install-method="inputUnikey" placeholder="请输入插件 unikey">输入标识名</a></li>
+                            <li><a class="dropdown-item" href="#" data-install-method="inputPackage" placeholder="请输入插件 unikey">输入 composer 包名</a></li>
                             <li><a class="dropdown-item" href="#" data-install-method="inputDirectory" placeholder="请输入插件所在目录">输入安装目录</a></li>
                             <li><a class="dropdown-item" href="#" data-install-method="inputZipball" placeholder="请选择插件安装包">上传 zip 压缩包</a></li>
                         </ul>
@@ -130,8 +131,9 @@
                         <input type="hidden" name="installType" value="plugin" required class="form-control" style="display: block;">
                         <input type="hidden" name="installMethod" value="inputUnikey" required class="form-control" style="display: block;">
 
-                        <input type="text" name="inputUnikey" class="form-control" required style="display: block;">
-                        <input type="text" name="inputDirectory" class="form-control" style="display: none;">
+                        <input type="text" name="inputUnikey" class="form-control" placeholder="插件 unikey" style="display: block;">
+                        <input type="text" name="inputPackage" class="form-control" placeholder="扩展包 vendor/package" style="display: none;">
+                        <input type="text" name="inputDirectory" class="form-control" placeholder="extensions/plugins/<Unikey>" style="display: none;">
                         <input type="file" name="inputZipball" class="form-control" style="display: none;" accept=".zip">
                     </div>
                 </div>
@@ -196,6 +198,7 @@
 
     $('#installModal').on('shown.bs.modal', function() {
         $('input[name="inputUnikey"]').val('');
+        $('input[name="inputPackage"]').val('');
         $('input[name="inputDirectory"]').val('');
         $('input[name="inputZipball"]').val('');
     });

@@ -15,9 +15,10 @@ class MarketManagerApiController extends Controller
     {
         \request()->validate([
             'installType' => 'nullable', // plugin, theme
-            'installMethod' => 'required|in:inputUnikey,inputDirectory,inputZipball',
+            'installMethod' => 'required|in:inputUnikey,inputPackage,inputDirectory,inputZipball',
 
             'inputUnikey' => 'required_if:installMethod,inputUnikey',
+            'inputPackage' => 'required_if:installMethod,inputPackage',
             'inputDirectory' => 'required_if:installMethod,inputDirectory',
             'inputZipball' => 'required_if:installMethod,inputZipball',
         ]);
@@ -29,6 +30,7 @@ class MarketManagerApiController extends Controller
         switch ($installMethod) {
             // unikey
             case 'inputUnikey':
+            case 'inputPackage':
                 // market-manager
                 $exitCode = Artisan::call('market:require', [
                     'unikey' => $installValue,
