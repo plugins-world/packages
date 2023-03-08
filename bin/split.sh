@@ -29,7 +29,9 @@ git pull origin $CURRENT_BRANCH || true
 #remote foundation git@github.com:mouyong/laravel-foundation.git
 remote MarketManager git@github.com:mouyong/MarketManager.git
 remote LaravelConfig git@github.com:mouyong/laravel-config.git
+remote DcatSaas git@github.com:mouyong/dcat-saas.git
 
 #split 'src/Illuminate/Foundation' foundation
 split 'MarketManager' MarketManager
 split 'LaravelConfig' LaravelConfig
+split 'DcatSaas' DcatSaas
