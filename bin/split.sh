@@ -31,9 +31,11 @@ remote MarketManager git@github.com:mouyong/MarketManager.git
 remote LaravelConfig git@github.com:mouyong/laravel-config.git
 remote DcatSaas git@github.com:mouyong/dcat-saas.git
 remote LaravelJwtAuth git@github.com:mouyong/laravel-jwt-auth.git
+remote LaravelQiNiu git@github.com:mouyong/laravel-qiniu.git
 
 #split 'src/Illuminate/Foundation' foundation
 split 'MarketManager' MarketManager
 split 'LaravelConfig' LaravelConfig
 split 'DcatSaas' DcatSaas
 split 'LaravelJwtAuth' LaravelJwtAuth
+split 'LaravelQiNiu' LaravelQiNiu
