@@ -6,7 +6,7 @@
         <div class="card-body">
             <h1 class="card-title">Market Manage 设置</h1>
 
-            <form class="row g-3 mt-5" action="{{ route('market-manage.setting') }}" method="post">
+            <form class="row g-3 mt-5" action="{{ route('sso-client.setting') }}" method="post">
                 @csrf
 
                 <div class="mb-3 row">
@@ -31,7 +31,7 @@
                 </div>
 
                 <div class="mb-3 row">
-                    <label for="install_datetime" class="col-sm-2 col-form-label">应用市场安装时间</label>
+                    <label for="install_datetime" class="col-sm-2 col-form-label">应用管理器安装时间</label>
                     <div class="col-sm-8">
                         <input type="text" name="install_datetime" value="{{ old('install_datetime', $configs['install_datetime'] ?? '') }}" class="form-control" id="install_datetime" placeholder="应用市场安装时间" readonly>
                     </div>
