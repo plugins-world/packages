@@ -44,29 +44,30 @@
 
             <ul class="nav flex-column">
                 <li class="nav-item">
-                    <a class="nav-link" data-bs-toggle="tab" data-bs-target="#nav-market-manager" role="tab" aria-controls="nav-market" aria-selected="true">管理插件</a>
+                    <a class="nav-link" data-bs-toggle="tab" data-bs-target="#nav-market-manager">管理插件</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link active" data-bs-toggle="tab" data-bs-target="#nav-market" role="tab" aria-controls="nav-market" aria-selected="true">插件市场</a>
+                    <a class="nav-link active" data-bs-toggle="tab" data-bs-target="#nav-market">插件市场</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" data-bs-target="#installModal" data-bs-toggle="modal" aria-current="page" href="#">安装插件</a>
+                    <a class="nav-link" data-bs-target="#installModal" data-bs-toggle="modal" href="#">安装插件</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" id="nav-plugin-setting-tab" data-bs-toggle="tab" data-bs-target="#nav-plugin-setting" role="tab" aria-controls="nav-market" aria-selected="true">插件设置</a>
+                    <a class="nav-link visually-hidden" id="nav-setting-tab" data-bs-target="#nav-setting" data-bs-toggle="tab" href="#">安装插件</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="#" onclick="alert('暂未开放设置功能')">系统设置</a>
                 </li>
-                <!-- <li class="nav-item">
-                    <a class="nav-link active" href="#">Link</a>
-                </li> -->
             </ul>
         </div>
 
         <div class="tab-content">
             <div class="tab-pane fade" id="nav-market" role="tabpanel" aria-labelledby="nav-market-tab" tabindex="0">
                 <iframe src="{{ $configs['market_server_host'] }}" frameborder="0" style="width:100%;height:calc(100vh - 100px);border-radius:var(--bs-border-radius-lg);"></iframe>
+            </div>
+
+            <div class="tab-pane fade" id="nav-setting" role="tabpanel" tabindex="0">
+                <iframe id="settingIframe" src="#" frameborder="0" style="width:100%;height:calc(100vh - 100px);border-radius:var(--bs-border-radius-lg);"></iframe>
             </div>
 
             <div class="tab-pane fade show active" id="nav-market-manager" role="tabpanel" aria-labelledby="nav-market-tab" tabindex="0">
@@ -77,14 +78,11 @@
 
                         <nav class="mt-5">
                             <div class="nav nav-tabs" id="nav-tab" role="tablist">
-                                <button class="nav-link active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="true">全部插件</button>
-                                <!-- <button class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">Profile</button> -->
-                                <!-- <button class="nav-link" id="nav-contact-tab" data-bs-toggle="tab" data-bs-target="#nav-contact" type="button" role="tab" aria-controls="nav-contact" aria-selected="false">Contact</button> -->
-                                <!-- <button class="nav-link" id="nav-disabled-tab" data-bs-toggle="tab" data-bs-target="#nav-disabled" type="button" role="tab" aria-controls="nav-disabled" aria-selected="false" disabled>Disabled</button> -->
+                                <button class="nav-link active" id="nav-plugin-tab" data-bs-toggle="tab" data-bs-target="#nav-plugin" type="button" role="tab">全部插件</button>
                             </div>
                         </nav>
                         <div class="tab-content pt-3" id="nav-tabContent">
-                            <div class="tab-pane fade show active p-3" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab" tabindex="0">
+                            <div class="tab-pane fade show active p-3" id="nav-plugin" role="tabpanel" aria-labelledby="nav-plugin-tab" tabindex="0">
                                 <table class="table">
                                     <thead>
                                         <tr class="table-primary">
@@ -108,7 +106,7 @@
                                                 @endif
                                                 @if($plugin['is_enable'] && $plugin['settings_url'])
                                                 <!-- <button type="button" data-unikey="{{ $plugin['unikey'] }}" data-action="setting" data-settings-url="{{ $plugin['settings_url'] }}" class="table-row btn-sm btn btn-primary">设置</button> -->
-                                                <!-- <button type="button" data-unikey="{{ $plugin['unikey'] }}" data-action="setting" data-settings-url="{{ $plugin['settings_url'] }}" class="table-row btn-sm btn btn-primary" data-bs-toggle="tab" data-bs-target="">设置</button> -->
+                                                <!-- <button type="button" data-unikey="{{ $plugin['unikey'] }}" data-action="setting" data-settings-url="{{ $plugin['settings_url'] }}" class="table-row btn-sm btn btn-primary" data-bs-toggle="tab" data-bs-target="#nav-plugin-setting">设置</button> -->
                                                 <button type="button" data-unikey="{{ $plugin['unikey'] }}" data-action="setting" data-settings-url="{{ $plugin['settings_url'] }}" class="table-row btn-sm btn btn-primary">设置</button>
                                                 @endif
                                                 @if($plugin['is_enable'] == false)
@@ -120,18 +118,10 @@
                                     </tbody>
                                 </table>
                             </div>
-                            <!-- <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab" tabindex="0">...</div>
-                    <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab" tabindex="0">...</div>
-                    <div class="tab-pane fade" id="nav-disabled" role="tabpanel" aria-labelledby="nav-disabled-tab" tabindex="0">...</div> -->
                         </div>
                     </div>
                 </div>
             </div>
-
-            <div class="tab-pane fade" id="nav-plugin-setting" role="tabpanel" aria-labelledby="nav-plugin-setting-tab" tabindex="0">
-                <iframe src="" frameborder="0" style="width:100%;height:calc(100vh - 100px);border-radius:var(--bs-border-radius-lg);"></iframe>
-            </div>
-
         </div>
     </div>
 </div>
@@ -266,6 +256,9 @@
     $(document).on('click', 'table button.table-row', $.debounce(500, function(event) {
         event.preventDefault();
 
+        $(this).prepend('<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> ');
+        $(this).prop('disabled', true);
+
         const action = $(this).data('action');
         const unikey = $(this).data('unikey');
 
@@ -274,30 +267,38 @@
         switch (action) {
             case 'activate':
                 data.is_enable = 1;
-                updatePlugin(data);
+                updatePlugin(data, this);
                 break;
             case 'deactivate':
                 data.is_enable = 0;
-                updatePlugin(data);
+                updatePlugin(data, this);
                 break;
             case 'setting':
-                $('#nav-plugin-setting iframe').attr('src', $(this).data('settings-url'));
-                $('#nav-market-manager').removeClass('active show');
-                $('#nav-plugin-setting-tab').tab('show');
+                $('#settingIframe').attr('src', $(this).data('settings-url')).on('load', () => {
+                    $(this).find('span').remove();
+                    $(this).prop('disabled', '');
+
+                    $('#nav-market-manager').removeClass('show active');
+                    $('#nav-setting-tab').tab('show');
+                });
                 break;
             case 'remove':
-                uninstallPlugin(data);
+                uninstallPlugin(data, this);
                 break;
         }
+
         return;
     }));
 
-    var updatePlugin = function(data) {
+    var updatePlugin = function(data, _this) {
         $.ajax({
             url: "{{ route('plugin.update', []) }}",
             type: "POST",
             data: data,
             success: function(res) {
+                $(_this).find('span').remove();
+                $(_this).prop('disabled', false);
+
                 console.log(res)
                 window.location.reload();
             },
@@ -307,16 +308,21 @@
         })
     };
 
-    var uninstallPlugin = function(data) {
+    var uninstallPlugin = function(data, _this) {
+        $('#output').modal('show');
+
         $.ajax({
             url: "{{ route('plugin.uninstall', []) }}",
             type: "POST",
             data: data,
             success: function(res) {
-                console.log(res)
+                $('#outputLoading').hide();
+                $('#output pre').html(res || '卸载成果');
             },
             error: function(err) {
                 console.log(err)
+                $('#outputLoading').hide();
+                $('#output pre').html(err.responseJSON.err_msg + "<br><br> 卸载失败");
             }
         })
     }

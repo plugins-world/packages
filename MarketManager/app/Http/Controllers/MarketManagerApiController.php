@@ -102,14 +102,6 @@ class MarketManagerApiController extends Controller
             'is_enable' => 'required|boolean'
         ]);
 
-        // $plugin = Plugin::findById(\request()->post('id'));
-
-        // if (!$plugin) {
-        //     return $this->fail('插件不存在或已删除', 200);
-        // }
-        // $plugin->is_enable = \request()->post('is_enable');
-        // $plugin->save();
-
         $unikey = \request('plugin');
         if (\request()->get('is_enable') != 0) {
             $exitCode = Artisan::call('market:activate', ['unikey' => $unikey]);
@@ -130,8 +122,6 @@ class MarketManagerApiController extends Controller
             'plugin' => 'required|string',
             'clearData' => 'nullable|bool',
         ]);
-
-        // Plugin::deletePlugin(\request()->post('id'));
 
         $unikey = \request('plugin');
         if (\request()->get('clearData') == 1) {
