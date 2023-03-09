@@ -58,7 +58,7 @@
 
         <div class="tab-content">
             <div class="tab-pane fade show active" style="" id="nav-market" role="tabpanel" aria-labelledby="nav-market-tab" tabindex="0">
-                <iframe src="https://market.plugins-world.cn/open-source" frameborder="0" style="width:100%;height:calc(100vh - 100px);border-radius:10px;"></iframe>
+                <iframe src="https://market.plugins-world.cn/open-source" frameborder="0" style="width:100%;height:calc(100vh - 100px);border-radius:var(--bs-border-radius-lg);"></iframe>
             </div>
 
             <div class="tab-pane fade" id="nav-market-manager" role="tabpanel" aria-labelledby="nav-market-tab" tabindex="0">
