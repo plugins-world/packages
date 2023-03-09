@@ -30,6 +30,8 @@ jobs:
       # Runs a single command using the runners shell
       - name: Split
         run: |
-          git config user.name github-actions
-          git config user.email github-actions@github.com
-          ./bin/split.sh
+          echo ${{env.token}}
+          git push
+          ls -al ./bin/split.sh
+          bash ./bin/split.sh
+
