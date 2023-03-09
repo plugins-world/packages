@@ -29,4 +29,6 @@ jobs:
 
       # Runs a single command using the runners shell
       - name: Split
-        run: bash ./bin/split.sh
+        run: |
+          chmod +x ./bin/split.sh
+          ./bin/split.sh
