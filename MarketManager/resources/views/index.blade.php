@@ -10,7 +10,7 @@
             </a> -->
 
         <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
-            <li><a href="#" target="_blank" class="nav-link px-2 link-secondary">回到系统</a></li>
+            <li><a href="#" class="nav-link px-2 link-secondary" onclick="top.location = '{{ $configs[\'system_url\'] ?? \'#\' }}'">回到系统</a></li>
             <li><a href="#" class="nav-link px-2 link-dark">应用中心</a></li>
         </ul>
 
@@ -61,7 +61,7 @@
 
         <div class="tab-content">
             <div class="tab-pane fade show active" style="" id="nav-market" role="tabpanel" aria-labelledby="nav-market-tab" tabindex="0">
-                <iframe src="https://market.plugins-world.cn/open-source" frameborder="0" style="width:100%;height:calc(100vh - 100px);border-radius:var(--bs-border-radius-lg);"></iframe>
+                <iframe src="{{ $configs['market_server_host'] ?? 'https://market.plugins-world.cn/open-source' }}" frameborder="0" style="width:100%;height:calc(100vh - 100px);border-radius:var(--bs-border-radius-lg);"></iframe>
             </div>
 
             <div class="tab-pane fade" id="nav-market-manager" role="tabpanel" aria-labelledby="nav-market-tab" tabindex="0">
