@@ -50,6 +50,9 @@
                 <li class="nav-item">
                     <a class="nav-link" data-bs-target="#installModal" data-bs-toggle="modal" aria-current="page" href="#">安装插件</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#" onclick="alert('暂未开放设置功能')">系统设置</a>
+                </li>
                 <!-- <li class="nav-item">
                     <a class="nav-link active" href="#">Link</a>
                 </li> -->
