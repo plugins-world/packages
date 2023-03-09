@@ -1,5 +1,5 @@
 {
-    "name": "plugins-world/laravel-config",
+    "name": "mouyong/laravel-config",
     "description": "A laravel global config package.",
     "keywords": [
         "laravel-config",
@@ -16,13 +16,13 @@
             "role": "Creator & Developer"
         }
     ],
-    "homepage": "https://github.com/plugins-world/laravel-config",
+    "homepage": "https://github.com/mouyong/laravel-config",
     "support": {
         "email": "my24251325@gmail.com",
-        "source": "https://github.com/plugins-world/laravel-config",
-        "issues": "https://github.com/plugins-world/laravel-config/issues",
-        "forum": "https://github.com/plugins-world/laravel-config/issues",
-        "wiki": "https://github.com/plugins-world/laravel-config"
+        "source": "https://github.com/mouyong/laravel-config",
+        "issues": "https://github.com/mouyong/laravel-config/issues",
+        "forum": "https://github.com/mouyong/laravel-config/issues",
+        "wiki": "https://github.com/mouyong/laravel-config"
     },
     "require": {
         "php": ">=8.0"
