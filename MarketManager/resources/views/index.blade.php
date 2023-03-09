@@ -14,7 +14,7 @@
             <li><a href="#" class="nav-link px-2 link-dark">应用中心</a></li>
         </ul>
 
-        
+
 
         <!-- <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" role="search">
                 <input type="search" class="form-control" placeholder="搜索..." aria-label="Search">
@@ -44,13 +44,16 @@
 
             <ul class="nav flex-column">
                 <li class="nav-item">
-                    <a class="nav-link active" data-bs-toggle="tab" data-bs-target="#nav-market" role="tab" aria-controls="nav-market" aria-selected="true">插件市场</a>
-                </li>
-                <li class="nav-item">
                     <a class="nav-link" data-bs-toggle="tab" data-bs-target="#nav-market-manager" role="tab" aria-controls="nav-market" aria-selected="true">管理插件</a>
                 </li>
                 <li class="nav-item">
+                    <a class="nav-link active" data-bs-toggle="tab" data-bs-target="#nav-market" role="tab" aria-controls="nav-market" aria-selected="true">插件市场</a>
+                </li>
+                <li class="nav-item">
                     <a class="nav-link" data-bs-target="#installModal" data-bs-toggle="modal" aria-current="page" href="#">安装插件</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" id="nav-plugin-setting-tab" data-bs-toggle="tab" data-bs-target="#nav-plugin-setting" role="tab" aria-controls="nav-market" aria-selected="true">插件设置</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="#" onclick="alert('暂未开放设置功能')">系统设置</a>
@@ -62,11 +65,11 @@
         </div>
 
         <div class="tab-content">
-            <div class="tab-pane fade show active" id="nav-market" role="tabpanel" aria-labelledby="nav-market-tab" tabindex="0">
+            <div class="tab-pane fade" id="nav-market" role="tabpanel" aria-labelledby="nav-market-tab" tabindex="0">
                 <iframe src="{{ $configs['market_server_host'] }}" frameborder="0" style="width:100%;height:calc(100vh - 100px);border-radius:var(--bs-border-radius-lg);"></iframe>
             </div>
 
-            <div class="tab-pane fade" id="nav-market-manager" role="tabpanel" aria-labelledby="nav-market-tab" tabindex="0">
+            <div class="tab-pane fade show active" id="nav-market-manager" role="tabpanel" aria-labelledby="nav-market-tab" tabindex="0">
                 <div class="bg-white  border rounded-3">
                     <div class="mx-3 py-3">
                         <h3>扩展插件</h3>
@@ -104,7 +107,9 @@
                                                 <button type="button" data-unikey="{{ $plugin['unikey'] }}" data-action="deactivate" class="table-row btn-sm btn btn-success">停用</button>
                                                 @endif
                                                 @if($plugin['is_enable'] && $plugin['settings_url'])
-                                                <a href="{{ $plugin['settings_url'] }}" target="_blank" class="table-row btn-sm btn btn-primary">设置</a>
+                                                <!-- <button type="button" data-unikey="{{ $plugin['unikey'] }}" data-action="setting" data-settings-url="{{ $plugin['settings_url'] }}" class="table-row btn-sm btn btn-primary">设置</button> -->
+                                                <!-- <button type="button" data-unikey="{{ $plugin['unikey'] }}" data-action="setting" data-settings-url="{{ $plugin['settings_url'] }}" class="table-row btn-sm btn btn-primary" data-bs-toggle="tab" data-bs-target="">设置</button> -->
+                                                <button type="button" data-unikey="{{ $plugin['unikey'] }}" data-action="setting" data-settings-url="{{ $plugin['settings_url'] }}" class="table-row btn-sm btn btn-primary">设置</button>
                                                 @endif
                                                 @if($plugin['is_enable'] == false)
                                                 <button type="button" data-unikey="{{ $plugin['unikey'] }}" data-action="remove" class="table-row btn-sm btn btn-link text-danger">卸载</button>
@@ -122,6 +127,11 @@
                     </div>
                 </div>
             </div>
+
+            <div class="tab-pane fade" id="nav-plugin-setting" role="tabpanel" aria-labelledby="nav-plugin-setting-tab" tabindex="0">
+                <iframe src="" frameborder="0" style="width:100%;height:calc(100vh - 100px);border-radius:var(--bs-border-radius-lg);"></iframe>
+            </div>
+
         </div>
     </div>
 </div>
@@ -254,6 +264,8 @@
 
     // 表格操作
     $(document).on('click', 'table button.table-row', $.debounce(500, function(event) {
+        event.preventDefault();
+
         const action = $(this).data('action');
         const unikey = $(this).data('unikey');
 
@@ -267,6 +279,11 @@
             case 'deactivate':
                 data.is_enable = 0;
                 updatePlugin(data);
+                break;
+            case 'setting':
+                $('#nav-plugin-setting iframe').attr('src', $(this).data('settings-url'));
+                $('#nav-market-manager').removeClass('active show');
+                $('#nav-plugin-setting-tab').tab('show');
                 break;
             case 'remove':
                 uninstallPlugin(data);
