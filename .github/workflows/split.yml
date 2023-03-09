@@ -30,8 +30,7 @@ jobs:
       # Runs a single command using the runners shell
       - name: Split
         run: |
-          echo ${{env.token}}
-          git push
+          ssh -T git@github.com
           ls -al ./bin/split.sh
           bash ./bin/split.sh
 
