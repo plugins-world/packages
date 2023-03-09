@@ -1,25 +1,24 @@
 @extends('MarketManager::layouts.master')
 
 @section('content')
-<header class="p-3 mb-3 border-bottom">
-    <div class="container">
-        <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
-            <!-- <a href="/" class="d-flex align-items-center mb-2 mb-lg-0 text-dark text-decoration-none">
+<header class="container-fulid mb-3 border-bottom">
+    <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
+        <!-- <a href="/" class="d-flex align-items-center mb-2 mb-lg-0 text-dark text-decoration-none">
                 <svg class="bi me-2" width="40" height="32" role="img" aria-label="Bootstrap">
                     <use xlink:href="#bootstrap"></use>
                 </svg>
             </a> -->
 
-            <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
-                <li><a href="#" target="_blank" class="nav-link px-2 link-secondary">回到系统</a></li>
-                <li><a href="#" class="nav-link px-2 link-dark">应用中心</a></li>
-            </ul>
+        <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
+            <li><a href="#" target="_blank" class="nav-link px-2 link-secondary">回到系统</a></li>
+            <li><a href="#" class="nav-link px-2 link-dark">应用中心</a></li>
+        </ul>
 
-            <!-- <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" role="search">
+        <!-- <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" role="search">
                 <input type="search" class="form-control" placeholder="搜索..." aria-label="Search">
             </form> -->
 
-            <!-- <div class="dropdown text-end">
+        <!-- <div class="dropdown text-end">
                 <a href="#" class="d-block link-dark text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
                     <img src="https://github.com/mdo.png" alt="mdo" width="32" height="32" class="rounded-circle">
                 </a>
@@ -33,7 +32,6 @@
                     <li><a class="dropdown-item" href="#">Sign out</a></li>
                 </ul>
             </div> -->
-        </div>
     </div>
 </header>
 
@@ -44,6 +42,12 @@
 
             <ul class="nav flex-column">
                 <li class="nav-item">
+                    <a class="nav-link active" data-bs-toggle="tab" data-bs-target="#nav-market" role="tab" aria-controls="nav-market" aria-selected="true">插件市场</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" data-bs-toggle="tab" data-bs-target="#nav-market-manager" role="tab" aria-controls="nav-market" aria-selected="true">管理插件</a>
+                </li>
+                <li class="nav-item">
                     <a class="nav-link" data-bs-target="#installModal" data-bs-toggle="modal" aria-current="page" href="#">安装插件</a>
                 </li>
                 <!-- <li class="nav-item">
@@ -51,62 +55,73 @@
                 </li> -->
             </ul>
         </div>
-        <div class="bg-white  border rounded-3">
-            <div class="mx-3 py-3">
-                <h3>扩展插件</h3>
-                <p>这里展示的是系统中已安装的所有插件。</p>
 
-                <nav class="mt-5">
-                    <div class="nav nav-tabs" id="nav-tab" role="tablist">
-                        <button class="nav-link active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="true">全部插件</button>
-                        <!-- <button class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">Profile</button> -->
-                        <!-- <button class="nav-link" id="nav-contact-tab" data-bs-toggle="tab" data-bs-target="#nav-contact" type="button" role="tab" aria-controls="nav-contact" aria-selected="false">Contact</button> -->
-                        <!-- <button class="nav-link" id="nav-disabled-tab" data-bs-toggle="tab" data-bs-target="#nav-disabled" type="button" role="tab" aria-controls="nav-disabled" aria-selected="false" disabled>Disabled</button> -->
-                    </div>
-                </nav>
-                <div class="tab-content pt-3" id="nav-tabContent">
-                    <div class="tab-pane fade show active p-3" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab" tabindex="0">
-                        <table class="table">
-                            <thead>
-                                <tr class="table-primary">
-                                    <th scope="col">名称</th>
-                                    <th scope="col">描述</th>
-                                    <th scope="col">开发者</th>
-                                    <th scope="col">操作</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach($plugins as $plugin)
-                                <tr>
-                                    <td>{{ $plugin['name'] }}</td>
-                                    <td>{{ Str::limit($plugin['description'] ?? '', 100) }}</td>
-                                    <td>{{ $plugin['author'] }}</td>
-                                    <td>
-                                        @if($plugin['is_enable'] == false)
-                                        <button type="button" data-unikey="{{ $plugin['unikey'] }}" data-action="activate" class="table-row btn-sm btn btn-light">启用</button>
-                                        @elseif($plugin['unikey'] !== 'MarketManager')
-                                        <button type="button" data-unikey="{{ $plugin['unikey'] }}" data-action="deactivate" class="table-row btn-sm btn btn-success">停用</button>
-                                        @endif
-                                        @if($plugin['is_enable'] && $plugin['settings_url'])
-                                        <a href="{{ $plugin['settings_url'] }}" target="_blank" class="table-row btn-sm btn btn-primary">设置</a>
-                                        @endif
-                                        @if($plugin['is_enable'] == false)
-                                        <button type="button" data-unikey="{{ $plugin['unikey'] }}" data-action="remove" class="table-row btn-sm btn btn-link text-danger">卸载</button>
-                                        @endif
-                                    </td>
-                                </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
-                    </div>
-                    <!-- <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab" tabindex="0">...</div>
+        <div class="tab-content">
+            <div class="tab-pane fade show active" style="" id="nav-market" role="tabpanel" aria-labelledby="nav-market-tab" tabindex="0">
+                <iframe src="https://market.plugins-world.cn/open-source" frameborder="0" style="width:100%;height:calc(100vh - 100px);"></iframe>
+            </div>
+
+
+            <div class="tab-pane fade" id="nav-market-manager" role="tabpanel" aria-labelledby="nav-market-tab" tabindex="0">
+                <div class="bg-white  border rounded-3">
+                    <div class="mx-3 py-3">
+                        <h3>扩展插件</h3>
+                        <p>这里展示的是系统中已安装的所有插件。</p>
+
+                        <nav class="mt-5">
+                            <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                                <button class="nav-link active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="true">全部插件</button>
+                                <!-- <button class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">Profile</button> -->
+                                <!-- <button class="nav-link" id="nav-contact-tab" data-bs-toggle="tab" data-bs-target="#nav-contact" type="button" role="tab" aria-controls="nav-contact" aria-selected="false">Contact</button> -->
+                                <!-- <button class="nav-link" id="nav-disabled-tab" data-bs-toggle="tab" data-bs-target="#nav-disabled" type="button" role="tab" aria-controls="nav-disabled" aria-selected="false" disabled>Disabled</button> -->
+                            </div>
+                        </nav>
+                        <div class="tab-content pt-3" id="nav-tabContent">
+                            <div class="tab-pane fade show active p-3" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab" tabindex="0">
+                                <table class="table">
+                                    <thead>
+                                        <tr class="table-primary">
+                                            <th scope="col">名称</th>
+                                            <th scope="col">描述</th>
+                                            <th scope="col">开发者</th>
+                                            <th scope="col">操作</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach($plugins as $plugin)
+                                        <tr>
+                                            <td>{{ $plugin['name'] }}</td>
+                                            <td>{{ Str::limit($plugin['description'] ?? '', 100) }}</td>
+                                            <td>{{ $plugin['author'] }}</td>
+                                            <td>
+                                                @if($plugin['is_enable'] == false)
+                                                <button type="button" data-unikey="{{ $plugin['unikey'] }}" data-action="activate" class="table-row btn-sm btn btn-light">启用</button>
+                                                @elseif($plugin['unikey'] !== 'MarketManager')
+                                                <button type="button" data-unikey="{{ $plugin['unikey'] }}" data-action="deactivate" class="table-row btn-sm btn btn-success">停用</button>
+                                                @endif
+                                                @if($plugin['is_enable'] && $plugin['settings_url'])
+                                                <a href="{{ $plugin['settings_url'] }}" target="_blank" class="table-row btn-sm btn btn-primary">设置</a>
+                                                @endif
+                                                @if($plugin['is_enable'] == false)
+                                                <button type="button" data-unikey="{{ $plugin['unikey'] }}" data-action="remove" class="table-row btn-sm btn btn-link text-danger">卸载</button>
+                                                @endif
+                                            </td>
+                                        </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
+                            <!-- <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab" tabindex="0">...</div>
                     <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab" tabindex="0">...</div>
                     <div class="tab-pane fade" id="nav-disabled" role="tabpanel" aria-labelledby="nav-disabled-tab" tabindex="0">...</div> -->
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
+
 
 <div class="modal fade" id="installModal" tabindex="-2">
     <div class="modal-dialog">
