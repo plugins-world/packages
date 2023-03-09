@@ -33,6 +33,12 @@ class Installer
         ],
         [
             'item_tag' => 'market_manager',
+            'item_key' => 'settings_path',
+            'item_type' => 'string',
+            'item_value' => null,
+        ],
+        [
+            'item_tag' => 'market_manager',
             'item_key' => 'install_datetime',
             'item_type' => 'string',
             'item_value' => null,
@@ -60,6 +66,13 @@ class Installer
             // add config
             if ($configItem['item_key'] == 'install_datetime') {
                 $configItem['item_value'] = date('Y-m-d H:i:s');
+            }
+
+            if ($configItem['item_key'] == 'settings_path') {
+                $contents = file_get_contents(dirname(__DIR__, 2) . '/plugin.json');
+                $data = json_decode($contents, true);
+
+                $configItem['item_value'] = $data['settingsPath'];
             }
 
             Config::addConfig($configItem);

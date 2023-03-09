@@ -25,6 +25,42 @@ class Config extends Model
         'is_enable' => 'bool',
     ];
 
+    public static function findConfig(?string $itemKey = null, ?string $itemTag, array $where = [])
+    {
+        if ($itemKey) {
+            $where['item_key'] = $itemKey;
+        }
+
+        if ($itemTag) {
+            $where['item_tag'] = $itemTag;
+        }
+
+        return Config::query()
+            ->where($where)
+            ->first();
+    }
+
+    public static function updateConfigs(array $keys = [], ?string $itemTag = null)
+    {
+        $itemKeys = $keys;
+
+        foreach ($itemKeys as $itemKey) {
+            $config = Config::findConfig($itemKey, $itemTag);
+            if (!$config) {
+                continue;
+            }
+
+            $config->item_value = \request($config->item_key);
+            $config->save();
+
+            Config::forgetCache($itemKey);
+        }
+
+        $result = Config::getValueByKeys($itemKeys, $itemTag);
+
+        return $result;
+    }
+
     public function getItemValueDescAttribute()
     {
         if (in_array($this->item_type, ['array', 'json', 'object'])) {
@@ -141,13 +177,18 @@ class Config extends Model
         return static::addKeyValue($tag, $key, json_encode($value, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_NUMERIC_CHECK), 'json');
     }
 
-    public static function getValueByKey(string $itemKey)
+    public static function getValueByKey(string $itemKey, ?string $itemTag = null, array $where = [])
     {
         $cacheKey = Config::CACHE_KEY_PREFIX . $itemKey;
         $cacheTime = now()->addMinutes(ModelsConfig::CACHE_KEY_MINUTES);
 
-        $config = Cache::remember($cacheKey, $cacheTime, function () use ($itemKey) {
-            return static::query()->where('item_key', $itemKey)->first();
+        $config = Cache::remember($cacheKey, $cacheTime, function () use ($itemKey, $itemTag, $where) {
+            $where['item_key'] = $itemKey;
+            if ($itemTag) {
+                $where['item_tag'] = $itemTag;
+            }
+            
+            return Config::query()->where($where)->first();
         });
 
         if (is_null($config)) {
@@ -157,7 +198,7 @@ class Config extends Model
         return $config->item_value_desc;
     }
 
-    public static function getValueByKeys(array $itemKeys): array
+    public static function getValueByKeys(array $itemKeys, ?string $itemTag = null, array $where = []): array
     {
         $data = [];
 
@@ -175,8 +216,17 @@ class Config extends Model
             return $data;
         }
 
+        // 拼接额外查询条件
+        if ($itemTag) {
+            $where['item_tag'] = $itemTag;
+        }
+        
         // 已查出部分缓存中的 key，还有部分 key 需要查询
-        $values = static::query()->whereIn('item_key', $itemKeys)->get();
+        $values = Config::query()
+            ->whereIn('item_key', $itemKeys)
+            ->where($where)
+            ->get();
+
         foreach ($itemKeys as $index => $itemKey) {
             $cacheKey = Config::CACHE_KEY_PREFIX . $itemKey;
             $cacheTime = now()->addMinutes(ModelsConfig::CACHE_KEY_MINUTES);

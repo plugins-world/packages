@@ -56,7 +56,7 @@
                     <a class="nav-link visually-hidden" id="nav-setting-tab" data-bs-target="#nav-setting" data-bs-toggle="tab" href="#">安装插件</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#" onclick="alert('暂未开放设置功能')">系统设置</a>
+                    <a class="nav-link" href="#" onclick="goToSettingPage(this)">系统设置</a>
                 </li>
             </ul>
         </div>
@@ -289,6 +289,22 @@
 
         return;
     }));
+
+    function goToSettingPage(ele) {
+        event.preventDefault();
+        const href = $(ele).prop('href');
+        if (href == '#') {
+            return;
+        }
+
+        $('#settingIframe').attr('src', href).on('load', () => {
+            $(ele).find('span').remove();
+            $(ele).prop('disabled', '');
+
+            $('#nav-market-manager').removeClass('show active');
+            $('#nav-setting-tab').tab('show');
+        });
+    }
 
     var updatePlugin = function(data, _this) {
         $.ajax({

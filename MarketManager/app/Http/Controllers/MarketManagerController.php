@@ -14,6 +14,7 @@ class MarketManagerController extends Controller
         $configs = Config::getValueByKeys([
             'market_server_host',
             'system_url',
+            'settings_path',
             'install_datetime',
             'build_type',
         ]);
@@ -24,5 +25,39 @@ class MarketManagerController extends Controller
             'configs' => $configs,
             'plugins' => $plugins,
         ]);
+    }
+
+    public function showSettingView()
+    {
+        $configs = Config::getValueByKeys([
+            'market_server_host',
+            'system_url',
+            'settings_path',
+            'install_datetime',
+            'build_type',
+        ]);
+        
+        return view('MarketManager::setting', [
+            'configs' => $configs,
+        ]);
+    }
+
+    public function saveSetting()
+    {
+        \request()->validate([
+            'market_server_host' => 'required|url',
+            'system_url' => 'required|url',
+            'settings_path' => 'required|string',
+        ]);
+        
+        $itemKeys = [
+            'market_server_host',
+            'system_url',
+            'settings_path',
+        ];
+
+        Config::updateConfigs($itemKeys, 'market_manager');
+        
+        return redirect(route('market-manage.setting'));
     }
 }

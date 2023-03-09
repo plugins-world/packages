@@ -8,7 +8,7 @@
     "version": "1.0.0",
     "scene": [],
     "accessPath": "",
-    "settingsPath": null,
+    "settingsPath": "/market-manager/setting/",
     "providers": [
         "Plugins\\MarketManager\\Providers\\MarketManagerServiceProvider",
         "Plugins\\MarketManager\\Providers\\ExceptionServiceProvider"
