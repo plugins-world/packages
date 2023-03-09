@@ -30,6 +30,6 @@ jobs:
       # Runs a single command using the runners shell
       - name: Split
         run: |
-          git config --global --list
+          git config --list
           ./bin/split.sh
 
