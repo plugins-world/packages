@@ -30,7 +30,9 @@ jobs:
       # Runs a single command using the runners shell
       - name: Split
         run: |
-          ssh -T git@github.com
-          ls -al ./bin/split.sh
-          bash ./bin/split.sh
+          env
+          git config --global --list
+          echo 123
+          git config --list
+          ./bin/split.sh
 
