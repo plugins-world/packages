@@ -29,6 +29,7 @@ git pull origin $CURRENT_BRANCH || true
 #remote foundation git@github.com:mouyong/laravel-foundation.git
 remote MarketManager git@github.com:plugins-world/MarketManager.git
 
+remote LaravelOauth git@github.com:mouyong/laravel-oauth.git
 remote LaravelConfig git@github.com:mouyong/laravel-config.git
 remote LaravelDoc git@github.com:mouyong/laravel-doc.git
 remote PhpSupport git@github.com:mouyong/php-support.git
@@ -38,6 +39,7 @@ remote ECloudHousekeeper git@github.com:mouyong/ECloudHousekeeper.git
 #split 'src/Illuminate/Foundation' foundation
 split 'MarketManager' MarketManager
 
+split 'LaravelOauth' LaravelOauth
 split 'LaravelConfig' LaravelConfig
 split 'LaravelDoc' LaravelDoc
 split 'PhpSupport' PhpSupport
