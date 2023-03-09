@@ -1,6 +1,6 @@
 Translate content and recognizer content language
 ---
-[![Latest Stable Version](http://poser.pugx.org/mouyong/translate/v)](https://packagist.org/packages/mouyong/translate) [![Total Downloads](http://poser.pugx.org/mouyong/translate/downloads)](https://packagist.org/packages/mouyong/translate) [![Latest Unstable Version](http://poser.pugx.org/mouyong/translate/v/unstable)](https://packagist.org/packages/mouyong/translate) [![License](http://poser.pugx.org/mouyong/translate/license)](https://packagist.org/packages/mouyong/translate) [![PHP Version Require](http://poser.pugx.org/mouyong/translate/require/php)](https://packagist.org/packages/mouyong/translate)
+[![Latest Stable Version](http://poser.pugx.org/plugins-world/translate/v)](https://packagist.org/packages/plugins-world/translate) [![Total Downloads](http://poser.pugx.org/plugins-world/translate/downloads)](https://packagist.org/packages/plugins-world/translate) [![Latest Unstable Version](http://poser.pugx.org/plugins-world/translate/v/unstable)](https://packagist.org/packages/plugins-world/translate) [![License](http://poser.pugx.org/plugins-world/translate/license)](https://packagist.org/packages/plugins-world/translate) [![PHP Version Require](http://poser.pugx.org/plugins-world/translate/require/php)](https://packagist.org/packages/plugins-world/translate)
 
 
 # Requirement
@@ -12,7 +12,7 @@ PHP >= 7.1
 # Installation
 
 ```shell
-$ composer require "mouyong/translate" -vvv
+$ composer require "plugins-world/translate" -vvv
 ```
 
 # Usage

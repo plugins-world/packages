@@ -1,5 +1,5 @@
 {
-    "name": "mouyong/translate",
+    "name": "plugins-world/translate",
     "description": "An extension package that supports multi platform translation, such as Baidu translation, Google translation, Jinshan translation and Youdao translation",
     "keywords": ["translate", "content recognizer", "language recognizer", "baidu", "google", "jinshan", "youdao"],
     "type": "library",
@@ -13,9 +13,9 @@
         }
     ],
     "support": {
-        "source": "https://github.com/mouyong/translate",
-        "homepage": "https://github.com/mouyong/translate",
-        "issues": "https://github.com/mouyong/translate/issues"
+        "source": "https://github.com/plugins-world/translate",
+        "homepage": "https://github.com/plugins-world/translate",
+        "issues": "https://github.com/plugins-world/translate/issues"
     },
     "require": {
         "php": ">=7.1",

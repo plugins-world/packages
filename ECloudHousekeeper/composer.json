@@ -1,5 +1,5 @@
 {
-    "name": "mouyong/ecloudhousekeeper",
+    "name": "plugins-world/ecloudhousekeeper",
     "description": "An e cloud housekeeper client with php.",
     "keywords": [
         "e-cloud-housekeeper",
@@ -19,13 +19,13 @@
             "role": "Creator & Developer"
         }
     ],
-    "homepage": "https://github.com/mouyong/Ecloudhousekeeper",
+    "homepage": "https://github.com/plugins-world/Ecloudhousekeeper",
     "support": {
         "email": "my24251325@gmail.com",
-        "source": "https://github.com/mouyong/Ecloudhousekeeper",
-        "issues": "https://github.com/mouyong/Ecloudhousekeeper/issues",
-        "forum": "https://github.com/mouyong/Ecloudhousekeeper/issues",
-        "wiki": "https://github.com/mouyong/Ecloudhousekeeper"
+        "source": "https://github.com/plugins-world/Ecloudhousekeeper",
+        "issues": "https://github.com/plugins-world/Ecloudhousekeeper/issues",
+        "forum": "https://github.com/plugins-world/Ecloudhousekeeper/issues",
+        "wiki": "https://github.com/plugins-world/Ecloudhousekeeper"
     },
     "require": {
         "php": ">=8.0",

@@ -2,13 +2,13 @@
 
 用于生成 swagger 2.0 文档的扩展包。可根据配置自动同步 yapi 文档。可开启 apifox 文档定时同步功能 
 
-[![Sponsor me](https://github.com/mouyong/mouyong/blob/master/sponsor-me-button-s.svg?raw=true)](https://github.com/sponsors/mouyong)
+[![Sponsor me](https://github.com/plugins-world/plugins-world/blob/master/sponsor-me-button-s.svg?raw=true)](https://github.com/sponsors/mouyong)
 
 
 ## 安装
 
 ```shell
-$ composer require mouyong/laravel-doc -vvv
+$ composer require plugins-world/laravel-doc -vvv
 ```
 
 ## 使用
@@ -318,7 +318,7 @@ class PatientTest extends TestCase
 
 ## :heart: 赞助
 
-[![Sponsor me](https://github.com/mouyong/mouyong/blob/master/sponsor-me.svg?raw=true)](https://github.com/sponsors/mouyong)
+[![Sponsor me](https://github.com/plugins-world/plugins-world/blob/master/sponsor-me.svg?raw=true)](https://github.com/sponsors/mouyong)
 
 如果你喜欢我的项目并想支持它，[点击这里 :heart:](https://github.com/sponsors/mouyong)
 
