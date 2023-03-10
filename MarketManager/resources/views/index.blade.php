@@ -61,15 +61,15 @@
 
         <div class="tab-content">
             <div class="tab-pane fade" id="nav-market">
-                <iframe src="{{ $configs['market_server_host'] }}" frameborder="0" style="width:100%;height:calc(100vh - 100px);border-radius:var(--bs-border-radius-lg);"></iframe>
+                <iframe src="{{ $configs['market_server_host'] }}"></iframe>
             </div>
 
             <div class="tab-pane fade" id="nav-plugin-page">
-                <iframe src="javascript:false;" id="pluginPageIframe" referrerpolicy="no-referrer" frameborder="0" style="width:100%;height:calc(100vh - 100px);border-radius:var(--bs-border-radius-lg);"></iframe>
+                <iframe src="javascript:false;" id="pluginPageIframe"></iframe>
             </div>
 
             <div class="tab-pane fade" id="nav-market-plugin-page">
-                <iframe id="marketSettingIframe" frameborder="0" style="width:100%;height:calc(100vh - 100px);border-radius:var(--bs-border-radius-lg);"></iframe>
+                <iframe id="marketSettingIframe"></iframe>
             </div>
 
             <div class="tab-pane fade show active" id="nav-market-manager">
