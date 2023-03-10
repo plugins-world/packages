@@ -51,7 +51,7 @@
                     <a class="nav-link" data-bs-target="#installModal" data-bs-toggle="modal" href="#">安装插件</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" data-bs-toggle="tab" data-bs-target="#nav-market-setting" data-href="{{ $configs['settings_path'] }}" onclick="goToSettingPage(this)">系统设置</a>
+                    <a class="nav-link" data-bs-toggle="tab" data-bs-target="#nav-market-plugin-page" data-href="{{ $configs['settings_path'] }}" onclick="goToPluginPage(this)">系统设置</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link visually-hidden" id="nav-setting-tab" data-bs-target="#nav-setting" data-bs-toggle="tab" href="#">插件设置</a>
@@ -68,7 +68,7 @@
                 <iframe id="settingIframe" frameborder="0" style="width:100%;height:calc(100vh - 100px);border-radius:var(--bs-border-radius-lg);"></iframe>
             </div>
 
-            <div class="tab-pane fade" id="nav-market-setting">
+            <div class="tab-pane fade" id="nav-market-plugin-page">
                 <iframe id="marketSettingIframe" frameborder="0" style="width:100%;height:calc(100vh - 100px);border-radius:var(--bs-border-radius-lg);"></iframe>
             </div>
 
@@ -297,14 +297,7 @@
         return;
     }));
 
-    const tabEl = document.querySelector('a[data-bs-toggle="tab"]');
-    tabEl.addEventListener('shown.bs.tab', event => {
-        $(this).closet().addClass('active');
-
-        event.target // newly activated tab
-        event.relatedTarget // previous active tab
-    });
-    function goToSettingPage(ele) {
+    function goToPluginPage(ele) {
         event.preventDefault();
         const href = $(ele).data('href');
         if (href == '#') {
@@ -316,7 +309,7 @@
             $(ele).prop('disabled', '');
 
             $('#nav-market-manager').removeClass('show active');
-            $('#nav-market-setting-tab').tab('show');
+            $('#nav-market-plugin-page-tab').tab('show');
         });
     }
 
