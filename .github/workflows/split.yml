@@ -38,6 +38,7 @@ jobs:
       # Runs a single command using the runners shell
       - name: Split
         run: |
-          ssh -T git@github.com
+          git config user.name github-ci
+          git config user.email github-ci@plugins-world.cn
           ./bin/split.sh
 
