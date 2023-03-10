@@ -21,9 +21,7 @@ function remote()
 git pull origin $CURRENT_BRANCH || true
 
 
-# remote dcat-saas git@github.com:mouyong/dcat-saas.git
-
-# split 'extensions/plugins/DcatSaas' dcat-saas
+# remote foundation git@github.com:mouyong/laravel-foundation.git
 remote MarketManager git@github.com:plugins-world/MarketManager.git
 
 remote LaravelOauth git@github.com:mouyong/laravel-oauth.git
@@ -33,6 +31,7 @@ remote PhpSupport git@github.com:mouyong/php-support.git
 remote Translate git@github.com:mouyong/translate.git
 remote ECloudHousekeeper git@github.com:mouyong/ECloudHousekeeper.git
 
+# split 'src/Illuminate/Foundation' foundation
 split 'MarketManager' MarketManager
 
 split 'LaravelOauth' LaravelOauth

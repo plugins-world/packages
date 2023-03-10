@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+# this shell script run fails on github actions: @see https://github.com/plugins-world/packages/actions/runs/4380027106/jobs/7666627198#step:4:120
+
 set -e
 set -x
 
@@ -26,22 +28,9 @@ function remote()
 git pull origin $CURRENT_BRANCH || true
 
 
-#remote foundation git@github.com:mouyong/laravel-foundation.git
-remote MarketManager git@github.com:plugins-world/MarketManager.git
+# remote foundation git@github.com:mouyong/laravel-foundation.git
+remote MarketManager git@github.com:mouyong/MarketManager.git
 
-remote LaravelOauth git@github.com:mouyong/laravel-oauth.git
-remote LaravelConfig git@github.com:mouyong/laravel-config.git
-remote LaravelDoc git@github.com:mouyong/laravel-doc.git
-remote PhpSupport git@github.com:mouyong/php-support.git
-remote Translate git@github.com:mouyong/translate.git
-remote ECloudHousekeeper git@github.com:mouyong/ECloudHousekeeper.git
 
-#split 'src/Illuminate/Foundation' foundation
+# split 'src/Illuminate/Foundation' foundation
 split 'MarketManager' MarketManager
-
-split 'LaravelOauth' LaravelOauth
-split 'LaravelConfig' LaravelConfig
-split 'LaravelDoc' LaravelDoc
-split 'PhpSupport' PhpSupport
-split 'Translate' Translate
-split 'ECloudHousekeeper' ECloudHousekeeper
