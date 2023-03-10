@@ -1,11 +1,12 @@
 <!DOCTYPE html>
 <html lang="{{ \App::getLocale() }}">
 <head>
-    <title>Plugin MarketManager</title>
+    @include('MarketManager::commons.head', [
+        'title' => 'Plugin MarketManager',
+    ])
+
     {{-- Laravel Mix - CSS File --}}
     {{-- <link rel="stylesheet" href="{{ mix('css/market-manager.css') }}"> --}}
-
-    @include('MarketManager::commons.head')
 </head>
 
 <body>
@@ -15,8 +16,9 @@
         @include('MarketManager::commons.toast')
     </div>
 
+    @yield('bodyjs')
+
     {{-- Laravel Mix - JS File --}}
     {{-- <script src="{{ mix('js/market-manager.js') }}"></script> --}}
-    @include('MarketManager::commons.bodyjs')
 </body>
 </html>
