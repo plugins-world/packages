@@ -18,9 +18,14 @@ class MarketManagerController extends Controller
             'install_datetime',
             'build_type',
         ]);
-        
-        $plugins = Plugin::all();
-        
+
+        $where = [];
+        if (\request()->has('is_enable')) {
+            $where['is_enable'] = \request('is_enable');
+        }
+
+        $plugins = Plugin::query()->where($where)->get();
+
         return view('MarketManager::index', [
             'configs' => $configs,
             'plugins' => $plugins,
@@ -36,7 +41,7 @@ class MarketManagerController extends Controller
             'install_datetime',
             'build_type',
         ]);
-        
+
         return view('MarketManager::setting', [
             'configs' => $configs,
         ]);
@@ -49,7 +54,7 @@ class MarketManagerController extends Controller
             'system_url' => 'required|url',
             'settings_path' => 'required|string',
         ]);
-        
+
         $itemKeys = [
             'market_server_host',
             'system_url',
@@ -57,7 +62,7 @@ class MarketManagerController extends Controller
         ];
 
         Config::updateConfigs($itemKeys, 'market_manager');
-        
+
         return redirect(route('market-manage.setting'));
     }
 }

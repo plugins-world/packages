@@ -14,8 +14,6 @@
             <li><a href="#" class="nav-link px-2 link-dark">应用中心</a></li>
         </ul>
 
-
-
         <!-- <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" role="search">
                 <input type="search" class="form-control" placeholder="搜索..." aria-label="Search">
             </form> -->
@@ -82,7 +80,9 @@
 
                         <nav class="mt-5">
                             <div class="nav nav-tabs" id="nav-tab" role="tablist">
-                                <button class="nav-link active" id="nav-plugin-tab" data-bs-toggle="tab" data-bs-target="#nav-plugin" type="button" role="tab">全部插件</button>
+                                <button class="nav-link @if(!\request()->has('is_enable')) active @endif" id="nav-plugin-tab" data-bs-toggle="tab" data-bs-target="#nav-plugin" type="button" role="tab" onclick="window.location.href=`{{\request()->fullUrlWithoutQuery('is_enable')}}`">全部</button>
+                                <button class="nav-link @if(\request()->has('is_enable') && \request()->get('is_enable') == 1) active @endif" id="nav-plugin-enable-tab" data-bs-toggle="tab" data-bs-target="#nav-plugin" type="button" role="tab" onclick="window.location.href=`{{\request()->fullUrlWithQuery(['is_enable' => 1])}}`">已启用</button>
+                                <button class="nav-link @if(\request()->has('is_enable') && \request()->get('is_enable') == 1) active @endif" id="nav-plugin-enable-tab" data-bs-toggle="tab" data-bs-target="#nav-plugin" type="button" role="tab" onclick="window.location.href=`{{\request()->fullUrlWithQuery(['is_enable' => 0])}}`">已禁用</button>
                             </div>
                         </nav>
                         <div class="tab-content pt-3" id="nav-tabContent">
