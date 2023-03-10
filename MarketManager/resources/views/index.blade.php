@@ -38,39 +38,43 @@
 </header>
 
 <div class="container-fulid pb-3">
-    <div class="d-grid gap-4" style="grid-template-columns: 1fr 4fr;">
+    <div class="d-grid gap-4" style="grid-template-columns: 2fr 10fr;">
         <div class="bg-light border rounded-3">
             <h3 class="mx-3 py-3">应用中心</h3>
 
             <ul class="nav nav-pills flex-column">
                 <li class="nav-item">
-                    <a class="nav-link" data-bs-toggle="tab" data-bs-target="#nav-market-manager">管理插件</a>
+                    <a class="nav-link active" data-bs-toggle="tab" data-bs-target="#nav-market-manager">管理插件</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link active" data-bs-toggle="tab" data-bs-target="#nav-market">插件市场</a>
+                    <a class="nav-link" data-bs-toggle="tab" data-bs-target="#nav-market">插件市场</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" data-bs-target="#installModal" data-bs-toggle="modal" href="#">安装插件</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link visually-hidden" id="nav-setting-tab" data-bs-target="#nav-setting" data-bs-toggle="tab" href="#">安装插件</a>
+                    <a class="nav-link" data-bs-toggle="tab" data-bs-target="#nav-market-setting" data-href="{{ $configs['settings_path'] }}" onclick="goToSettingPage(this)">系统设置</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" data-href="{{ $configs['settings_path'] }}" onclick="goToSettingPage(this)">系统设置</a>
+                    <a class="nav-link visually-hidden" id="nav-setting-tab" data-bs-target="#nav-setting" data-bs-toggle="tab" href="#">插件设置</a>
                 </li>
             </ul>
         </div>
 
         <div class="tab-content">
-            <div class="tab-pane fade" id="nav-market" role="tabpanel" aria-labelledby="nav-market-tab" tabindex="0">
+            <div class="tab-pane fade" id="nav-market">
                 <iframe src="{{ $configs['market_server_host'] }}" frameborder="0" style="width:100%;height:calc(100vh - 100px);border-radius:var(--bs-border-radius-lg);"></iframe>
             </div>
 
-            <div class="tab-pane fade" id="nav-setting" role="tabpanel" tabindex="0">
-                <iframe id="settingIframe" src="#" frameborder="0" style="width:100%;height:calc(100vh - 100px);border-radius:var(--bs-border-radius-lg);"></iframe>
+            <div class="tab-pane fade" id="nav-setting">
+                <iframe id="settingIframe" frameborder="0" style="width:100%;height:calc(100vh - 100px);border-radius:var(--bs-border-radius-lg);"></iframe>
             </div>
 
-            <div class="tab-pane fade show active" id="nav-market-manager" role="tabpanel" aria-labelledby="nav-market-tab" tabindex="0">
+            <div class="tab-pane fade" id="nav-market-setting">
+                <iframe id="marketSettingIframe" frameborder="0" style="width:100%;height:calc(100vh - 100px);border-radius:var(--bs-border-radius-lg);"></iframe>
+            </div>
+
+            <div class="tab-pane fade show active" id="nav-market-manager">
                 <div class="bg-white  border rounded-3">
                     <div class="mx-3 py-3">
                         <h3>扩展插件</h3>
@@ -290,6 +294,13 @@
         return;
     }));
 
+    const tabEl = document.querySelector('a[data-bs-toggle="tab"]');
+    tabEl.addEventListener('shown.bs.tab', event => {
+        $(this).closet().addClass('active');
+
+        event.target // newly activated tab
+        event.relatedTarget // previous active tab
+    });
     function goToSettingPage(ele) {
         event.preventDefault();
         const href = $(ele).data('href');
@@ -297,12 +308,12 @@
             return;
         }
 
-        $('#settingIframe').attr('src', href).on('load', () => {
+        $('#marketSettingIframe').attr('src', href).on('load', () => {
             $(ele).find('span').remove();
             $(ele).prop('disabled', '');
 
             $('#nav-market-manager').removeClass('show active');
-            $('#nav-setting-tab').tab('show');
+            $('#nav-market-setting-tab').tab('show');
         });
     }
 
