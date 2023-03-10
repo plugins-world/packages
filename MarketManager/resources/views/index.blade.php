@@ -54,7 +54,7 @@
                     <a class="nav-link" data-bs-toggle="tab" data-bs-target="#nav-market-plugin-page" data-href="{{ $configs['settings_path'] }}" onclick="goToPluginPage(this)">系统设置</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link visually-hidden" id="nav-setting-tab" data-bs-target="#nav-setting" data-bs-toggle="tab" href="#">插件设置</a>
+                    <a class="nav-link visually-hidden" id="nav-plugin-page-tab" data-bs-target="#nav-plugin-page" data-bs-toggle="tab" href="#">插件设置</a>
                 </li>
             </ul>
         </div>
@@ -64,8 +64,8 @@
                 <iframe src="{{ $configs['market_server_host'] }}" frameborder="0" style="width:100%;height:calc(100vh - 100px);border-radius:var(--bs-border-radius-lg);"></iframe>
             </div>
 
-            <div class="tab-pane fade" id="nav-setting">
-                <iframe id="settingIframe" frameborder="0" style="width:100%;height:calc(100vh - 100px);border-radius:var(--bs-border-radius-lg);"></iframe>
+            <div class="tab-pane fade" id="nav-plugin-page">
+                <iframe src="javascript:false;" id="pluginPageIframe" referrerpolicy="no-referrer" frameborder="0" style="width:100%;height:calc(100vh - 100px);border-radius:var(--bs-border-radius-lg);"></iframe>
             </div>
 
             <div class="tab-pane fade" id="nav-market-plugin-page">
@@ -281,12 +281,13 @@
                 updatePlugin(data, this);
                 break;
             case 'setting':
-                $('#settingIframe').attr('src', $(this).data('settings-url')).on('load', () => {
-                    $(this).find('span').remove();
-                    $(this).prop('disabled', '');
+                const obj = this;
+                $('#pluginPageIframe').attr('src', $(obj).data('settings-url')).on('load', function () {
+                    $(obj).find('span').remove();
+                    $(obj).prop('disabled', '');
 
                     $('#nav-market-manager').removeClass('show active');
-                    $('#nav-setting-tab').tab('show');
+                    $('#nav-plugin-page-tab').tab('show');
                 });
                 break;
             case 'remove':
