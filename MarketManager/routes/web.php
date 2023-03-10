@@ -21,7 +21,7 @@ use Plugins\MarketManager\Http\Controllers as WebController;
 */
 
 Route::prefix('market-manager')->group(function() {
-    Route::get('/', [WebController\MarketManagerController::class, 'index']);
+    Route::get('/', [WebController\MarketManagerController::class, 'index'])->name('market-manager.index');
     Route::get('setting', [WebController\MarketManagerController::class, 'showSettingView'])->name('market-manager.setting');
     Route::post('setting', [WebController\MarketManagerController::class, 'saveSetting']);
 });

@@ -104,14 +104,17 @@
                                             <td>{{ $plugin['author'] }}</td>
                                             <td>
                                                 @if($plugin['is_enable'] == false)
-                                                <button type="button" data-unikey="{{ $plugin['unikey'] }}" data-action="activate" class="table-row btn-sm btn btn-light">启用</button>
+                                                <button type="button" data-unikey="{{ $plugin['unikey'] }}" data-action="activate" class="table-row btn-sm btn btn-link text-success">启用</button>
                                                 @elseif($plugin['unikey'] !== 'MarketManager')
-                                                <button type="button" data-unikey="{{ $plugin['unikey'] }}" data-action="deactivate" class="table-row btn-sm btn btn-success">停用</button>
+
+                                                @if($plugin['is_enable'] && $plugin['access_url'])
+                                                <button type="button" data-unikey="{{ $plugin['unikey'] }}" data-action="setting" data-settings-url="{{ $plugin['access_url'] }}" class="table-row btn-sm btn btn-light">管理</button>
                                                 @endif
                                                 @if($plugin['is_enable'] && $plugin['settings_url'])
-                                                <!-- <button type="button" data-unikey="{{ $plugin['unikey'] }}" data-action="setting" data-settings-url="{{ $plugin['settings_url'] }}" class="table-row btn-sm btn btn-primary">设置</button> -->
-                                                <!-- <button type="button" data-unikey="{{ $plugin['unikey'] }}" data-action="setting" data-settings-url="{{ $plugin['settings_url'] }}" class="table-row btn-sm btn btn-primary" data-bs-toggle="tab" data-bs-target="#nav-plugin-setting">设置</button> -->
-                                                <button type="button" data-unikey="{{ $plugin['unikey'] }}" data-action="setting" data-settings-url="{{ $plugin['settings_url'] }}" class="table-row btn-sm btn btn-primary">设置</button>
+                                                <button type="button" data-unikey="{{ $plugin['unikey'] }}" data-action="setting" data-settings-url="{{ $plugin['settings_url'] }}" class="table-row btn-sm btn btn-light">设置</button>
+                                                @endif
+
+                                                <button type="button" data-unikey="{{ $plugin['unikey'] }}" data-action="deactivate" class="table-row btn-sm btn btn-link text-danger">停用</button>
                                                 @endif
                                                 @if($plugin['is_enable'] == false)
                                                 <button type="button" data-unikey="{{ $plugin['unikey'] }}" data-action="remove" class="table-row btn-sm btn btn-link text-danger">卸载</button>

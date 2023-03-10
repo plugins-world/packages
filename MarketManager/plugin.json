@@ -7,7 +7,7 @@
     "authorLink": "https://fresns.org",
     "version": "1.0.0",
     "scene": [],
-    "accessPath": "",
+    "accessPath": "/market-manager",
     "settingsPath": "/market-manager/setting/",
     "providers": [
         "Plugins\\MarketManager\\Providers\\MarketManagerServiceProvider",
