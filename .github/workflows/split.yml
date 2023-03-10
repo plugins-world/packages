@@ -27,6 +27,14 @@ jobs:
         with:
           token: ${{secrets.PAT}}
 
+      - name: install ssh keys
+      # check this thread to understand why its needed:
+      # https://stackoverflow.com/a/70447517
+        run: |
+          install -m 600 -D /dev/null ~/.ssh/id_rsa
+          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
+
+
       # Runs a single command using the runners shell
       - name: Split
         run: |
