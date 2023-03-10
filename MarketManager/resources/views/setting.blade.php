@@ -6,7 +6,7 @@
         <div class="card-body">
             <h1 class="card-title">Market Manage 设置</h1>
 
-            <form class="row g-3 mt-5" action="{{ route('sso-client.setting') }}" method="post">
+            <form class="row g-3 mt-5" action="{{ route('market-manaer.setting') }}" method="post">
                 @csrf
 
                 <div class="mb-3 row">
