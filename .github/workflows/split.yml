@@ -43,4 +43,6 @@ jobs:
           git remote -v
           git fetch MarketManager
           ./bin/split.sh
+      - name: cleanup
+        run: rm -rf ~/.ssh
 
