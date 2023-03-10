@@ -42,7 +42,7 @@
         <div class="bg-light border rounded-3">
             <h3 class="mx-3 py-3">应用中心</h3>
 
-            <ul class="nav flex-column">
+            <ul class="nav nav-pills flex-column">
                 <li class="nav-item">
                     <a class="nav-link" data-bs-toggle="tab" data-bs-target="#nav-market-manager">管理插件</a>
                 </li>
