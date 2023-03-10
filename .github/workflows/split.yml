@@ -39,17 +39,6 @@ jobs:
       - name: Split
         run: |
           ./bin/subtree-split.sh
-          git config user.name github-ci
-          git config user.email github-ci@plugins-world.cn
-          git remote add MarketManager git@github.com:plugins-world/MarketManager.git
-          git remote -v
-          git fetch MarketManager
-          chmod +x ./bin/splitsh-lite
-          echo $SHELL
-          id
-          SHA1=`bash ./bin/splitsh-lite --prefix=MarketManager`
-          git push MarketManager "$SHA1:refs/heads/master" -f
-          ./bin/split.sh
       - name: cleanup
         run: rm -rf ~/.ssh
 
