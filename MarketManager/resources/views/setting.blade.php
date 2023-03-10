@@ -49,4 +49,15 @@
         </div>
     </div>
 </div>
+
+<script>
+    $(function () {
+        $(document).on('click', 'form button[type="submit"]', function (event) {
+            $(this).prepend('<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> ');
+            $(this).prop('disabled', true);
+
+            console.log($('form').submit());
+        });
+    });
+</script>
 @endsection
