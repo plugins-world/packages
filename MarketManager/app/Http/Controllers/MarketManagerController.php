@@ -63,6 +63,6 @@ class MarketManagerController extends Controller
 
         Config::updateConfigs($itemKeys, 'market_manager');
 
-        return redirect(route('market-manage.setting'));
+        return redirect(route('market-manager.setting'));
     }
 }
