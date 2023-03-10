@@ -51,7 +51,7 @@ class MarketManagerController extends Controller
     {
         \request()->validate([
             'market_server_host' => 'required|url',
-            'system_url' => 'required|url',
+            'system_url' => 'nullable|url',
             'settings_path' => 'required|string',
         ]);
 
