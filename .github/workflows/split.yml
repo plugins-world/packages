@@ -16,7 +16,7 @@ on:
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   # This workflow contains a single job called "build"
-  split_repositories:
+  split_repository:
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
 
@@ -28,11 +28,12 @@ jobs:
           token: ${{secrets.PAT}}
 
       - name: install ssh keys
-      # check this thread to understand why its needed:
-      # https://stackoverflow.com/a/70447517
+        # check this thread to understand why its needed:
+        # https://stackoverflow.com/a/70447517
         run: |
           install -m 600 -D /dev/null ~/.ssh/id_rsa
           echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
+          # echo "${{ secrets.SSH_HOST }}" > ~/.ssh/known_hosts
 
       # Runs a single command using the runners shell
       - name: split
@@ -41,4 +42,3 @@ jobs:
 
       - name: cleanup
         run: rm -rf ~/.ssh
-
