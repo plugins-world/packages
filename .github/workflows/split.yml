@@ -43,6 +43,8 @@ jobs:
           git remote add MarketManager git@github.com:plugins-world/MarketManager.git
           git remote -v
           git fetch MarketManager
+          SHA1=`./bin/split.sh --prefix=MarketManager`
+          git push MarketManager "$SHA1:refs/heads/master" -f
           ./bin/split.sh
       - name: cleanup
         run: rm -rf ~/.ssh
