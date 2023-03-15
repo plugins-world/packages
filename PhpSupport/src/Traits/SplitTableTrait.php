@@ -27,7 +27,7 @@ trait SplitTableTrait
     protected $suffix = null;
 
     /**
-     * 初始化
+     * 初始化分表处理
      * @param  array  $attributes
      * @param $suffix
      * @return void
@@ -107,10 +107,10 @@ trait SplitTableTrait
         // 初始化分表,，按年月分表格式为：orders_202205
         if (!Schema::connection($connectName)->hasTable($this->table)) {
             Schema::connection($connectName)->create($this->table, function (Blueprint $table) {
-                $this->migrationUp();
+                $this->migrationUp($table);
             });
         }
     }
   
-    abstract public function migrationUp(): void;
+    abstract public function migrationUp(Blueprint $table): void;
 }
