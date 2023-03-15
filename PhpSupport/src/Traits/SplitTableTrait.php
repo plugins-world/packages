@@ -6,6 +6,44 @@ use Carbon\Carbon;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
+
+/**
+ * model 设置
+ */
+// class WechatBill extends Model
+// {
+//     use HasFactory;
+
+//     use SplitTableTrait;
+
+//     protected $table = 'wechat_bill';
+
+//     protected $guarded = [];
+
+//     public function __construct(array $attributes = [], $suffix = null)
+//     {
+//         // 初始化分表处理
+//         $this->init($attributes, $suffix);
+
+//         parent::__construct($attributes);
+//     }
+// }
+
+
+/**
+ * 分表查询示例
+ */
+// $wechatBill = new WechatBill();
+// $wechatBill->setSuffix(202303);
+// return $wechatBill->newQuery()->get();
+
+
+/**
+ * 分表写入
+ */
+// return (new WechatBill([], 202303))->newInstance()->create([]);
+
+
 trait SplitTableTrait
 {
     /**
