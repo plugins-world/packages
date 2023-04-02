@@ -26,7 +26,7 @@ class ModelUtility
         // => ->get()
         $relations['relationNameInUse']['wheres'][] = [Model::class, 'where_field', 'where_field_value']; 
         $relations['relationNameInUse']['wheres']['whereIn'] = [Model::class, 'where_field_in', ['where_field_value_1', 'where_field_value_2']];
-        $relations['tests']['performMethod'] = 'get';
+        $relations['relationNameInUse']['performMethod'] = 'get';
 
         $relations['tests']['wheres'][] = [Test::class, 'test_number', $params['test_numbers']];
         $relations['tests']['performMethod'] = 'get';
