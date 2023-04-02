@@ -43,7 +43,7 @@ class ModelUtility
         $relationData = RelationUtility::getRelations($relations);
         dd($relationData);
      */
-    public static function getData(array $relationsWhereList = [])
+    public static function getRelationData(array $relationsWhereList = [])
     {
         $relations = [];
 
@@ -55,7 +55,7 @@ class ModelUtility
         return $filterRelations;
     }
 
-    protected static function getRelationData(array $wheres = [], $performMethod = null, bool $toArray = true, array $params = [['*']])
+    protected static function getData(array $wheres = [], $performMethod = null, bool $toArray = true, array $params = [['*']])
     {
         if (empty($wheres)) {
             return null;
