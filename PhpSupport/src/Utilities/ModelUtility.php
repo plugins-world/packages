@@ -92,6 +92,10 @@ class ModelUtility
 
     public static function formatRecords($relations, $relationName, $callable)
     {
+        if (empty($relations[$relationName])) {
+            return [];
+        }
+
         $data = [];
         foreach ($relations[$relationName] as $item) {
             $data[] = $callable($item, $relations);
