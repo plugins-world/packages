@@ -90,6 +90,12 @@ class ModelUtility
         return $result;
     }
 
+    /**
+        // 关联关系 experiment => experiment_records
+        $data['experiment_records'] = ModelUtility::formatRecords($relations, 'experiment_records', function ($item, $relations) {
+            return CsimExperimentDataFormat::getExperimentInfo($item, $relations);
+        });
+     */
     public static function formatRecords($relations, $relationName, $callable)
     {
         if (empty($relations[$relationName])) {
@@ -104,6 +110,13 @@ class ModelUtility
         return $data;
     }
 
+    /**
+        // 关联关系 test_experiments => tests
+        $data['test_number'] = $params['test_number'];
+        $data['test'] = static::formatRecordByWhere($relations, 'tests', 'test_number', $params['test_number'], function ($item, $relations) {
+            return Test::getTestInfo($item, $relations);
+        });
+     */
     public static function formatRecordByWhere($relations, $relationName, $whereField, $whereValue, $callable)
     {
         $relationCollection = is_array($relations[$relationName]) ? collect($relations[$relationName]) : $relations[$relationName];
