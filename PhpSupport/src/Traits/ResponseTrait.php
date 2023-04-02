@@ -33,10 +33,11 @@ trait ResponseTrait
         return $string;
     }
 
-    public function customPaginate($items, $total, $pageSize = 15)
+    public function customPaginate($items, $paginatorOrTotal, $pageSize = 15)
     {
-        if ($total instanceof \Illuminate\Pagination\LengthAwarePaginator) {
-            $paginator = $total;
+        $total = $paginatorOrTotal;
+        if ($paginatorOrTotal instanceof \Illuminate\Pagination\LengthAwarePaginator) {
+            $paginator = $paginatorOrTotal;
             $pageSize = $paginator->perPage();
             $total = $paginator->total();
         }
