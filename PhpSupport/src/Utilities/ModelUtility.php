@@ -89,4 +89,14 @@ class ModelUtility
 
         return $result;
     }
+
+    public static function formatRecords($relations, $relationName, $callable)
+    {
+        $data = [];
+        foreach ($relations[$relationName] as $item) {
+            $data[] = $callable($item, $relations);
+        }
+
+        return $data;
+    }
 }
