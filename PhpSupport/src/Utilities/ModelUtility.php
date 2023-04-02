@@ -55,7 +55,7 @@ class ModelUtility
         return $filterRelations;
     }
 
-    public static function getRelationData(array $wheres = [], $performMethod = null, bool $toArray = true, array $params = [['*']])
+    protected static function getRelationData(array $wheres = [], $performMethod = null, bool $toArray = true, array $params = [['*']])
     {
         if (empty($wheres)) {
             return null;
