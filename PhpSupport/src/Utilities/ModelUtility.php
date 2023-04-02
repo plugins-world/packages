@@ -48,7 +48,7 @@ class ModelUtility
         $relations = [];
 
         foreach ($relationsWhereList as $relationName => $relationsWheres) {
-            $relations[$relationName] = static::getRelationData(...$relationsWheres);
+            $relations[$relationName] = static::getData(...$relationsWheres);
         }
 
         $filterRelations = array_filter($relations);
