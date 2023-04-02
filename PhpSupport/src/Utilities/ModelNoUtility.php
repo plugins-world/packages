@@ -24,8 +24,18 @@ class ModelNoUtility
     }
 
 
-    public static function setCurrentIndexByIndex($index, string $field, &$params = [], $prefix = null, $indexLength = 4, $dateFormat = 'Ymd')
+    public static function setCurrentIndexByIndex($model, $index, string $field, &$params = [], $prefix = null, $indexLength = 4, $dateFormat = 'Ymd')
     {
+        if (!is_string($model)) {
+            $model = get_class($model);
+        }
+
+        if (!defined("{$model}::CUSTOMER_NUMBER_PREFIX")) {
+            throw new \RuntimeException("{$model}::CUSTOMER_NUMBER_PREFIX doesn't exist.");
+        }
+
+        $prefix = $model::CUSTOMER_NUMBER_PREFIX;
+
         $customerNumber = ModelNoUtility::customerNumber($prefix, $index, $indexLength, $dateFormat);
         $params[$field] = $customerNumber;
 
