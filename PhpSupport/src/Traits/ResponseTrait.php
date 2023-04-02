@@ -35,6 +35,12 @@ trait ResponseTrait
 
     public function customPaginate($items, $total, $pageSize = 15)
     {
+        if ($total instanceof \Illuminate\Pagination\LengthAwarePaginator) {
+            $paginator = $total;
+            $pageSize = $paginator->perPage();
+            $total = $paginator->total();
+        }
+
         $paginate = new \Illuminate\Pagination\LengthAwarePaginator(
             items: $items,
             total: $total,
