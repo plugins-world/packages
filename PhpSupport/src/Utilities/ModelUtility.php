@@ -26,6 +26,7 @@ class ModelUtility
         // => ->get()
         $relations['relationNameInUse']['wheres'][] = [Model::class, 'where_field', 'where_field_value']; 
         $relations['relationNameInUse']['wheres']['whereIn'] = [Model::class, 'where_field_in', ['where_field_value_1', 'where_field_value_2']];
+        $relations['relationNameInUse']['perPage'] = 20;
         $relations['relationNameInUse']['performMethod'] = 'get';
 
         $relations['tests']['wheres'][] = [Test::class, 'test_number', $params['test_numbers']];
@@ -55,7 +56,7 @@ class ModelUtility
         return $filterRelations;
     }
 
-    protected static function getData(array $wheres = [], $performMethod = null, bool $toArray = true, array $params = [['*']])
+    protected static function getData(array $wheres = [], $performMethod = null, $page = null, $perPage = null, bool $toArray = true, array $params = [['*']])
     {
         if (empty($wheres)) {
             return null;
@@ -80,6 +81,10 @@ class ModelUtility
             }
 
             $query = $model::{$whereMethod}(...$where);
+        }
+
+        if ($page && $perPage) {
+            $query->skip($perPage * $page - $perPage)->limit($perPage);
         }
 
         $result = $query->{$performMethod}(...$params);
@@ -110,18 +115,35 @@ class ModelUtility
         return $data;
     }
 
+    public static function formatDataItem($data, $relations, $callable)
+    {
+        $result = [];
+        foreach($data as $item) {
+            $result[] = $callable($item, $relations);
+        }
+        return $result;
+    }
+
     /**
         // 关联关系 test_experiments => tests
         $data['test_number'] = $params['test_number'];
-        $data['test'] = static::formatRecordByWhere($relations, 'tests', 'test_number', $params['test_number'], function ($item, $relations) {
+        $data['test'] = static::formatRecordsByWhere($relations, 'tests', 'test_number', $params['test_number'], function ($item, $relations) {
             return Test::getTestInfo($item, $relations);
         });
      */
-    public static function formatRecordByWhere($relations, $relationName, $whereField, $whereValue, $callable)
+    public static function formatRecordsByWhere($relations, $relationName, $whereField, $whereValue, $callable, $performMethod = 'where', $toArray = true)
     {
-        $relationCollection = is_array($relations[$relationName]) ? collect($relations[$relationName]) : $relations[$relationName];
-        $record = $relationCollection->where($whereField, $whereValue)->first();
+        if (empty($relations[$relationName])) {
+            return [];
+        }
 
-        return $callable($record, $relations);
+        $relationCollection = is_array($relations[$relationName]) ? collect($relations[$relationName]) : $relations[$relationName];
+        $result = $relationCollection->{$performMethod}($whereField, $whereValue);
+
+        if ($toArray && is_object($result) && method_exists($result, 'toArray')) {
+            $result = $result?->toArray();
+        }
+
+        return $callable($result, $relations);
     }
 }
