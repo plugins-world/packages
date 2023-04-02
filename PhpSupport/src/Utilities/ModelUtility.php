@@ -103,4 +103,12 @@ class ModelUtility
 
         return $data;
     }
+
+    public static function formatRecordByWhere($relations, $relationName, $whereField, $whereValue, $callable)
+    {
+        $relationCollection = is_array($relations[$relationName]) ? collect($relations[$relationName]) : $relations[$relationName];
+        $record = $relationCollection->where($whereField, $whereValue)->first();
+
+        return $callable($record, $relations);
+    }
 }
