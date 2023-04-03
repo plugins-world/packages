@@ -4,7 +4,7 @@ namespace ZhenMu\Support\Utilities;
 
 class ModelNoUtility
 {
-    public static function setCurrentIndex($model, string $field, &$params = [], $prefix = null, $orderByField = 'created_at', $indexLength = 4, $dateFormat = 'Ymd')
+    public static function setCurrentIndex($model, ?string $field = null, &$params = [], $prefix = null, $orderByField = 'created_at', $indexLength = 4, $dateFormat = 'Ymd')
     {
         if (!is_string($model)) {
             $model = get_class($model);
@@ -18,13 +18,15 @@ class ModelNoUtility
         $index = ModelNoUtility::getCurrentIndex($model, $field, $prefix, $orderByField, $indexLength);
 
         $customerNumber = ModelNoUtility::customerNumber($prefix, $index, $indexLength, $dateFormat);
-        $params[$field] = $customerNumber;
+        if ($field) {
+            $params[$field] = $customerNumber;
+        }
 
         return $customerNumber;
     }
 
 
-    public static function setCurrentIndexByIndex($model, $index, string $field, &$params = [], $prefix = null, $indexLength = 4, $dateFormat = 'Ymd')
+    public static function setCurrentIndexByIndex($model, $index, ?string $field = null, &$params = [], $prefix = null, $indexLength = 4, $dateFormat = 'Ymd')
     {
         if (!is_string($model)) {
             $model = get_class($model);
@@ -37,7 +39,9 @@ class ModelNoUtility
         $prefix = $model::CUSTOMER_NUMBER_PREFIX;
 
         $customerNumber = ModelNoUtility::customerNumber($prefix, $index, $indexLength, $dateFormat);
-        $params[$field] = $customerNumber;
+        if ($field) {
+            $params[$field] = $customerNumber;
+        }
 
         return $customerNumber;
     }
