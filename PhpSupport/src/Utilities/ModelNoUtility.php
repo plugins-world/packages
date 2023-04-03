@@ -25,7 +25,6 @@ class ModelNoUtility
         return $customerNumber;
     }
 
-
     public static function setCurrentIndexByIndex($model, $index, ?string $field = null, &$params = [], $prefix = null, $indexLength = 4, $dateFormat = 'Ymd')
     {
         if (!is_string($model)) {
@@ -44,6 +43,24 @@ class ModelNoUtility
         }
 
         return $customerNumber;
+    }
+
+    public static function getNextCustonNumber($model, string $field, $prefix = null, $orderByField = 'created_at', $indexLength = 4, $dateFormat = 'Ymd')
+    {
+        $nextIndex = ModelNoUtility::getCurrentIndex(...func_get_args());
+
+        $tmp = [];
+        $customerNumber = static::setCurrentIndexByIndex($model, $nextIndex, $field, $tmp, $prefix, $indexLength, $dateFormat);
+        unset($tmp);
+
+        return $customerNumber;
+    }
+
+    public static function getNextIndex($model, string $field, $prefix = null, $orderByField = 'created_at', $indexLength = 4)
+    {
+        $currentIndex = ModelNoUtility::getCurrentIndex(...func_get_args());
+
+        return $currentIndex + 1;
     }
 
     public static function getCurrentIndex($model, string $field, $prefix = null, $orderByField = 'created_at', $indexLength = 4)
