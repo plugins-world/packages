@@ -115,6 +115,13 @@ class ModelUtility
         return $data;
     }
 
+    /**
+        $data['analysis_records'] = ModelUtility::formatRecordsByWhere($relations, 'analysis_records', 'analysis_batch_number', $params['analysis_batch_number'], function ($data, $relations) {
+            return ModelUtility::formatDataItem($data, $relations, function ($item, $relations) {
+                return AnalysisDataFormat::getAnalysisInfo($item, $relations);
+            });
+        })
+     */
     public static function formatDataItem($data, $relations, $callable)
     {
         $result = [];
