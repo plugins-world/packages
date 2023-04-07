@@ -64,7 +64,7 @@ class Str
     }
 
     // number
-    public static function maskNumber(?int $number = null): ?string
+    public static function maskNumber(string|int|null $number = null): ?string
     {
         if (empty($number)) {
             return null;
