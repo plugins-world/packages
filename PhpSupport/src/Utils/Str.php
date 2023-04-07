@@ -2,6 +2,8 @@
 
 namespace ZhenMu\Support\Utils;
 
+use Illuminate\Support\Str as StrSupport;
+
 class Str
 {
     // string to hex
@@ -209,7 +211,7 @@ class Str
             $slug = rawurlencode($text);
         }
 
-        $slug = Str::lower($slug);
+        $slug = StrSupport::lower($slug);
 
         return $slug;
     }
