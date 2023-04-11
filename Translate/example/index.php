@@ -1,25 +1,7 @@
-Translate content and recognizer content language
----
-[![Latest Stable Version](http://poser.pugx.org/mouyong/translate/v)](https://packagist.org/packages/mouyong/translate) [![Total Downloads](http://poser.pugx.org/mouyong/translate/downloads)](https://packagist.org/packages/mouyong/translate) [![Latest Unstable Version](http://poser.pugx.org/mouyong/translate/v/unstable)](https://packagist.org/packages/mouyong/translate) [![License](http://poser.pugx.org/mouyong/translate/license)](https://packagist.org/packages/mouyong/translate) [![PHP Version Require](http://poser.pugx.org/mouyong/translate/require/php)](https://packagist.org/packages/mouyong/translate)
-
-
-# Requirement
-
-```
-PHP >= 7.1
-```
-
-# Installation
-
-```shell
-$ composer require "mouyong/translate" -vvv
-```
-
-# Usage
-
-
-```php
+#!/usr/bin/env php
 <?php
+
+require __DIR__ . '/../vendor/autoload.php';
 
 use MouYong\Translate\TranslateManager;
 
@@ -59,17 +41,19 @@ $config = [
     ],
 ];
 
-
 // 翻译
 $translate = new \MouYong\Translate\TranslateManager($config);
 
 $result = $translate->driver()->translate('测试', 'zh', 'en');
+
 $result = $translate->driver('baidu')->translate('测试', 'zh', 'en');
 $result = $translate->driver('jinshan')->translate('测试', 'zh', 'en');
 $result = $translate->driver('youdao')->translate('测试', 'zh', 'en');
-$result = $translate->driver('google')->translate('测试', 'zh', 'en');
 
 var_dump($result);
+var_dump($result->getSrc());
+var_dump($result->getDst());
+var_dump($result->getOriginal());
 
 
 // 文本内容探测：检测用户输入的内容是哪个国家的语言
@@ -77,11 +61,3 @@ $languageRecognizerClient = new \MouYong\Translate\Clients\LanguageRecognizerCli
 
 $languageRecognizer = $languageRecognizerClient->detect("Словѣ́ньскъ/ⰔⰎⰑⰂⰡⰐⰠⰔⰍⰟ");
 var_dump($languageRecognizer->getData());
-```
-
-## TODO
-
-[ ] Deepl  
-[ ] Bing  
-[ ] Tencent  
-[ ] refactor: driver translate https://github.com/shopwwi/webman-express/  

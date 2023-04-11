@@ -14,10 +14,9 @@ use MouYong\Translate\Exceptions\TranslateException;
  *
  * @see http://api.fanyi.baidu.com/api/trans/product/apidoc
  */
-class BaiduProvider extends AbstractProvider implements ProviderInterface, ArrayAccess
+class BaiduProvider extends AbstractProvider implements ProviderInterface
 {
     use Clientable;
-    use DefaultClient;
 
     const HTTP_URL = 'http://api.fanyi.baidu.com/api/trans/vip/translate';
 
@@ -64,7 +63,7 @@ class BaiduProvider extends AbstractProvider implements ProviderInterface, Array
             'form_params' => $this->getRequestParams($q, $from, $to),
         ]);
 
-        return new Translate($this->mapTranslateResult($response->toArray()));
+        return new Translate($this->mapTranslateResult($response));
     }
 
     protected function mapTranslateResult(array $translateResult)

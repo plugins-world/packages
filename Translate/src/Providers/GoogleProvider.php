@@ -9,14 +9,7 @@ use MouYong\Translate\Exceptions\TranslateException;
 
 class GoogleProvider extends AbstractProvider implements ProviderInterface
 {
-    const HTTP_URL = 'http://translate.google.cn/translate_a/single';
-
     protected $translateClient;
-
-    protected function getTranslateUrl()
-    {
-        return static::HTTP_URL;
-    }
 
     public function translate(string $q, $from = 'zh-CN', $to = 'en')
     {
@@ -51,8 +44,7 @@ class GoogleProvider extends AbstractProvider implements ProviderInterface
 
         return $translateClient
             ->setSource($from)
-            ->setTarget($to)
-            ->setUrl($this->getTranslateUrl());
+            ->setTarget($to);
     }
 
     protected function mapTranslateResult(array $translateResult)

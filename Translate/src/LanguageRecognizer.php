@@ -2,14 +2,14 @@
 
 namespace MouYong\Translate;
 
-use ZhenMu\Support\Traits\Arrayable;
-
 /**
  * Undocumented class
  */
 class LanguageRecognizer implements \ArrayAccess
 {
-    use Arrayable;
+    use \MouYong\Translate\Traits\Arrayable;
+
+    protected $attributes = [];
 
     public function __construct(array $attributes = [])
     {
@@ -82,7 +82,7 @@ class LanguageRecognizer implements \ArrayAccess
 
     public function getOriginal()
     {
-        return $this->toArray();
+        return $this->attributes;
     }
 
     public function getData()

@@ -2,12 +2,12 @@
 
 namespace MouYong\Translate;
 
-use ZhenMu\Support\Traits\Arrayable;
-
 class Translate
 {
-    use Arrayable;
+    use \MouYong\Translate\Traits\Arrayable;
 
+    protected $attributes = [];
+    
     public function __construct(array $attributes = [])
     {
         $this->attributes = $attributes;
@@ -15,16 +15,16 @@ class Translate
 
     public function getSrc()
     {
-        return $this['src'];
+        return $this->get($this->attributes, 'src');
     }
 
     public function getDst()
     {
-        return $this['dst'];
+        return $this->get($this->attributes, 'dst');
     }
 
     public function getOriginal()
     {
-        return $this->toArray();
+        return $this->attributes;
     }
 }

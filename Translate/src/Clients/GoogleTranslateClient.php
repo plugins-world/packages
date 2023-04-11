@@ -2,31 +2,28 @@
 
 namespace MouYong\Translate\Clients;
 
-use ArrayAccess;
 use ZhenMu\Support\Traits\Clientable;
 use MouYong\Translate\Supports\Config;
-use ZhenMu\Support\Traits\DefaultClient;
 use Stichoza\GoogleTranslate\GoogleTranslate;
 
-class GoogleTranslateClient extends GoogleTranslate implements ArrayAccess
+class GoogleTranslateClient extends GoogleTranslate
 {
     use Clientable;
-    use DefaultClient;
 
     protected ?Config $config;
 
-    public function __construct(?Config $config, ...$params)
+    public function __construct(?Config $config, mixed ...$params)
     {
         parent::__construct(...$params);
 
-        $this->client = $this;
+        $this->client = $this->getHttpClient();
 
         $this->config = $config;
     }
 
     public function getOptions()
     {
-        $http = $this->config['http']?->toArray() ?? [];
+        $http = $this->config['http'] ?? [];
 
         $options = array_merge([
             'base_uri' => $this->getBaseUri(),

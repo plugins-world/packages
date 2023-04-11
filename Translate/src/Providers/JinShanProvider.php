@@ -9,12 +9,11 @@ use MouYong\Translate\Translate;
 use ZhenMu\Support\Traits\Clientable;
 use ZhenMu\Support\Traits\DefaultClient;
 
-class JinShanProvider extends AbstractProvider implements ProviderInterface, ArrayAccess
+class JinShanProvider extends AbstractProvider implements ProviderInterface
 {
     use Clientable {
         Clientable::getOptions as getDefaultOptions;
     }
-    use DefaultClient;
 
     const HTTP_URL = 'https://ifanyi.iciba.com/index.php';
 
@@ -40,13 +39,17 @@ class JinShanProvider extends AbstractProvider implements ProviderInterface, Arr
             'c'         => 'trans',
             'm'         => 'fy',
             'client'    => '6',
-            'auth_user' => 'key_ciba',
+            'auth_user' => 'key_web_fanyi',
         ];
 
+        // @see https://github.com/liuyug/code_example/blob/4be273f1e4aad1a1c6ded72d64997ea13c165df6/iciba.py#L16
+        $signKey = 'ifanyiweb8hc9s98e';
+
         $data['sign'] = substr(bin2hex(md5(sprintf(
-            "%s%sifanyicjbysdlove1%s",
+            "%s%s%s%s",
             $data['client'],
             $data['auth_user'],
+            $signKey,
             $q
         ), true)), 0, 16);
 
@@ -62,8 +65,8 @@ class JinShanProvider extends AbstractProvider implements ProviderInterface, Arr
 
         return new Translate($this->mapTranslateResult([
             'src' => $q,
-            'dst' => $response['content']['out'],
-            'original' => $response->toArray(),
+            'dst' => $response['content']['out'] ?? null,
+            'original' => $response,
         ]));
     }
 

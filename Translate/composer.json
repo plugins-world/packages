@@ -21,7 +21,7 @@
         "php": ">=7.1",
         "zhenmu/support": "^1.0",
         "guzzlehttp/guzzle": "*",
-        "stichoza/google-translate-php": "^4.0"
+        "stichoza/google-translate-php": "^5.0"
     },
     "require-dev": {
         "phpunit/phpunit": "*",

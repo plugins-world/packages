@@ -3,7 +3,6 @@
 namespace MouYong\Translate\Clients;
 
 use ZhenMu\Support\Traits\Clientable;
-use ZhenMu\Support\Traits\DefaultClient;
 use MouYong\Translate\LanguageRecognizer;
 use MouYong\Translate\Exceptions\LanguageDetectException;
 
@@ -14,10 +13,9 @@ use MouYong\Translate\Exceptions\LanguageDetectException;
  * 
  * @date 2022-06-18
  */
-class LanguageRecognizerClient implements \ArrayAccess
+class LanguageRecognizerClient
 {
     use Clientable;
-    use DefaultClient;
 
     const API_URL = 'https://api.translatedlabs.com/language-identifier/identify';
 
@@ -40,7 +38,7 @@ class LanguageRecognizerClient implements \ArrayAccess
 
         return new LanguageRecognizer([
             'detectContent' => $content,
-        ] + $response->toArray());
+        ] + $response);
     }
 
     public function isErrorResponse(array $data): bool

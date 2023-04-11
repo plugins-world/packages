@@ -194,12 +194,12 @@ class TranslateManager
      *
      * @return array
      */
-    public function formatConfig(\ArrayAccess $config)
+    public function formatConfig(array $config)
     {
         return array_merge([
             'http' => $this->config['http'],
             'app_id' => $config['app_id'],
             'app_key' => $config['app_key'],
-        ], $config->toArray());
+        ], $config);
     }
 }

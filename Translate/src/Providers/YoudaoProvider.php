@@ -14,10 +14,9 @@ use ZhenMu\Support\Traits\DefaultClient;
  *
  * @see http://ai.youdao.com/docs/doc-trans-api.s#p02
  */
-class YoudaoProvider extends AbstractProvider implements ProviderInterface, ArrayAccess
+class YoudaoProvider extends AbstractProvider implements ProviderInterface
 {
     use Clientable;
-    use DefaultClient;
 
     const HTTP_URL = 'https://openapi.youdao.com/api';
 
@@ -84,14 +83,14 @@ class YoudaoProvider extends AbstractProvider implements ProviderInterface, Arra
             'form_params' => $this->getRequestParams($q, $from, $to),
         ]);
 
-        return new Translate($this->mapTranslateResult($response->toArray()));
+        return new Translate($this->mapTranslateResult($response));
     }
 
     protected function mapTranslateResult(array $translateResult)
     {
         return [
             'src' => $translateResult['query'],
-            'dst' => head($translateResult['translation']),
+            'dst' => current($translateResult['translation']),
             'original' => $translateResult,
         ];
     }
