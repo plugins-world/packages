@@ -56,7 +56,7 @@ trait Clientable
             return null;
         }
 
-        $paginate = new LengthAwarePaginator(
+        $paginate = new \Illuminate\Pagination\LengthAwarePaginator(
             items: data_get($this->result, 'data'),
             total: data_get($this->result, 'meta.total'),
             perPage: data_get($this->result, 'meta.page_size'),
