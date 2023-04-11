@@ -6,7 +6,7 @@ Translate content and recognizer content language
 # Requirement
 
 ```
-PHP >= 7.1
+PHP >= 8.1
 ```
 
 # Installation
