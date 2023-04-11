@@ -1,11 +1,9 @@
 <?php
 
-namespace MouYong\Translate;
+namespace MouYong\Translate\Translator\Result;
 
 class Translate
 {
-    use \MouYong\Translate\Traits\Arrayable;
-
     protected $attributes = [];
     
     public function __construct(array $attributes = [])
@@ -15,12 +13,12 @@ class Translate
 
     public function getSrc()
     {
-        return $this->get($this->attributes, 'src');
+        return $this->attributes['src'] ?? null;
     }
 
     public function getDst()
     {
-        return $this->get($this->attributes, 'dst');
+        return $this->attributes['dst'] ?? null;
     }
 
     public function getOriginal()

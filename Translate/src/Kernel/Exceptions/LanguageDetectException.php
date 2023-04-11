@@ -1,6 +1,6 @@
 <?php
 
-namespace MouYong\Translate\Exceptions;
+namespace MouYong\Translate\Kernel\Exceptions;
 
 class LanguageDetectException extends Exception
 {

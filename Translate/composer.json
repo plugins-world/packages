@@ -18,10 +18,9 @@
         "issues": "https://github.com/mouyong/translate/issues"
     },
     "require": {
-        "php": ">=7.1",
-        "zhenmu/support": "^1.0",
-        "guzzlehttp/guzzle": "*",
-        "stichoza/google-translate-php": "^5.0"
+        "php": ">=8.0",
+        "symfony/http-client": "^6.0",
+        "stichoza/google-translate-php": "^5.1"
     },
     "require-dev": {
         "phpunit/phpunit": "*",

@@ -1,9 +1,7 @@
 <?php
 
-namespace MouYong\Translate\Clients;
+namespace MouYong\Translate\LanguageRecognizer;
 
-use ZhenMu\Support\Traits\Clientable;
-use MouYong\Translate\LanguageRecognizer;
 use MouYong\Translate\Exceptions\LanguageDetectException;
 
 /**
@@ -15,7 +13,7 @@ use MouYong\Translate\Exceptions\LanguageDetectException;
  */
 class LanguageRecognizerClient
 {
-    use Clientable;
+    use \MouYong\Translate\Kernel\Traits\InteractWithHttpClient;
 
     const API_URL = 'https://api.translatedlabs.com/language-identifier/identify';
 
@@ -32,13 +30,19 @@ class LanguageRecognizerClient
         }', $content), true);
 
 
-        $response = $this->post(static::API_URL, [
+        $response = $this->getHttpClient()->request('POST', static::API_URL, [
             'json' => $body,
         ]);
 
+        $result = $response->toArray();
+
+        if ($this->isErrorResponse($result)) {
+            $this->handleErrorResponse($result);   
+        }
+
         return new LanguageRecognizer([
             'detectContent' => $content,
-        ] + $response);
+        ] + $result);
     }
 
     public function isErrorResponse(array $data): bool
@@ -46,7 +50,7 @@ class LanguageRecognizerClient
         return !empty($data['error']);
     }
 
-    public function handleErrorResponse(?string $content = null, array $data = [])
+    public function handleErrorResponse(array $data = [])
     {
         throw new LanguageDetectException("请求接口错误，错误信息：{$data['error']}");
     }

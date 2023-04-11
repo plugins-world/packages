@@ -1,14 +1,9 @@
 <?php
 
-namespace MouYong\Translate;
+namespace MouYong\Translate\LanguageRecognizer;
 
-/**
- * Undocumented class
- */
-class LanguageRecognizer implements \ArrayAccess
+class LanguageRecognizer
 {
-    use \MouYong\Translate\Traits\Arrayable;
-
     protected $attributes = [];
 
     public function __construct(array $attributes = [])
@@ -18,7 +13,7 @@ class LanguageRecognizer implements \ArrayAccess
 
     public function getDetectContent()
     {
-        return $this['detectContent'];
+        return $this->attributes['detectContent'] ?? null;
     }
 
     /**
@@ -32,7 +27,9 @@ class LanguageRecognizer implements \ArrayAccess
      */
     protected function getCountryAndArea()
     {
-        [$countryCode, $areaCode] = explode('-', $this['code']);
+        $code = $this->attributes['code'] ?? null;
+
+        [$countryCode, $areaCode] = explode('-', $code);
 
         return [
             'countryCode' => $countryCode,
@@ -62,12 +59,12 @@ class LanguageRecognizer implements \ArrayAccess
 
     public function getLanguage()
     {
-        return $this['language'];
+        return $this->attributes['language'] ?? null;
     }
 
     public function getEthnologue()
     {
-        return $this['ethnologue'];
+        return $this->attributes['ethnologue'] ?? null;
     }
 
     public function getEthno3()

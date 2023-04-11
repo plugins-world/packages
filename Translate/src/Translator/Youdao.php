@@ -1,26 +1,38 @@
 <?php
 
-namespace MouYong\Translate\Providers;
+namespace MouYong\Translate\Translator;
 
-use ArrayAccess;
-use MouYong\Translate\Contracts\ProviderInterface;
-use MouYong\Translate\Exceptions\TranslateException;
-use MouYong\Translate\Translate;
-use ZhenMu\Support\Traits\Clientable;
-use ZhenMu\Support\Traits\DefaultClient;
+use MouYong\Translate\Translator\Result\Translate;
+use MouYong\Translate\Kernel\Contracts\TranslatorInterface;
+use MouYong\Translate\Kernel\Exceptions\TranslateException;
 
 /**
- * Class YoudaoProvider.
- *
  * @see http://ai.youdao.com/docs/doc-trans-api.s#p02
  */
-class YoudaoProvider extends AbstractProvider implements ProviderInterface
+class Youdao implements TranslatorInterface
 {
-    use Clientable;
+    use \MouYong\Translate\Kernel\Traits\InteractWithConfig;
+    use \MouYong\Translate\Kernel\Traits\InteractWithHttpClient;
 
-    const HTTP_URL = 'https://openapi.youdao.com/api';
+    public function getHttpClientDefaultOptions()
+    {
+        return array_merge(
+            [
+                'base_uri' => 'https://openapi.youdao.com/api',
+            ],
+            (array) ($this->config['http'] ?? []),
+        );
+    }
 
-    const HTTPS_URL = 'https://openapi.youdao.com/api';
+    public function getAppId()
+    {
+        return $this->config['app_id'] ?? null;
+    }
+
+    public function getAppKey()
+    {
+        return $this->config['app_key'] ?? null;
+    }
 
     protected function getRequestParams($q, $from = 'zh-CHS', $to = 'EN')
     {
@@ -31,7 +43,7 @@ class YoudaoProvider extends AbstractProvider implements ProviderInterface
             'q' => $q,
             'from' => $from,
             'to' => $to,
-            'appKey' => $this->appId,
+            'appKey' => $this->getAppId(),
             'salt' => $salt,
             'signType' => $this->config['signType'] ?? 'v3',
             'curtime' => $curtime,
@@ -40,7 +52,7 @@ class YoudaoProvider extends AbstractProvider implements ProviderInterface
             'strict' => $this->config['strict'] ?? 'false',
         ];
 
-        if ($vocabId = $this->config['vocabId']) {
+        if ($vocabId = $this->config['vocabId'] ?? null) {
             $params['vocabId'] = $vocabId;
         }
 
@@ -52,7 +64,7 @@ class YoudaoProvider extends AbstractProvider implements ProviderInterface
     protected function makeSignature(array $params)
     {
         if ($params['signType'] != 'v3') {
-            $signStr = $this->appId.$params['q'].$params['salt'].$this->appKey;
+            $signStr = $this->getAppId().$params['q'].$params['salt'].$this->getAppKey();
 
             return md5($signStr);
         }
@@ -69,7 +81,7 @@ class YoudaoProvider extends AbstractProvider implements ProviderInterface
             $input = mb_substr($q, 0, 10).$qLen.mb_substr($q, -10);
         }
 
-        $signStr = $this->appId.$input.$params['salt'].$params['curtime'].$this->appKey;
+        $signStr = $this->getAppId().$input.$params['salt'].$params['curtime'].$this->getAppKey();
 
         return hash('sha256', $signStr, false);
     }
@@ -77,16 +89,22 @@ class YoudaoProvider extends AbstractProvider implements ProviderInterface
     /**
      * {@inheritdoc}
      */
-    public function translate($q, $from = 'zh-CHS', $to = 'EN')
+    public function translate($q, $from = 'zh-CHS', $to = 'EN'): mixed
     {
-        $response = $this->post($this->getTranslateUrl(), [
-            'form_params' => $this->getRequestParams($q, $from, $to),
+        $response = $this->getHttpClient()->request('POST', '', [
+            'body' => $this->getRequestParams($q, $from, $to),
         ]);
 
-        return new Translate($this->mapTranslateResult($response));
+        $result = $response->toArray();
+
+        if ($this->isErrorResponse($result)) {
+            $this->handleErrorResponse($result);
+        }
+
+        return new Translate($this->mapTranslateResult($result));
     }
 
-    protected function mapTranslateResult(array $translateResult)
+    public function mapTranslateResult(array $translateResult): array
     {
         return [
             'src' => $translateResult['query'],
@@ -100,7 +118,7 @@ class YoudaoProvider extends AbstractProvider implements ProviderInterface
         return '0' != $data['errorCode'];
     }
 
-    public function handleErrorResponse(?string $content = null, array $data = [])
+    public function handleErrorResponse(array $data = [])
     {
         $errorCode = $data['errorCode'];
         $errorCodeReasonHref = 'https://ai.youdao.com/DOCSIRMA/html/自然语言翻译/API文档/文本翻译服务/文本翻译服务-API文档.html#p02';

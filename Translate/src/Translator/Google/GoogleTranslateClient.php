@@ -1,32 +1,27 @@
 <?php
 
-namespace MouYong\Translate\Clients;
+namespace MouYong\Translate\Translator\Google;
 
-use ZhenMu\Support\Traits\Clientable;
-use MouYong\Translate\Supports\Config;
 use Stichoza\GoogleTranslate\GoogleTranslate;
 
 class GoogleTranslateClient extends GoogleTranslate
 {
-    use Clientable;
+    protected array $config = [];
 
-    protected ?Config $config;
-
-    public function __construct(?Config $config, mixed ...$params)
+    public function __construct(array $config = [], mixed ...$params)
     {
         parent::__construct(...$params);
 
-        $this->client = $this->getHttpClient();
-
+        // 覆盖 options 配置
         $this->config = $config;
     }
 
-    public function getOptions()
+    public function resetOptions()
     {
         $http = $this->config['http'] ?? [];
 
         $options = array_merge([
-            'base_uri' => $this->getBaseUri(),
+            'base_uri' => $http['base_uri'] ?? '',
             'timeout' => 5, // 请求 5s 超时
             'http_errors' => false,
             'headers' => [
@@ -34,6 +29,8 @@ class GoogleTranslateClient extends GoogleTranslate
             ],
         ], $http);
 
-        return $options;
+        $this->options = $options;
+
+        return $this;
     }
 }
