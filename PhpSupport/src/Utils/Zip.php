@@ -41,7 +41,7 @@ class Zip
         $this->zipFile->addDirRecursive($sourcePath, $filename);
         $this->zipFile->saveAsFile($zipFilepath);
 
-        return $targetPath;
+        return $zipFilepath;
     }
 
     public function unpack(string $sourcePath, ?string $targetPath = null): ?string
