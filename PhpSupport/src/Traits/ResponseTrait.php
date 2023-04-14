@@ -2,6 +2,7 @@
 
 namespace ZhenMu\Support\Traits;
 
+use Illuminate\Support\Collection;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
@@ -35,11 +36,19 @@ trait ResponseTrait
 
     public function customPaginate($items, $paginatorOrTotal, $pageSize = 15)
     {
+        $items = (array) $items;
+
         $total = $paginatorOrTotal;
         if ($paginatorOrTotal instanceof \Illuminate\Pagination\LengthAwarePaginator) {
             $paginator = $paginatorOrTotal;
             $pageSize = $paginator->perPage();
             $total = $paginator->total();
+        } else {
+            if ($items instanceof Collection) {
+                $total = $items->count();
+            } else {
+                $total = count($items);
+            }
         }
 
         $paginate = new \Illuminate\Pagination\LengthAwarePaginator(
