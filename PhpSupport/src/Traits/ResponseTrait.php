@@ -34,7 +34,7 @@ trait ResponseTrait
         return $string;
     }
 
-    public function customPaginate($items, $paginatorOrTotal, $pageSize = 15)
+    public function customPaginate($items, $paginatorOrTotal, int $pageSize = 15, array $meta = [])
     {
         $items = (array) $items;
 
@@ -62,10 +62,10 @@ trait ResponseTrait
             ->withPath('/'.\request()->path())
             ->withQueryString();
 
-        return $this->paginate($paginate);
+        return $this->paginate($paginate, null, $meta);
     }
 
-    public function paginate($data, ?callable $callable = null)
+    public function paginate($data, ?callable $callable = null, array $meta = [])
     {
         // 处理集合数据
         if ($data instanceof \Illuminate\Database\Eloquent\Collection) {
@@ -86,12 +86,12 @@ trait ResponseTrait
         // 处理分页数据
         $paginate = $data;
         return $this->success([
-            'meta' => [
+            'meta' => array_merge([
                 'total' => $paginate->total(),
                 'current_page' => $paginate->currentPage(),
                 'page_size' => $paginate->perPage(),
                 'last_page' => $paginate->lastPage(),
-            ],
+            ], $meta),
             'data' => array_map(function ($item) use ($callable) {
                 if ($callable) {
                     return $callable($item) ?? $item;
