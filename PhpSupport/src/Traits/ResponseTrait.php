@@ -34,7 +34,7 @@ trait ResponseTrait
         return $string;
     }
 
-    public function customPaginate($items, $paginatorOrTotal, int $pageSize = 15, array $meta = [])
+    public function customPaginate($items, $paginatorOrTotal, ?int $pageSize = 15, array $meta = [])
     {
         $items = (array) $items;
 
@@ -50,6 +50,8 @@ trait ResponseTrait
                 $total = count($items);
             }
         }
+
+        $pageSize = $pageSize ?? 15;
 
         $paginate = new \Illuminate\Pagination\LengthAwarePaginator(
             items: $items,
