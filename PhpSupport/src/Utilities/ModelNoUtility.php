@@ -4,7 +4,7 @@ namespace ZhenMu\Support\Utilities;
 
 class ModelNoUtility
 {
-    public static function setCurrentIndex($model, ?string $field = null, &$params = [], $prefix = null, $orderByField = 'created_at', $indexLength = 4, $dateFormat = 'Ymd')
+    public static function setCurrentIndex($model, ?string $field = null, &$params = [], $prefix = null, $orderByField = 'created_at', $indexLength = 4, $dateFormat = 'ymd')
     {
         if (!is_string($model)) {
             $model = get_class($model);
@@ -25,7 +25,7 @@ class ModelNoUtility
         return $customerNumber;
     }
 
-    public static function setCurrentIndexByIndex($model, $index, ?string $field = null, &$params = [], $prefix = null, $indexLength = 4, $dateFormat = 'Ymd')
+    public static function setCurrentIndexByIndex($model, $index, ?string $field = null, &$params = [], $prefix = null, $indexLength = 4, $dateFormat = 'ymd')
     {
         if (!is_string($model)) {
             $model = get_class($model);
@@ -45,7 +45,7 @@ class ModelNoUtility
         return $customerNumber;
     }
 
-    public static function getNextCustonNumber($model, string $field, $prefix = null, $orderByField = 'created_at', $indexLength = 4, $dateFormat = 'Ymd')
+    public static function getNextCustonNumber($model, string $field, $prefix = null, $orderByField = 'created_at', $indexLength = 4, $dateFormat = 'ymd')
     {
         $nextIndex = ModelNoUtility::getCurrentIndex(...func_get_args());
 
@@ -89,19 +89,15 @@ class ModelNoUtility
         return $index;
     }
 
-    public static function customerNumber(?string $prefix = null, int $currentIndex = 0, $indexLength = 4, string $dateFormat = 'Ymd')
+    public static function customerNumber(?string $prefix = null, int $currentIndex = 0, $indexLength = 4, string $dateFormat = 'ymd')
     {
         $nextIndex = $currentIndex + 1;
         $nextIndexString = str_pad($nextIndex, $indexLength, '0', STR_PAD_LEFT);
 
         $date = date($dateFormat);
 
-        if ($prefix && !str_ends_with($prefix, '-')) {
-            $prefix = $prefix . '-';
-        } else {
-            $prefix = '';
-        }
+        $prefix = $prefix ?? '';
 
-        return "{$prefix}{$date}-{$nextIndexString}";
+        return "{$prefix}{$date}{$nextIndexString}";
     }
 }
