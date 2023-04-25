@@ -1,28 +1,29 @@
 # laravel-config
 
-A laravel global config package.
+一个 Laravel 的全局配置扩展包。
 
 [![Sponsor me](https://github.com/plugins-world/plugins-world/blob/master/sponsor-me-button-s.svg?raw=true)](https://github.com/sponsors/mouyong)
 
+项目自动拆分，如需跟踪源码更新情况，请前往：https://github.com/plugins-world/packages 查看 LaravelConfig 目录
 
-## Installing
+## 安装
 
 ```shell
 $ composer require mouyong/laravel-config -vvv
 ```
 
-## Usage
+## 使用
 
 TODO
 
 ## :heart: Sponsor me 
 
-[![Sponsor me](https://github.com/plugins-world/plugins-world/blob/master/sponsor-me.svg?raw=true)](https://github.com/sponsors/mouyong)
+[![Sponsor me]](https://afdian.net/a/mouyong)
 
 如果你喜欢我的项目并想支持它，[点击这里 :heart:](https://github.com/sponsors/mouyong)
 
 
-## Contributing
+## 贡献
 
 You can contribute in one of three ways:
 

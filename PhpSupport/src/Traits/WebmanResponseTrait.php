@@ -177,7 +177,7 @@ trait WebmanResponseTrait
             ],
         };
 
-        if (! \request()->exceptsJson()) {
+        if (! \request()->expectsJson()) {
             $err_msg = \json_encode($res, \JSON_UNESCAPED_SLASHES|\JSON_UNESCAPED_UNICODE|\JSON_PRETTY_PRINT);
             if (!array_key_exists($err_code, Response::$statusTexts)) {
                 $err_code = 500;

@@ -1,21 +1,18 @@
-Translate content and recognizer content language
+多平台翻译、文本语言探测
 ---
+
 [![Latest Stable Version](http://poser.pugx.org/mouyong/translate/v)](https://packagist.org/packages/mouyong/translate) [![Total Downloads](http://poser.pugx.org/mouyong/translate/downloads)](https://packagist.org/packages/mouyong/translate) [![Latest Unstable Version](http://poser.pugx.org/mouyong/translate/v/unstable)](https://packagist.org/packages/mouyong/translate) [![License](http://poser.pugx.org/mouyong/translate/license)](https://packagist.org/packages/mouyong/translate) [![PHP Version Require](http://poser.pugx.org/mouyong/translate/require/php)](https://packagist.org/packages/mouyong/translate)
 
 
-# Requirement
+项目自动拆分，如需跟踪源码更新情况，请前往：https://github.com/plugins-world/packages 查看 Translate 目录
 
-```
-PHP >= 8.1
-```
-
-# Installation
+# 安装
 
 ```shell
 $ composer require "mouyong/translate" -vvv
 ```
 
-# Usage
+# 使用
 
 
 ```php

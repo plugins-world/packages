@@ -4,6 +4,8 @@
 
 php 基础支持，详细内容见 `src/Utils`、`src/Traits` 目录。
 
+项目自动拆分，如需跟踪源码更新情况，请前往：https://github.com/plugins-world/packages 查看 PhpSupport 目录
+
 
 ## 安装
 
