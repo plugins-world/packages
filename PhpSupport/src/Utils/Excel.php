@@ -7,6 +7,7 @@ use Maatwebsite\Excel\Events\Event;
 use PhpOffice\PhpSpreadsheet\Style\Color;
 use PhpOffice\PhpSpreadsheet\Style\Fill;
 use PhpOffice\PhpSpreadsheet\Cell\Hyperlink;
+use PhpOffice\PhpSpreadsheet\Style\Alignment;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 
 class Excel
@@ -370,6 +371,7 @@ class Excel
         $sheet = Excel::getSheet($event);
 
         $sheet->mergeCells($range, $behaviour);
+        
     }
 
     /**
@@ -425,6 +427,63 @@ class Excel
 
             $sheet->getStyle($cell)->applyFromArray($styleArray, $advancedBorders);
         }
+    }
+    
+    public static function setExplainData($event, $explain, $inCellRange, $height = 200, $advancedBorders = true)
+    {
+        $sheet = Excel::getSheet($event);
+        
+        // $explain = <<<"TXT"
+        // 填写须知：
+        // 1. 请勿修改表格结构；
+        // 2. 红色字段为必填项，黑色字段为选填项；
+        // 3. 用户 ID：非必填，成员的唯一标识，可以由字母、数字、‘_-@.’符号组成，不填则由系统自动生成；
+        // 4. 姓名：默认名称，必填，如需设置中文、英语、日语名称，可按如下规则填写：默认名称 | CN-中文名 | EN-英语名 | JP-日语名，例如“张三 | CN-张三 | EN-ZhangSan | JP-張三”；
+        // 5. 联系手机：必填，且在本企业内不可重复，地区码必须包含加号 +，为保证可以正常编辑带地区码格式的国际手机号，建议将手机号一列的单元格格式调整为“文本”；
+        // 6. 部门：必填，上下级部门间使用“/”隔开，请从最上级部门（即企业名称）开始填写。例如“飞书有限公司/研发部""，若未填写则默认添加到选择的节点下，若归属于多个部门请用英文“,”隔开；请注意部门顺序，其中第一个部门将在导入后被标记为主部门，其余顺序也将在个人信息中体现；
+        // 7. 性别：请填写男或女；
+        // 8. 直属上级：请填写直属上级的手机号（若为国际手机号则必须包含加号以及国家地区码，例如：“+8589****33”）、邮箱或用户 ID，如匹配失败请检查是否填对字段或直属上级是否未导入通讯录；
+        // 9. 人员类型：必填，请从下列选项中选填一个选项：“正式”、“实习”、“外包”、“劳务”、“顾问”，若不填则默认为“正式”；
+        // 10. 部门负责人：请填入“是”、“否”，若不填则默认为“否”，若归属于多个部门请用英文“,”隔开；
+        // 11. 入职日期：必填，请按 YYYY-MM-DD 的格式填写，如 2019-01-01；
+        // 12. 手机号是否可见：请填入“是”、“否”，若不填则默认为“是”；
+        // 13. 工作城市：请先在“成员字段管理”中为“工作城市”添加选项，目前可从下列选项中选填一项：请先在“成员字段管理”中为“工作城市”添加选项并设置为“已启用”状态
+        // 14. 职务：请先在“成员字段管理”中为“职务”添加选项，目前可从下列选项中选填一项：请先在“成员字段管理”中为“职务”添加选项并设置为“已启用”状态
+        // 15. URL 类自定义字段：非必填，所有字段名后带“(URL)”的字段均为 URL 类自定义字段，可以超链接形式展示在客户端个人名片页。若需填写信息，则需按“标题 | URL | URL”格式填写，其中标题必填且至少需填写一个 URL，若只填写 1 个 URL 则移动端和桌面端共用该URL，若填写了 2 个 URL 则默认第一个为移动端 URL，URL 请以“http://”或“https://”开头。														
+        // TXT;
+
+        $sheet->getCell('A1')->setValue($explain);
+        $sheet->getCell('A1')->setHyperlink(null);
+
+        // $sheet->getColumnDimension('A')->setWidth(300); // 设置宽度
+        $sheet->getRowDimension(1)->setRowHeight($height);
+
+        $sheet->getStyle('A1')->applyFromArray([
+            'font' => [
+                'size' => 12,
+                'name' => 'Microsoft YaHei',
+                'color' => [
+                    'argb' => '000000',
+                ],
+            ],
+            'alignment' => [
+                // 'horizontal' => Alignment::HORIZONTAL_CENTER,
+                'vertical' => Alignment::VERTICAL_CENTER,
+                'wrapText' => true,
+            ],
+        ], $advancedBorders);
+
+        Excel::mergeCells($event, $inCellRange);
+    }
+
+    public static function setTitleStyleAndExplainData($event, $explain, $explainMergeRange, $titleRange)
+    {
+        // 带 * 单元格红色标记
+        Excel::handleRequireCellTextColorForRedAndHyperLink($event);
+        // 表头加租居中
+        Excel::setTitleStyle($event, "A2:AC2");
+        // 设置说明
+        Excel::setExplainData($event, $explain, $explainMergeRange);
     }
 
     /**
