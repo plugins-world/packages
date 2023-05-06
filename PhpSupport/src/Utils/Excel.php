@@ -452,12 +452,12 @@ class Excel
                 'size' => 12,
                 'name' => '微软雅黑',
             ],
-            'fill' => [
-                'fillType' => Fill::FILL_SOLID,
-                'startColor' => [
-                    'argb' => 'C00000',
-                ],
-            ],
+            // 'fill' => [
+            //     'fillType' => Fill::FILL_SOLID,
+            //     'startColor' => [
+            //         'argb' => 'C00000',
+            //     ],
+            // ],
         ], $styleArray);
 
         $sheet->getStyle($cellOrRange)->applyFromArray($styleArray, $advancedBorders);
