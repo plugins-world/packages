@@ -5,6 +5,7 @@ namespace ZhenMu\Support\Utils;
 use Carbon\Carbon;
 use Maatwebsite\Excel\Events\Event;
 use PhpOffice\PhpSpreadsheet\Style\Color;
+use PhpOffice\PhpSpreadsheet\Style\Fill;
 use PhpOffice\PhpSpreadsheet\Cell\Hyperlink;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 
@@ -204,9 +205,6 @@ class Excel
     public static function handleRequireCellTextColorForRedAndHyperLink(Event $event)
     {
         Excel::handleAllCell($event, function ($event, $sheet, $sheetInfo, $cellInfo) {
-            // 设置关闭自动列宽 autoSize
-            $sheet->getColumnDimension($cellInfo['columnLetter'])->setAutoSize(false);
-
             $value = $sheet->getCell($cellInfo['cell'])->getValue();
 
             try {
@@ -388,7 +386,45 @@ class Excel
      */
     public static function setTitleStyle(Event $event, string $cellOrRange, array $styleArray = [], $advancedBorders = true)
     {
-        return Excel::setCellStyle(...func_get_args());
+        $sheet = Excel::getSheet($event);
+
+        // autoSize
+        foreach ($sheet->getColumnIterator() as $column) {
+            $sheet->getColumnDimension($column->getColumnIndex())->setAutoSize(true);
+        }
+
+        $rangeCellNames = \PhpOffice\PhpSpreadsheet\Cell\Coordinate::extractAllCellReferencesInRange($cellOrRange);
+
+        $styleArray = array_merge([
+            'font' => [
+                'bold' => true,
+                'size' => 14,
+                'name' => 'Microsoft YaHei',
+                'color' => [
+                    'argb' => 'ffffff',
+                ],
+            ],
+            'fill' => [
+                'fillType' => Fill::FILL_SOLID,
+                'startColor' => [
+                    'argb' => 'C00000',
+                ],
+            ],
+        ], $styleArray);
+
+        foreach ($rangeCellNames as $cell) {
+            $value = $sheet->getCell($cell)->getValue();
+
+            if (str_contains($value, '*')) {
+                $styleArray['fill']['startColor']['argb'] = 'C00000';
+                $styleArray['font']['color']['argb'] = 'ffffff';
+            } else {
+                $styleArray['fill']['startColor']['argb'] = '404040';
+                $styleArray['font']['color']['argb'] = 'ffffff';
+            }
+
+            $sheet->getStyle($cell)->applyFromArray($styleArray, $advancedBorders);
+        }
     }
 
     /**
@@ -407,17 +443,24 @@ class Excel
     {
         $sheet = Excel::getSheet($event);
 
-        $titleStyle = array_merge([
+        $styleArray = array_merge([
             'font' => [
+                'color' => [
+                    'argb' => '000000',
+                ],
                 'bold' => true,
-                'size' => 11,
+                'size' => 12,
+                'name' => '微软雅黑',
             ],
-            'alignment' => [
-                'horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER,
+            'fill' => [
+                'fillType' => Fill::FILL_SOLID,
+                'startColor' => [
+                    'argb' => 'C00000',
+                ],
             ],
         ], $styleArray);
 
-        $sheet->getStyle($cellOrRange)->applyFromArray($titleStyle, $advancedBorders);
+        $sheet->getStyle($cellOrRange)->applyFromArray($styleArray, $advancedBorders);
     }
 
     /**
