@@ -481,7 +481,7 @@ class Excel
         // 带 * 单元格红色标记
         Excel::handleRequireCellTextColorForRedAndHyperLink($event);
         // 表头加租居中
-        Excel::setTitleStyle($event, "A2:AC2");
+        Excel::setTitleStyle($event, $titleRange);
         // 设置说明
         Excel::setExplainData($event, $explain, $explainMergeRange);
     }
