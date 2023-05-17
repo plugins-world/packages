@@ -79,11 +79,11 @@ class ModelNoUtility
         $prefix = $model::CUSTOMER_NUMBER_PREFIX ?? $prefix;
         $batch_number = $model::whereDate($orderByField, $date)
             ->orderByDesc($orderByField)
-            ->value($field) ?? 0;
+            ->count() ?? 0;
 
         $index = 0;
         if ($batch_number) {
-            $index = mb_substr($batch_number, -$indexLength);
+            $index = $batch_number;
         }
 
         return $index;
