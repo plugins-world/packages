@@ -184,11 +184,35 @@ class Excel
             return \PhpOffice\PhpSpreadsheet\Shared\Date::excelToDateTimeObject($datetime)?->format($format);
         }
 
-        $datetime = match (true) {
+        $datetimeData = explode(' ', $datetime);
+
+        $day = null;
+        $time = null;
+        if (count($datetimeData) == 2) {
+            $day = $datetimeData[0];
+            $time = $datetimeData[1];
+        } else {
+            $day = $datetimeData[0];
+            $time = "";
+        }
+        
+        $day = match (true) {
             default => null,
-            str_contains($datetime, '-') && str_contains($datetime, ':') => Carbon::createFromFormat($soruceFormat, $datetime)->format($format),
-            str_contains($datetime, '/') && !str_contains($datetime, ':') => Carbon::createFromDate($datetime)->format($format),
+            str_contains($day, '-') => $datetime,
+            str_contains($day, '.') => str_replace('.', '-', $day),
+            str_contains($day, '/') => str_replace('/', '-', $day),
         };
+
+        $datetime = $day;
+        if ($time) {
+            $datetime .= " ". $time;
+        }
+
+        if (!str_contains($datetime, ':')) {
+            $datetime = Carbon::createFromDate($datetime)->format($format);
+        } else {
+            $datetime = Carbon::createFromFormat($soruceFormat, $datetime)->format($format);
+        }
 
         return $datetime;
     }
