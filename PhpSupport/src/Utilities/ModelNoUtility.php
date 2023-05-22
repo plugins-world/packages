@@ -51,6 +51,13 @@ class ModelNoUtility
 
         $tmp = [];
         $customerNumber = static::setCurrentIndexByIndex($model, $nextIndex, $field, $tmp, $prefix, $indexLength, $dateFormat);
+
+        $exists = $model::where($field, $customerNumber)->count();
+        if ($exists) {
+            $nextIndex++;
+            $customerNumber = static::setCurrentIndexByIndex($model, $nextIndex, $field, $tmp, $prefix, $indexLength, $dateFormat);
+        }
+
         unset($tmp);
 
         return $customerNumber;
