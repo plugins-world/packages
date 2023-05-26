@@ -21,6 +21,7 @@
         "ext-openssl": "*",
         "ext-fileinfo": "*",
         "ext-simplexml": "*",
+        "league/fractal": "^0.20.1",
         "ramsey/uuid": "*",
         "symfony/process": "*",
         "nelexa/zip": "^4.0"
