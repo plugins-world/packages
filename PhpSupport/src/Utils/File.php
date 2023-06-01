@@ -149,10 +149,14 @@ class File
     /**
      * Ensure Filepath Exists
      */
-    public static function ensurePathExists(string $dirpath)
+    public static function ensurePathExists(string $dirpath, $mode = 0755, $recursive = true, $force = false)
     {
-        if (!file_exists($dirpath)) {
-            mkdir($dirpath, 0755, true);
+        if (! is_dir($dirpath)) {
+            if ($force) {
+                @mkdir($dirpath, $mode, $recursive);
+            } else {
+                mkdir($dirpath, $mode, $recursive);
+            }
         }
 
         return $dirpath;
