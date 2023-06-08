@@ -23,7 +23,7 @@ class Installer
             'item_tag' => 'market_manager',
             'item_key' => 'market_server_host',
             'item_type' => 'string',
-            'item_value' => 'https://market.plugins-world.cn',
+            'item_value' => 'https://marketplace.plugins-world.cn',
         ],
         [
             'item_tag' => 'market_manager',
