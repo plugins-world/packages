@@ -11,6 +11,13 @@ class MarketManagerApiController extends Controller
 {
     use ResponseTrait;
 
+    public function __construct()
+    {
+        if(!defined('STDIN'))  define('STDIN',  fopen('php://stdin',  'rb'));
+        if(!defined('STDOUT')) define('STDOUT', fopen('php://stdout', 'wb'));
+        if(!defined('STDERR')) define('STDERR', fopen('php://stderr', 'wb'));
+    }
+
     public function install()
     {
         \request()->validate([
