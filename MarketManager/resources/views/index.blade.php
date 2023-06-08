@@ -88,8 +88,8 @@
                         <nav class="mt-5">
                             <div class="nav nav-tabs" id="nav-tab" role="tablist">
                                 <button class="nav-link @if(!\request()->has('status')) active @endif" id="nav-plugin-tab" data-bs-toggle="tab" data-bs-target="#nav-plugin" type="button" role="tab" onclick="window.location.href=`{{\request()->fullUrlWithoutQuery('status')}}`">全部</button>
-                                <button class="nav-link @if(\request()->has('status') && \request()->get('status') == 'active') active @endif" id="nav-plugin-enable-tab" data-bs-toggle="tab" data-bs-target="#nav-plugin" type="button" role="tab" onclick="window.location.href=`{{\request()->fullUrlWithQuery(['active' => 'active'])}}`">已启用</button>
-                                <button class="nav-link @if(\request()->has('status') && \request()->get('status') == 'inactive') active @endif" id="nav-plugin-enable-tab" data-bs-toggle="tab" data-bs-target="#nav-plugin" type="button" role="tab" onclick="window.location.href=`{{\request()->fullUrlWithQuery(['active' => 'inactive'])}}`">已禁用</button>
+                                <button class="nav-link @if(\request()->has('status') && \request()->get('status') == 'active') active @endif" id="nav-plugin-enable-tab" data-bs-toggle="tab" data-bs-target="#nav-plugin" type="button" role="tab" onclick="window.location.href=`{{\request()->fullUrlWithQuery(['status' => 'active'])}}`">已启用</button>
+                                <button class="nav-link @if(\request()->has('status') && \request()->get('status') == 'inactive') active @endif" id="nav-plugin-enable-tab" data-bs-toggle="tab" data-bs-target="#nav-plugin" type="button" role="tab" onclick="window.location.href=`{{\request()->fullUrlWithQuery(['status' => 'inactive'])}}`">已禁用</button>
                             </div>
                         </nav>
                         <div class="tab-content pt-3" id="nav-tabContent">
@@ -280,11 +280,11 @@
         data.plugin = fskey;
         switch (action) {
             case 'activate':
-                data.is_enable = 1;
+                data.is_enabled = 1;
                 updatePlugin(data, this);
                 break;
             case 'deactivate':
-                data.is_enable = 0;
+                data.is_enabled = 0;
                 updatePlugin(data, this);
                 break;
             case 'setting':
