@@ -45,7 +45,14 @@
                     <a class="nav-link active" data-bs-toggle="tab" data-bs-target="#nav-market-manager">管理插件</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" data-bs-toggle="tab" data-bs-target="#nav-market">插件市场</a>
+                    <a class="nav-link"
+                        @if(str_contains($configs['market_server_host'], 'packagist.org'))
+                            href="{{ $configs['market_server_host'] }}"
+                            target="_blank"
+                        @else
+                            data-bs-toggle="tab" data-bs-target="#nav-market"
+                        @endif
+                    >插件市场</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" data-bs-target="#installModal" data-bs-toggle="modal" href="#">安装插件</a>
@@ -61,15 +68,15 @@
 
         <div class="tab-content">
             <div class="tab-pane fade" id="nav-market">
-                <iframe src="{{ $configs['market_server_host'] }}"></iframe>
+                <iframe src="{{ $configs['market_server_host'] }}" referrerpolicy="no-referrer"></iframe>
             </div>
 
             <div class="tab-pane fade" id="nav-plugin-page">
-                <iframe src="javascript:false;" id="pluginPageIframe"></iframe>
+                <iframe src="javascript:false;" id="pluginPageIframe" referrerpolicy="no-referrer"></iframe>
             </div>
 
             <div class="tab-pane fade" id="nav-market-plugin-page">
-                <iframe id="marketSettingIframe"></iframe>
+                <iframe id="marketSettingIframe" referrerpolicy="no-referrer"></iframe>
             </div>
 
             <div class="tab-pane fade show active" id="nav-market-manager">
