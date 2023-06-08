@@ -12,7 +12,7 @@
                 <div class="mb-3 row">
                     <label for="market_server_host" class="col-sm-2 col-form-label">应用市场服务地址</label>
                     <div class="col-sm-8">
-                        <input type="text" name="market_server_host" value="{{ old('market_server_host', $configs['market_server_host'] ?? '') }}" class="form-control" id="market_server_host" placeholder="应用市场服务地址" readonly>
+                        <input type="text" name="market_server_host" value="{{ old('market_server_host', $configs['market_server_host'] ?? '') }}" class="form-control" id="market_server_host" placeholder="应用市场服务地址，默认为：https://marketplace.plugins-world.cn">
                     </div>
                 </div>
 
