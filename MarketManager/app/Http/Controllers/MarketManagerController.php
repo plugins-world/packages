@@ -20,8 +20,8 @@ class MarketManagerController extends Controller
         ]);
 
         $where = [];
-        if (\request()->has('is_enable')) {
-            $where['is_enable'] = \request('is_enable');
+        if (\request()->has('status')) { // 1-active, 0-inactive
+            $where['is_enabled'] = \request('status') == 'active' ? 1 : 0;
         }
 
         $plugins = Plugin::query()->where($where)->get();

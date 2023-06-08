@@ -87,9 +87,9 @@
 
                         <nav class="mt-5">
                             <div class="nav nav-tabs" id="nav-tab" role="tablist">
-                                <button class="nav-link @if(!\request()->has('is_enable')) active @endif" id="nav-plugin-tab" data-bs-toggle="tab" data-bs-target="#nav-plugin" type="button" role="tab" onclick="window.location.href=`{{\request()->fullUrlWithoutQuery('is_enable')}}`">全部</button>
-                                <button class="nav-link @if(\request()->has('is_enable') && \request()->get('is_enable') == 1) active @endif" id="nav-plugin-enable-tab" data-bs-toggle="tab" data-bs-target="#nav-plugin" type="button" role="tab" onclick="window.location.href=`{{\request()->fullUrlWithQuery(['is_enable' => 1])}}`">已启用</button>
-                                <button class="nav-link @if(\request()->has('is_enable') && \request()->get('is_enable') == 0) active @endif" id="nav-plugin-enable-tab" data-bs-toggle="tab" data-bs-target="#nav-plugin" type="button" role="tab" onclick="window.location.href=`{{\request()->fullUrlWithQuery(['is_enable' => 0])}}`">已禁用</button>
+                                <button class="nav-link @if(!\request()->has('status')) active @endif" id="nav-plugin-tab" data-bs-toggle="tab" data-bs-target="#nav-plugin" type="button" role="tab" onclick="window.location.href=`{{\request()->fullUrlWithoutQuery('status')}}`">全部</button>
+                                <button class="nav-link @if(\request()->has('status') && \request()->get('status') == 'active') active @endif" id="nav-plugin-enable-tab" data-bs-toggle="tab" data-bs-target="#nav-plugin" type="button" role="tab" onclick="window.location.href=`{{\request()->fullUrlWithQuery(['active' => 'active'])}}`">已启用</button>
+                                <button class="nav-link @if(\request()->has('status') && \request()->get('status') == 'inactive') active @endif" id="nav-plugin-enable-tab" data-bs-toggle="tab" data-bs-target="#nav-plugin" type="button" role="tab" onclick="window.location.href=`{{\request()->fullUrlWithQuery(['active' => 'inactive'])}}`">已禁用</button>
                             </div>
                         </nav>
                         <div class="tab-content pt-3" id="nav-tabContent">
@@ -110,21 +110,21 @@
                                             <td>{{ Str::limit($plugin['description'] ?? '', 100) }}</td>
                                             <td>{{ $plugin['author'] }}</td>
                                             <td>
-                                                @if($plugin['is_enable'] == false)
-                                                <button type="button" data-unikey="{{ $plugin['unikey'] }}" data-action="activate" class="table-row btn-sm btn btn-link text-success">启用</button>
-                                                @elseif($plugin['unikey'] !== 'MarketManager')
+                                                @if($plugin['is_enabled'] == false)
+                                                <button type="button" data-fskey="{{ $plugin['fskey'] }}" data-action="activate" class="table-row btn-sm btn btn-link text-success">启用</button>
+                                                @elseif($plugin['fskey'] !== 'MarketManager')
 
-                                                @if($plugin['is_enable'] && $plugin['access_url'])
-                                                <button type="button" data-unikey="{{ $plugin['unikey'] }}" data-action="setting" data-settings-url="{{ $plugin['access_url'] }}" class="table-row btn-sm btn btn-light">管理</button>
+                                                @if($plugin['is_enabled'] && $plugin['access_url'])
+                                                <button type="button" data-fskey="{{ $plugin['fskey'] }}" data-action="setting" data-settings-url="{{ $plugin['access_url'] }}" class="table-row btn-sm btn btn-light">管理</button>
                                                 @endif
-                                                @if($plugin['is_enable'] && $plugin['settings_url'])
-                                                <button type="button" data-unikey="{{ $plugin['unikey'] }}" data-action="setting" data-settings-url="{{ $plugin['settings_url'] }}" class="table-row btn-sm btn btn-light">设置</button>
+                                                @if($plugin['is_enabled'] && $plugin['settings_url'])
+                                                <button type="button" data-fskey="{{ $plugin['fskey'] }}" data-action="setting" data-settings-url="{{ $plugin['settings_url'] }}" class="table-row btn-sm btn btn-light">设置</button>
                                                 @endif
 
-                                                <button type="button" data-unikey="{{ $plugin['unikey'] }}" data-action="deactivate" class="table-row btn-sm btn btn-link text-danger">停用</button>
+                                                <button type="button" data-fskey="{{ $plugin['fskey'] }}" data-action="deactivate" class="table-row btn-sm btn btn-link text-danger">停用</button>
                                                 @endif
-                                                @if($plugin['is_enable'] == false)
-                                                <button type="button" data-unikey="{{ $plugin['unikey'] }}" data-action="remove" class="table-row btn-sm btn btn-link text-danger">卸载</button>
+                                                @if($plugin['is_enabled'] == false)
+                                                <button type="button" data-fskey="{{ $plugin['fskey'] }}" data-action="remove" class="table-row btn-sm btn btn-link text-danger">卸载</button>
                                                 @endif
                                             </td>
                                         </tr>
@@ -155,19 +155,19 @@
 
                         <button class="btn btn-outline-secondary dropdown-toggle" id="toggleInstallMentod" type="button" data-bs-toggle="dropdown" aria-expanded="false">输入标识名</button>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item active" href="#" data-install-method="inputUnikey" placeholder="请输入插件 unikey">输入标识名</a></li>
-                            <li><a class="dropdown-item" href="#" data-install-method="inputPackage" placeholder="请输入插件 unikey">输入 composer 包名</a></li>
-                            <li><a class="dropdown-item" href="#" data-install-method="inputDirectory" placeholder="请输入插件所在目录">输入安装目录</a></li>
-                            <li><a class="dropdown-item" href="#" data-install-method="inputZipball" placeholder="请选择插件安装包">上传 zip 压缩包</a></li>
+                            <li><a class="dropdown-item active" href="#" data-install-method="plugin_fskey" placeholder="请输入插件 fskey">输入标识名</a></li>
+                            <li><a class="dropdown-item" href="#" data-install-method="plugin_package" placeholder="请输入插件 fskey">输入 composer 包名</a></li>
+                            <li><a class="dropdown-item" href="#" data-install-method="plugin_directory" placeholder="请输入插件所在目录">输入安装目录</a></li>
+                            <li><a class="dropdown-item" href="#" data-install-method="plugin_zipball" placeholder="请选择插件安装包">上传 zip 压缩包</a></li>
                         </ul>
 
-                        <input type="hidden" name="installType" value="plugin" required class="form-control" style="display: block;">
-                        <input type="hidden" name="installMethod" value="inputUnikey" required class="form-control" style="display: block;">
+                        <input type="hidden" name="install_type" value="plugin" required class="form-control" style="display: block;">
+                        <input type="hidden" name="install_method" value="plugin_fskey" required class="form-control" style="display: block;">
 
-                        <input type="text" name="inputUnikey" class="form-control" placeholder="插件 unikey" style="display: block;">
-                        <input type="text" name="inputPackage" class="form-control" placeholder="扩展包 vendor/package" style="display: none;">
-                        <input type="text" name="inputDirectory" class="form-control" placeholder="插件 unikey 或插件目录的绝对路径" style="display: none;">
-                        <input type="file" name="inputZipball" class="form-control" style="display: none;" accept=".zip">
+                        <input type="text" name="plugin_fskey" class="form-control" placeholder="插件 fskey" style="display: block;">
+                        <input type="text" name="plugin_package" class="form-control" placeholder="扩展包 vendor/package" style="display: none;">
+                        <input type="text" name="plugin_directory" class="form-control" placeholder="插件 fskey 或插件目录的绝对路径" style="display: none;">
+                        <input type="file" name="plugin_zipball" class="form-control" style="display: none;" accept=".zip">
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -209,7 +209,7 @@
 
         const dropdownMenu = $(this).parentsUntil('.dropdown');
         dropdownMenu.siblings('button').text($(this).text())
-        $('input[name="installMethod"]').val(userChoiceInputMethod);
+        $('input[name="install_method"]').val(userChoiceInputMethod);
 
         const ele = dropdownMenu.parent().find(`input[name="${userChoiceInputMethod}"]`);
 
@@ -230,10 +230,10 @@
     }));
 
     $('#installModal').on('shown.bs.modal', function() {
-        $('input[name="inputUnikey"]').val('');
-        $('input[name="inputPackage"]').val('');
-        $('input[name="inputDirectory"]').val('');
-        $('input[name="inputZipball"]').val('');
+        $('input[name="plugin_fskey"]').val('');
+        $('input[name="plugin_package"]').val('');
+        $('input[name="plugin_directory"]').val('');
+        $('input[name="plugin_zipball"]').val('');
     });
 
     // 安装
@@ -241,8 +241,8 @@
         event.preventDefault();
 
         // 减少上传文件
-        if ($('input[name="installMethod"]') !== 'inputZipball') {
-            $('input[name="inputZipball"]').val('');
+        if ($('input[name="install_method"]') !== 'plugin_zipball') {
+            $('input[name="plugin_zipball"]').val('');
         }
 
         $.ajax({
@@ -274,10 +274,10 @@
         $(this).prop('disabled', true);
 
         const action = $(this).data('action');
-        const unikey = $(this).data('unikey');
+        const fskey = $(this).data('fskey');
 
         let data = {};
-        data.plugin = unikey;
+        data.plugin = fskey;
         switch (action) {
             case 'activate':
                 data.is_enable = 1;

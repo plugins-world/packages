@@ -14,44 +14,44 @@ class MarketManagerApiController extends Controller
     public function install()
     {
         \request()->validate([
-            'installType' => 'nullable', // plugin, theme
-            'installMethod' => 'required|in:inputUnikey,inputPackage,inputDirectory,inputZipball',
+            'install_type' => 'nullable', // plugin, theme
+            'install_method' => 'required|in:plugin_fskey,plugin_package,plugin_directory,plugin_zipball',
 
-            'inputUnikey' => 'required_if:installMethod,inputUnikey',
-            'inputPackage' => 'required_if:installMethod,inputPackage',
-            'inputDirectory' => 'required_if:installMethod,inputDirectory',
-            'inputZipball' => 'required_if:installMethod,inputZipball',
+            'plugin_fskey' => 'required_if:install_method,plugin_fskey',
+            'plugin_package' => 'required_if:install_method,plugin_package',
+            'plugin_directory' => 'required_if:install_method,plugin_directory',
+            'plugin_zipball' => 'required_if:install_method,plugin_zipball',
         ]);
 
-        $installType = \request('installType', 'plugin');
-        $installMethod = \request('installMethod');
-        $installValue = \request($installMethod);
+        $install_type = \request('install_type', 'plugin');
+        $install_method = \request('install_method');
+        $installValue = \request($install_method);
 
-        switch ($installMethod) {
-            // unikey
-            case 'inputUnikey':
-            case 'inputPackage':
+        switch ($install_method) {
+            // fskey
+            case 'plugin_fskey':
+            case 'plugin_package':
                 // market-manager
                 $exitCode = Artisan::call('market:require', [
-                    'unikey' => $installValue,
+                    'fskey' => $installValue,
                 ]);
                 $output = Artisan::output();
             break;
 
             // directory
-            case 'inputDirectory':
+            case 'plugin_directory':
                 $pluginDirectory = $installValue;
 
                 // plugin-manager or theme-manager
-                $exitCode = Artisan::call("{$installType}:install", [
+                $exitCode = Artisan::call("{$install_type}:install", [
                     'path' => $pluginDirectory,
                     '--is_dir' => true,
                 ]);
                 $output = Artisan::output();
             break;
 
-            // inputZipball
-            case 'inputZipball':
+            // plugin_zipball
+            case 'plugin_zipball':
                 $pluginZipball = null;
                 $file = $installValue;
 
@@ -68,7 +68,7 @@ class MarketManagerApiController extends Controller
                 }
 
                 // plugin-manager or theme-manager
-                $exitCode = Artisan::call("{$installType}:install", [
+                $exitCode = Artisan::call("{$install_type}:install", [
                     'path' => $pluginZipball,
                 ]);
                 $output = Artisan::output();
@@ -90,14 +90,14 @@ class MarketManagerApiController extends Controller
     {
         \request()->validate([
             'plugin' => 'required|string',
-            'is_enable' => 'required|boolean'
+            'is_enabled' => 'required|boolean'
         ]);
 
-        $unikey = \request('plugin');
-        if (\request()->get('is_enable') != 0) {
-            $exitCode = Artisan::call('market:activate', ['unikey' => $unikey]);
+        $fskey = \request('plugin');
+        if (\request()->get('is_enabled') != 0) {
+            $exitCode = Artisan::call('market:activate', ['fskey' => $fskey]);
         } else {
-            $exitCode = Artisan::call('market:deactivate', ['unikey' => $unikey]);
+            $exitCode = Artisan::call('market:deactivate', ['fskey' => $fskey]);
         }
 
         if ($exitCode !== 0) {
@@ -114,11 +114,11 @@ class MarketManagerApiController extends Controller
             'clearData' => 'nullable|bool',
         ]);
 
-        $unikey = \request('plugin');
+        $fskey = \request('plugin');
         if (\request()->get('clearData') == 1) {
-            $exitCode = Artisan::call('market:remove-plugin', ['unikey' => $unikey, '--cleardata' => true]);
+            $exitCode = Artisan::call('market:remove-plugin', ['fskey' => $fskey, '--cleardata' => true]);
         } else {
-            $exitCode = Artisan::call('market:remove-plugin', ['unikey' => $unikey, '--cleardata' => false]);
+            $exitCode = Artisan::call('market:remove-plugin', ['fskey' => $fskey, '--cleardata' => false]);
         }
 
         $message = '卸载成功';
