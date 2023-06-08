@@ -66,11 +66,9 @@
         $(document).on('click', 'form button[type="submit"]', $.debounce(500, function(event) {
             $(this).prepend('<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> ');
             $(this).prop('disabled', true);
-
-            $('form').submit();
         }));
 
-        $('form').submit(function(event) {
+        $('#settingForm form').submit(function(event) {
             event.preventDefault();
 
             $.ajax({

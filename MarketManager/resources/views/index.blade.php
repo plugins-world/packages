@@ -174,7 +174,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">关闭</button>
-                    <button type="button" class="btn btn-primary install-btn">确认</button>
+                    <button type="submit" class="btn btn-primary install-btn">确认</button>
                 </div>
             </form>
         </div>
@@ -222,8 +222,7 @@
     }));
 
     // 确认安装
-    $(document).on('click', '.install-btn', $.debounce(250, function() {
-        $(this).submit();
+    $(document).on('click', '.install-btn', $.debounce(250, function(event) {
         $('#outputLoading').show();
         $('#output pre').empty('');
         $('#output .modal-title').text('安装结果');
@@ -239,7 +238,7 @@
     });
 
     // 安装
-    $('form').submit(function(event) {
+    $('#installModal form').submit(function(event) {
         event.preventDefault();
 
         // 减少上传文件
