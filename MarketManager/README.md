@@ -17,9 +17,11 @@ composer require plugins-world/market-manager
 
 访问路由：`/market-manager`
 
-应用市场：目前还没有发布应用市场，你可以将应用市场的地址配置为 `https://packagist.org/` 进行使用。目前，`https://github.com/plugins-world/plugins` 下的插件都可以通过 composer 的包名完成安装。请注意插件间可能存在冲突。
+应用市场：目前还没有发布应用市场，你可以将应用市场的地址配置为 `https://packagist.org/` 进行使用。
 
-注意事项：项目需要配置好权限，避免 web 程序的用户无法读取、创建目录。
+注意事项：
+- 目前，https://github.com/plugins-world/plugins 下的插件都可以通过 composer 的包名完成安装。请注意插件间可能存在冲突。
+- 项目需要配置好权限，避免 web 程序的用户无法读取、创建目录。
 
 
 ## 遇到问题
