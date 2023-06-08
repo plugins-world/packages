@@ -64,6 +64,8 @@
         })
 
         $(document).on('click', 'form button[type="submit"]', $.debounce(500, function(event) {
+            event.preventDefault();
+
             $(this).prepend('<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> ');
             $(this).prop('disabled', true);
         }));
