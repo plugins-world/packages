@@ -67,9 +67,11 @@
         </div>
 
         <div class="tab-content">
+            @if(!str_contains($configs['market_server_host'], 'packagist.org'))
             <div class="tab-pane fade" id="nav-market">
                 <iframe src="{{ $configs['market_server_host'] }}" referrerpolicy="no-referrer"></iframe>
             </div>
+            @endif
 
             <div class="tab-pane fade" id="nav-plugin-page">
                 <iframe src="javascript:false;" id="pluginPageIframe" referrerpolicy="no-referrer"></iframe>
