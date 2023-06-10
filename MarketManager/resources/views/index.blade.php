@@ -215,7 +215,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title">怎么快速完成安装？</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" onclick="$('#installModal').modal('show')" aria-label="Close"></button>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
                 <div class="alert alert-success" role="alert">
@@ -240,15 +240,12 @@
                         <h5 class="mb-1">3. 在详情页中添加代码</h5>
                         </div>
                         <p class="mb-1">请在开发者工具的 <code>Console</code> 面板复制以下内容，并粘贴执行</p>
-                        <small>
-                            @php
-                                $code = <<<'CODE'
-                                let btnEle = `<span id="installPackageBtn" style="color:red;border:1px solid #ccc;padding:3px 5px;border-radius:3px;" onclick="parent.postMessage(JSON.stringify({action: {postMessageKey: 'fresnsInstallExtension'}, data:{fskey: document.querySelector('.requireme input').value}}), '*')">安装</span>`;
 
-                                $('.requireme input').after(btnEle);
-                                CODE
-                            @endphp
-                            <code>{{ $code }}</code>
+                        <small>
+                            <div class="input-group">
+                                <textarea id="installPackageBtnCodePreview" rows="5" class="form-control" aria-label="With textarea"></textarea>
+                                <span class="input-group-text copy" data-clipboard-target="#installPackageBtnCodePreview">复制</span>
+                            </div>
                         </small>
                     </div>
                     <div class="list-group-item list-group-item-action">
@@ -261,7 +258,7 @@
                         <div class="d-flex w-100 justify-content-between">
                         <h5 class="mb-1">当前有哪些插件可以在 <code>Laravel</code> 中安装呢？</h5>
                         </div>
-                        <p class="mb-1">具体可以安装的插件请前往仓库查看：<a href="https://github.com/plugins-world/plugins" target="_blank">https://github.com/plugins-world/plugins</p>
+                        <p class="mb-1">具体可以安装的插件请前往仓库查看：<a href="https://github.com/plugins-world/plugins" target="_blank">https://github.com/plugins-world/plugins</a></p>
                     </div>
                 </div>
             </div>
@@ -471,11 +468,25 @@
 
         $('.requireme input').after(btnEle)
 
+        let code = `$('.requireme input').after(\`${btnEle}\`)`
+
         console.log(`1. 请在 插件市场搜索插件，并进入详情页`)
         console.log(`2. 请通过开发者工具的元素选择器选择插件详情页`)
         console.log(`3. 请在开发者工具的 Console 面板复制以下内容，并粘贴执行`)
         console.log(`4. 请点击详情页中的安装按钮`)
-        console.log(`$('.requireme input').after(\`${btnEle}\`)`)
+        console.log(code)
+
+        $('#installPackageBtnCodePreview').text(code);
+        let clipboard = new ClipboardJS('.copy');
+        clipboard.on('success', function(e) {
+            $('.toast').find('.toast-body').html('复制成功');
+            $('.toast').toast('show');
+        });
+
     }
+
+    $(document).ready(function () {
+        injectInstallBtn();
+    });
 </script>
 @endsection
