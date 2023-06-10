@@ -17,7 +17,7 @@ composer require plugins-world/market-manager
 
 访问路由：`/market-manager`
 
-应用市场：目前还没有发布应用市场，你可以将应用市场的地址配置为 `https://packagist.org/` 进行使用。
+应用市场：目前还没有发布官方的 Laravel 应用市场，你可以将应用市场的地址配置为 `https://packagist.plugins-world.cn/` 进行使用。当前默认采用 packagist.org 作为应用市场。
 
 注意事项：
 - 目前，https://github.com/plugins-world/plugins 下的插件都可以通过 composer 的包名完成安装。请注意插件间可能存在冲突。

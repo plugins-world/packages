@@ -55,7 +55,7 @@
                     >插件市场</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" data-bs-target="#installModal" data-bs-toggle="modal" href="#">安装插件</a>
+                    <a class="nav-link" id="installBtn" data-bs-target="#installModal" data-bs-toggle="modal" href="#">安装插件</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" data-bs-toggle="tab" data-bs-target="#nav-market-plugin-page" data-href="{{ $configs['settings_path'] }}" onclick="goToPluginPage(this)">系统设置</a>
@@ -63,22 +63,28 @@
                 <li class="nav-item">
                     <a class="nav-link visually-hidden" id="nav-plugin-page-tab" data-bs-target="#nav-plugin-page" data-bs-toggle="tab" href="#">插件设置</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" id="installHelp" data-bs-target="#installHelpModal" data-bs-toggle="modal" href="#">怎么快速完成安装？</a>
+                </li>
+                <!-- <li class="nav-item">
+                    <a class="nav-link" id="nav-plugin-page-tab" onclick="injectInstallBtn()">在 packagist.org 注入安装按钮</a>
+                </li> -->
             </ul>
         </div>
 
         <div class="tab-content">
             @if(!str_contains($configs['market_server_host'], 'packagist.org'))
             <div class="tab-pane fade" id="nav-market">
-                <iframe src="{{ $configs['market_server_host'] }}" referrerpolicy="no-referrer"></iframe>
+                <iframe src="{{ $configs['market_server_host'] }}" referrerpolicy="no-referrer" crossorigin="anonymous"></iframe>
             </div>
             @endif
 
             <div class="tab-pane fade" id="nav-plugin-page">
-                <iframe src="javascript:false;" id="pluginPageIframe" referrerpolicy="no-referrer"></iframe>
+                <iframe src="javascript:false;" id="pluginPageIframe" referrerpolicy="no-referrer" crossorigin="anonymous"></iframe>
             </div>
 
             <div class="tab-pane fade" id="nav-market-plugin-page">
-                <iframe id="marketSettingIframe" referrerpolicy="no-referrer"></iframe>
+                <iframe id="marketSettingIframe" referrerpolicy="no-referrer" crossorigin="anonymous"></iframe>
             </div>
 
             <div class="tab-pane fade show active" id="nav-market-manager">
@@ -158,7 +164,7 @@
                         <button class="btn btn-outline-secondary dropdown-toggle" id="toggleInstallMentod" type="button" data-bs-toggle="dropdown" aria-expanded="false">输入标识名</button>
                         <ul class="dropdown-menu">
                             <li><a class="dropdown-item active" href="#" data-install-method="plugin_fskey" placeholder="请输入插件 fskey">输入标识名</a></li>
-                            <li><a class="dropdown-item" href="#" data-install-method="plugin_package" placeholder="请输入插件 fskey">输入 composer 包名</a></li>
+                            <li><a class="dropdown-item" href="#" data-install-method="plugin_package" placeholder="扩展包 vendor/package">输入 composer 包名</a></li>
                             <li><a class="dropdown-item" href="#" data-install-method="plugin_directory" placeholder="请输入插件所在目录">输入安装目录</a></li>
                             <li><a class="dropdown-item" href="#" data-install-method="plugin_zipball" placeholder="请选择插件安装包">上传 zip 压缩包</a></li>
                         </ul>
@@ -197,6 +203,68 @@
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" onclick="$('#installModal').modal('show')">取消</button>
                 <button type="button" class="btn btn-primary" onclick="window.location.reload()">确认</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="installHelpModal" tabindex="-1">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">怎么快速完成安装？</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" onclick="$('#installModal').modal('show')" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="alert alert-success" role="alert">
+                    目前还未建设 <code>Laravel</code> 的插件市场，每次从 <code>https://packagist.org</code> 安装插件时，都需要按照以下步骤执行。
+                </div>
+
+                <div class="list-group">
+                    <div class="list-group-item list-group-item-action" aria-current="true">
+                        <div class="d-flex w-100 justify-content-between">
+                        <h5 class="mb-1">1. 打开插件详情页</h5>
+                        </div>
+                        <p class="mb-1">请在插件市场搜索插件，并进入详情页</p>
+                    </div>
+                    <div class="list-group-item list-group-item-action">
+                        <div class="d-flex w-100 justify-content-between">
+                        <h5 class="mb-1">2. 让详情页可以添加按钮</h5>
+                        </div>
+                        <p class="mb-1">请通过开发者工具的元素选择器选择插件详情页</p>
+                    </div>
+                    <div class="list-group-item list-group-item-action">
+                        <div class="d-flex w-100 justify-content-between">
+                        <h5 class="mb-1">3. 在详情页中添加代码</h5>
+                        </div>
+                        <p class="mb-1">请在开发者工具的 <code>Console</code> 面板复制以下内容，并粘贴执行</p>
+                        <small>
+                            @php
+                                $code = <<<'CODE'
+                                let btnEle = `<span id="installPackageBtn" style="color:red;border:1px solid #ccc;padding:3px 5px;border-radius:3px;" onclick="parent.postMessage(JSON.stringify({action: {postMessageKey: 'fresnsInstallExtension'}, data:{fskey: document.querySelector('.requireme input').value}}), '*')">安装</span>;`;
+
+                                $('.requireme input').after(btnEle);
+                                CODE
+                            @endphp
+                            <code>{{ $code }}</code>
+                        </small>
+                    </div>
+                    <div class="list-group-item list-group-item-action">
+                        <div class="d-flex w-100 justify-content-between">
+                        <h5 class="mb-1">4. 开始安装</h5>
+                        </div>
+                        <p class="mb-1">请点击详情页中的安装按钮</p>
+                    </div>
+                    <div class="list-group-item list-group-item-action">
+                        <div class="d-flex w-100 justify-content-between">
+                        <h5 class="mb-1">当前有哪些插件可以在 <code>Laravel</code> 中安装呢？</h5>
+                        </div>
+                        <p class="mb-1">具体可以安装的插件请前往仓库查看：<a href="https://github.com/plugins-world/plugins" target="_blank">https://github.com/plugins-world/plugins</p>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-bs-dismiss="modal">知道了</button>
             </div>
         </div>
     </div>
@@ -357,6 +425,54 @@
                 $('#output pre').html(err.responseJSON.err_msg + "<br><br> 卸载失败");
             }
         })
+    }
+</script>
+
+<script>
+    window.addEventListener('message', (e) => {
+        let data
+        try {
+            data = JSON.parse(e.data)
+        } catch (e) {
+            return
+        }
+
+        if (! data.action || !data) {
+            return
+        }
+
+        switch(data.action.postMessageKey) {
+            case 'fresnsInstallExtension':
+                console.log(data.data);
+
+                (new bootstrap.Modal('#installModal')).show();
+
+                setTimeout(function () {
+                    $('#toggleInstallMentod').text($('.dropdown-menu a[data-install-method="plugin_package"]').text())
+                    $('input[name="install_method"]').val('plugin_package')
+                    $('input[name="plugin_package"]').val(data.data.fskey)
+
+                    $('input[name="plugin_package"]').css('display', 'block').siblings('input').css('display', 'none')
+                    $('input[name="plugin_package"]').attr('required', true).siblings('input').attr('required', false)
+
+                    $('.install-btn').click()
+                }, 1000);
+                break
+        }
+    });
+
+    function injectInstallBtn() {
+        console.log($('.requireme input'))
+
+        let btnEle = `<span id="installPackageBtn" style="color:red;border:1px solid #ccc;padding:3px 5px;border-radius:3px;" onclick="parent.postMessage(JSON.stringify({action: {postMessageKey: 'fresnsInstallExtension'}, data:{fskey: document.querySelector('.requireme input').value}}), '*')">安装</span>`;
+
+        $('.requireme input').after(btnEle)
+
+        console.log(`1. 请在 插件市场搜索插件，并进入详情页`)
+        console.log(`2. 请通过开发者工具的元素选择器选择插件详情页`)
+        console.log(`3. 请在开发者工具的 Console 面板复制以下内容，并粘贴执行`)
+        console.log(`4. 请点击详情页中的安装按钮`)
+        console.log(`$('.requireme input').after(\`${btnEle}\`)`)
     }
 </script>
 @endsection
