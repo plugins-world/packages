@@ -5,6 +5,7 @@ namespace Plugins\MarketManager\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Artisan;
+use MouYong\LaravelConfig\Models\Config;
 use ZhenMu\Support\Traits\ResponseTrait;
 
 class MarketManagerApiController extends Controller
@@ -22,10 +23,11 @@ class MarketManagerApiController extends Controller
     {
         \request()->validate([
             'install_type' => 'nullable', // plugin, theme
-            'install_method' => 'required|in:plugin_fskey,plugin_package,plugin_directory,plugin_zipball',
+            'install_method' => 'required|in:plugin_fskey,plugin_package,plugin_url,plugin_directory,plugin_zipball',
 
             'plugin_fskey' => 'required_if:install_method,plugin_fskey',
             'plugin_package' => 'required_if:install_method,plugin_package',
+            'plugin_url' => 'required_if:install_method,plugin_url',
             'plugin_directory' => 'required_if:install_method,plugin_directory',
             'plugin_zipball' => 'required_if:install_method,plugin_zipball',
         ]);
@@ -38,6 +40,22 @@ class MarketManagerApiController extends Controller
             // fskey
             case 'plugin_fskey':
             case 'plugin_package':
+            case 'plugin_url':
+                if ($install_method == 'plugin_url') {
+                    $configs = Config::getValueByKeys([
+                        'github_token',
+                    ]);
+
+                    // 下载 github 私有插件
+                    if (str_starts_with($installValue, 'https://github.com')) {
+                        $installValue = str_replace('https://', 'https://' . $configs['github_token'] . ':@', $installValue);
+
+                        if (! str_ends_with($installValue, 'zip')) {
+                            $installValue = $installValue . '/archive/master.zip';
+                        }
+                    }
+                } 
+
                 // market-manager
                 $exitCode = Artisan::call('market:require', [
                     'fskey' => $installValue,

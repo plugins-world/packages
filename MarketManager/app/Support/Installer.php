@@ -49,6 +49,12 @@ class Installer
             'item_type' => 'number',
             'item_value' => 1,
         ],
+        [
+            'item_tag' => 'market_manager',
+            'item_key' => 'github_token',
+            'item_type' => 'string',
+            'item_value' => null,
+        ],
     ];
 
     public function process(callable $callable)

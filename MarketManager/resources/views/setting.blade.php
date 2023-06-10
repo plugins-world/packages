@@ -44,6 +44,13 @@
                     </div>
                 </div>
 
+                <div class="mb-3 row">
+                    <label for="github_token" class="col-sm-2 col-form-label">GitHub Token</label>
+                    <div class="col-sm-8">
+                        <input type="text" name="github_token" value="{{ old('github_token', $configs['github_token'] ?? '') }}" class="form-control" id="github_token" placeholder="请输入 GitHub Token，下载私有 GitHub 插件时使用">
+                    </div>
+                </div>
+
                 <button type="submit" class="col-sm-1 offset-sm-2 btn btn-primary mb-3">保存</button>
             </form>
         </div>

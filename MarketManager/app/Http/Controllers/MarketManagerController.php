@@ -17,6 +17,7 @@ class MarketManagerController extends Controller
             'settings_path',
             'install_datetime',
             'build_type',
+            'github_token',
         ]);
 
         $where = [];
@@ -40,6 +41,7 @@ class MarketManagerController extends Controller
             'settings_path',
             'install_datetime',
             'build_type',
+            'github_token',
         ]);
 
         return view('MarketManager::setting', [
@@ -53,12 +55,14 @@ class MarketManagerController extends Controller
             'market_server_host' => 'required|url',
             'system_url' => 'nullable|url',
             'settings_path' => 'required|string',
+            'github_token' => 'nullable|string',
         ]);
 
         $itemKeys = [
             'market_server_host',
             'system_url',
             'settings_path',
+            'github_token',
         ];
 
         Config::updateConfigs($itemKeys, 'market_manager');

@@ -150,7 +150,7 @@
 
 
 <div class="modal fade" id="installModal" tabindex="-2">
-    <div class="modal-dialog">
+    <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <form action="{{ route('plugin.install') }}" method="post">
                 <div class="modal-header">
@@ -163,19 +163,21 @@
 
                         <button class="btn btn-outline-secondary dropdown-toggle" id="toggleInstallMentod" type="button" data-bs-toggle="dropdown" aria-expanded="false">输入标识名</button>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item active" href="#" data-install-method="plugin_fskey" placeholder="请输入插件 fskey">输入标识名</a></li>
-                            <li><a class="dropdown-item" href="#" data-install-method="plugin_package" placeholder="扩展包 vendor/package">输入 composer 包名</a></li>
-                            <li><a class="dropdown-item" href="#" data-install-method="plugin_directory" placeholder="请输入插件所在目录">输入安装目录</a></li>
-                            <li><a class="dropdown-item" href="#" data-install-method="plugin_zipball" placeholder="请选择插件安装包">上传 zip 压缩包</a></li>
+                            <li><a class="dropdown-item active" href="#" data-install-method="plugin_fskey">输入标识名</a></li>
+                            <li><a class="dropdown-item" href="#" data-install-method="plugin_package">输入 composer 包</a></li>
+                            <li><a class="dropdown-item" href="#" data-install-method="plugin_url">输入插件下载地址</a></li>
+                            <li><a class="dropdown-item" href="#" data-install-method="plugin_directory">输入安装目录</a></li>
+                            <li><a class="dropdown-item" href="#" data-install-method="plugin_zipball">上传 zip 压缩包</a></li>
                         </ul>
 
                         <input type="hidden" name="install_type" value="plugin" required class="form-control" style="display: block;">
                         <input type="hidden" name="install_method" value="plugin_fskey" required class="form-control" style="display: block;">
 
-                        <input type="text" name="plugin_fskey" class="form-control" placeholder="插件 fskey" style="display: block;">
-                        <input type="text" name="plugin_package" class="form-control" placeholder="扩展包 vendor/package" style="display: none;">
-                        <input type="text" name="plugin_directory" class="form-control" placeholder="插件 fskey 或插件目录的绝对路径" style="display: none;">
-                        <input type="file" name="plugin_zipball" class="form-control" style="display: none;" accept=".zip">
+                        <input type="text" name="plugin_fskey" class="form-control" placeholder="请输入插件 fskey" style="display: block;">
+                        <input type="text" name="plugin_package" class="form-control" placeholder="请输入composer 包安装信息" style="display: none;">
+                        <input type="text" name="plugin_url" class="form-control" placeholder="请输入插件下载地址" style="display: none;">
+                        <input type="text" name="plugin_directory" class="form-control" placeholder="请输入插件 fskey 或插件目录的绝对路径" style="display: none;">
+                        <input type="file" name="plugin_zipball" class="form-control" placeholder="请选择插件安装包" style="display: none;" accept=".zip">
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -299,6 +301,9 @@
     }));
 
     $('#installModal').on('shown.bs.modal', function() {
+        $('form button[type="submit"] span').remove();
+        $('form button[type="submit"]').prop('disabled', false);
+
         $('input[name="plugin_fskey"]').val('');
         $('input[name="plugin_package"]').val('');
         $('input[name="plugin_directory"]').val('');
