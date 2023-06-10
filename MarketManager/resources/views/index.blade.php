@@ -443,9 +443,7 @@
 
         switch(data.action.postMessageKey) {
             case 'fresnsInstallExtension':
-                console.log(data.data);
-
-                (new bootstrap.Modal('#installModal')).show();
+                // (new bootstrap.Modal('#installModal')).show();
 
                 setTimeout(function () {
                     $('#toggleInstallMentod').text($('.dropdown-menu a[data-install-method="plugin_package"]').text())
