@@ -241,7 +241,7 @@
                         <small>
                             @php
                                 $code = <<<'CODE'
-                                let btnEle = `<span id="installPackageBtn" style="color:red;border:1px solid #ccc;padding:3px 5px;border-radius:3px;" onclick="parent.postMessage(JSON.stringify({action: {postMessageKey: 'fresnsInstallExtension'}, data:{fskey: document.querySelector('.requireme input').value}}), '*')">安装</span>;`;
+                                let btnEle = `<span id="installPackageBtn" style="color:red;border:1px solid #ccc;padding:3px 5px;border-radius:3px;" onclick="parent.postMessage(JSON.stringify({action: {postMessageKey: 'fresnsInstallExtension'}, data:{fskey: document.querySelector('.requireme input').value}}), '*')">安装</span>`;
 
                                 $('.requireme input').after(btnEle);
                                 CODE
