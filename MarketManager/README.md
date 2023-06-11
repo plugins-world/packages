@@ -57,7 +57,8 @@ git commit -m "feat: Install laravel market-manager."
 3. 访问路由：`/market-manager`
 
 **注意，安装的时候，会询问是以下内容，请输入： `y`**
-> wikimedia/composer-merge-plugin contains a Composer plugin which is currently not in your allow-plugins config. See https://getcomposer.org/allow-plugins
+> wikimedia/composer-merge-plugin contains a Composer plugin which is currently not in your allow-plugins config. See https://getcomposer.org/allow-plugins  
+> 
 > Do you trust "wikimedia/composer-merge-plugin" to execute code and wish to enable it now? (writes "allow-plugins" to composer.json) [y,n,d,?]
 
 
