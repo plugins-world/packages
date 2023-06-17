@@ -8,7 +8,7 @@
 
 namespace Plugins\MarketManager\Support;
 
-use MouYong\LaravelConfig\Models\Config;
+use Plugins\LaravelConfig\Models\Config;
 
 class Installer
 {
