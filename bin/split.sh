@@ -32,6 +32,5 @@ git pull origin $CURRENT_BRANCH || true
 # remote foundation git@github.com:mouyong/laravel-foundation.git
 remote MarketManager git@github.com:mouyong/MarketManager.git
 
-
 # split 'src/Illuminate/Foundation' foundation
 split 'MarketManager' MarketManager
