@@ -4,7 +4,7 @@ namespace Plugins\MarketManager\Utilities;
 
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Http;
-use MouYong\LaravelConfig\Models\Config;
+use Plugins\LaravelConfig\Models\Config;
 
 class MarketUtility
 {

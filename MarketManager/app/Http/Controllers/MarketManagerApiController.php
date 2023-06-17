@@ -4,7 +4,7 @@ namespace Plugins\MarketManager\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Artisan;
-use MouYong\LaravelConfig\Models\Config;
+use Plugins\LaravelConfig\Models\Config;
 
 class MarketManagerApiController extends Controller
 {

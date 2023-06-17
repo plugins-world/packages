@@ -5,7 +5,7 @@ namespace Plugins\MarketManager\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Fresns\MarketManager\Models\Plugin;
-use MouYong\LaravelConfig\Models\Config;
+use Plugins\LaravelConfig\Models\Config;
 
 class MarketManagerController extends Controller
 {
