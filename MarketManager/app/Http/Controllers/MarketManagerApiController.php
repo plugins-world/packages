@@ -2,16 +2,12 @@
 
 namespace Plugins\MarketManager\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Artisan;
 use MouYong\LaravelConfig\Models\Config;
-use ZhenMu\Support\Traits\ResponseTrait;
 
 class MarketManagerApiController extends Controller
 {
-    use ResponseTrait;
-
     public function __construct()
     {
         if(!defined('STDIN'))  define('STDIN',  fopen('php://stdin',  'rb'));
@@ -129,7 +125,11 @@ class MarketManagerApiController extends Controller
             return $this->fail(Artisan::output());
         }
 
-        return $this->success();
+        return \response()->json([
+            'err_code' => 0,
+            'err_msg' => 'success',
+            'data' => null,
+        ]);
     }
 
     public function uninstall()
