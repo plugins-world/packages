@@ -59,6 +59,10 @@ class MarketManagerServiceProvider extends BaseServiceProvider
         $this->mergeConfigFrom(
             dirname(__DIR__, 2) . '/config/market-manager.php', 'market-manager'
         );
+
+        config([
+            'plugins.composer' => config('market-manager.composer'),
+        ]);
     }
 
     /**

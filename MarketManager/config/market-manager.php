@@ -13,4 +13,24 @@ return [
         'base' => base_path('extensions'),
         'markets' => base_path('storage/extensions'),
     ],
+
+    /*
+    |--------------------------------------------------------------------------
+    | Composer File Template
+    |--------------------------------------------------------------------------
+    |
+    | YOU COULD CUSTOM HERE
+    |
+    */
+    'composer'  => [
+        'vendor' => 'plugins-world',
+        'author' => [
+            [
+                'name'  => 'MouYong',
+                'email' => 'my24251325@gmail.com',
+                'homepage' => 'https://plugins-world.org/',
+                'role' => 'Creator',
+            ],
+        ],
+    ],
 ];
