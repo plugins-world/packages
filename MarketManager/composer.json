@@ -32,9 +32,9 @@
         "php": ">= 8.0",
         "zhenmu/support": "dev-master",
         "mouyong/laravel-config": "dev-master",
-        "fresns/cmd-word-manager": "dev-master",
-        "fresns/market-manager": "dev-master",
-        "fresns/plugin-manager": "2.x-dev"
+        "fresns/cmd-word-manager": "^1.0",
+        "fresns/market-manager": "^2.0",
+        "fresns/plugin-manager": "^2.0"
     },
     "require-dev": {
         "orangehill/iseed": "^3.0"
