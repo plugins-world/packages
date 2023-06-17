@@ -1,6 +1,6 @@
 <?php
 
-namespace MouYong\LaravelConfig;
+namespace Plugins\LaravelConfig;
 
 use Illuminate\Support\ServiceProvider;
 

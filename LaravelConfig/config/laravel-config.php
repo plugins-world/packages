@@ -1,5 +1,5 @@
 <?php
 
 return [
-    'config_model' => \MouYong\LaravelConfig\Models\Config::class,
+    'config_model' => \Plugins\LaravelConfig\Models\Config::class,
 ];

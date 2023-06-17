@@ -1,12 +1,12 @@
 <?php
 
-namespace MouYong\LaravelConfig\Models;
+namespace Plugins\LaravelConfig\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\Cache;
-use MouYong\LaravelConfig\Models\Config as ModelsConfig;
+use Plugins\LaravelConfig\Models\Config as ModelsConfig;
 
 class Config extends Model
 {

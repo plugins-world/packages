@@ -1,5 +1,5 @@
 {
-    "name": "mouyong/laravel-config",
+    "name": "plugins-world/laravel-config",
     "description": "A laravel global config package.",
     "keywords": [
         "laravel-config",
@@ -16,13 +16,13 @@
             "role": "Creator & Developer"
         }
     ],
-    "homepage": "https://github.com/mouyong/laravel-config",
+    "homepage": "https://github.com/plugins-world/LaravelConfig",
     "support": {
         "email": "my24251325@gmail.com",
-        "source": "https://github.com/mouyong/laravel-config",
-        "issues": "https://github.com/mouyong/laravel-config/issues",
-        "forum": "https://github.com/mouyong/laravel-config/issues",
-        "wiki": "https://github.com/mouyong/laravel-config"
+        "source": "https://github.com/plugins-world/LaravelConfig",
+        "issues": "https://github.com/plugins-world/LaravelConfig/issues",
+        "forum": "https://github.com/plugins-world/LaravelConfig/issues",
+        "wiki": "https://github.com/plugins-world/LaravelConfig"
     },
     "require": {
         "php": ">=8.0"
@@ -37,16 +37,18 @@
     },
     "autoload": {
         "psr-4": {
-            "MouYong\\LaravelConfig\\": "src"
+            "Plugins\\LaravelConfig\\": "app",
+            "Plugins\\LaravelConfig\\Database\\Factories\\": "database/factories/",
+            "Plugins\\LaravelConfig\\Database\\Seeders\\": "database/seeders/"
         },
         "files": [
-            "./src/helpers.php"
+            "./app/helpers.php"
         ]
     },
     "extra": {
         "laravel": {
             "providers": [
-                "MouYong\\LaravelConfig\\LaravelConfigServiceProvider"
+                "Plugins\\LaravelConfig\\LaravelConfigServiceProvider"
             ]
         },
         "hooks": {

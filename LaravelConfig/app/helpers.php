@@ -1,6 +1,6 @@
 <?php
 
-use MouYong\LaravelConfig\Models\Config;
+use Plugins\LaravelConfig\Models\Config;
 
 if (! function_exists('db_config')) {
     function db_config($itemKey = null): mixed

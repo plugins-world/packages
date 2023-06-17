@@ -25,7 +25,7 @@ git pull origin $CURRENT_BRANCH || true
 remote MarketManager git@github.com:plugins-world/MarketManager.git
 
 remote LaravelOauth git@github.com:mouyong/laravel-oauth.git
-remote LaravelConfig git@github.com:mouyong/laravel-config.git
+remote LaravelConfig git@github.com:plugins-world/LaravelConfig.git
 remote LaravelDoc git@github.com:mouyong/laravel-doc.git
 remote PhpSupport git@github.com:mouyong/php-support.git
 remote Translate git@github.com:mouyong/translate.git
