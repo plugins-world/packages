@@ -36,14 +36,16 @@ class MarketManagerController extends Controller
 
     public function showSettingView()
     {
-        $configs = ConfigHelper::fresnsConfigByItemKeys([
+        $itemKeys = [
             'market_server_host',
             'system_url',
             'settings_path',
             'install_datetime',
             'build_type',
             'github_token',
-        ]);
+        ];
+
+        $configs = ConfigHelper::fresnsConfigByItemKeys($itemKeys);
 
         return view('MarketManager::setting', [
             'configs' => $configs,
