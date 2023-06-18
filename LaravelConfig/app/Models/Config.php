@@ -57,5 +57,7 @@ class Config extends Model
         if ($this->item_type === 'string') {
             $value = strval($value);
         }
+
+        $this->attributes['item_value'] = $value;
     }
 }

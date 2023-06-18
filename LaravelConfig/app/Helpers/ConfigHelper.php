@@ -29,12 +29,19 @@ class ConfigHelper
         return $developerModeArr;
     }
 
-    // Get config value based on Key
-    public static function fresnsConfigByItemKey(string $itemKey, ?string $itemTag = null, array $where = [], ?string $langTag = null): mixed
+    public static function getConfigKeyCacheKey(string $itemKey, ?string $langTag = null)
     {
         $langTag = $langTag ?: ConfigHelper::fresnsConfigDefaultLangTag();
 
         $cacheKey = "fresns_config_{$itemKey}_{$langTag}";
+
+        return $cacheKey;
+    }
+
+    // Get config value based on Key
+    public static function fresnsConfigByItemKey(string $itemKey, ?string $itemTag = null, array $where = [], ?string $langTag = null): mixed
+    {
+        $cacheKey = ConfigHelper::getConfigKeyCacheKey($itemKey, $langTag);
         $cacheTag = 'fresnsConfigs';
 
         // is known to be empty
@@ -62,13 +69,20 @@ class ConfigHelper
         return $itemValue;
     }
 
-    // Get multiple values based on multiple keys
-    public static function fresnsConfigByItemKeys(array $itemKeys, ?string $itemTag = null, array $where = [], ?string $langTag = null): array
+    public static function getConfigKeysCacheKey(array $itemKeys, ?string $langTag = null)
     {
         $langTag = $langTag ?: ConfigHelper::fresnsConfigDefaultLangTag();
 
         $key = reset($itemKeys).'_'.end($itemKeys).'_'.count($itemKeys);
         $cacheKey = "fresns_config_keys_{$key}_{$langTag}";
+
+        return $cacheKey;
+    }
+
+    // Get multiple values based on multiple keys
+    public static function fresnsConfigByItemKeys(array $itemKeys, ?string $itemTag = null, array $where = [], ?string $langTag = null): array
+    {
+        $cacheKey = ConfigHelper::getConfigKeysCacheKey($itemKeys, $langTag);
 
         $keysData = CacheHelper::get($cacheKey, 'fresnsConfigs');
 

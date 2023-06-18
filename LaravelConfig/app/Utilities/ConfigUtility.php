@@ -8,12 +8,12 @@ use Plugins\LaravelConfig\Helpers\ConfigHelper;
 
 class ConfigUtility
 {
-    public static function updateConfigs(array $keys = [], ?string $itemTag = null, array $where = [], ?string $langTag = null)
+    public static function updateConfigs(array $keys = [], ?string $itemTag = null, array $where = [])
     {
         $itemKeys = $keys;
 
         foreach ($itemKeys as $itemKey) {
-            if ($$itemTag) {
+            if ($itemTag) {
                 $where['item_tag'] = $itemTag;
             }
 
@@ -24,9 +24,9 @@ class ConfigUtility
 
             $config->item_value = \request($config->item_key);
             $config->save();
-
-            CacheHelper::forgetFresnsKey($itemKey);
         }
+
+        CacheHelper::forgetFresnsConfigByItemKeys($itemKeys, $itemTag);
 
         $result = ConfigHelper::fresnsConfigByItemKeys($itemKeys, $itemTag);
 

@@ -2,11 +2,12 @@
 
 namespace Plugins\MarketManager\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Fresns\MarketManager\Models\Plugin;
 use Plugins\LaravelConfig\Models\Config;
+use Plugins\LaravelConfig\Helpers\CacheHelper;
 use Plugins\LaravelConfig\Helpers\ConfigHelper;
+use Plugins\LaravelConfig\Utilities\ConfigUtility;
 
 class MarketManagerController extends Controller
 {
@@ -36,7 +37,7 @@ class MarketManagerController extends Controller
 
     public function showSettingView()
     {
-        $configs = Config::getValueByKeys([
+        $configs = ConfigHelper::fresnsConfigByItemKeys([
             'market_server_host',
             'system_url',
             'settings_path',
@@ -66,7 +67,17 @@ class MarketManagerController extends Controller
             'github_token',
         ];
 
-        Config::updateConfigs($itemKeys, 'market_manager');
+        ConfigUtility::updateConfigs($itemKeys, 'market_manager');
+
+        // showSetting
+        CacheHelper::forgetFresnsConfigByItemKeys([
+            'market_server_host',
+            'system_url',
+            'settings_path',
+            'install_datetime',
+            'build_type',
+            'github_token',
+        ], 'market_manager');
 
         return redirect(route('market-manager.setting'));
     }

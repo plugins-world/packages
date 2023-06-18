@@ -45,6 +45,20 @@ class CacheHelper
         }
     }
 
+    /**
+     * forget fresns config keys.
+     */
+    public static function forgetFresnsConfigByItemKeys(array $itemKeys, ?string $itemTag = null, ?string $langTag = null)
+    {
+        foreach ($itemKeys as $itemKey) {
+            $itemKeyCacheKey = ConfigHelper::getConfigKeyCacheKey($itemKey, $langTag);
+            CacheHelper::forgetFresnsKey($itemKeyCacheKey, '$fresnsConfigs');
+        }
+
+        $itemKeysCacheKey = ConfigHelper::getConfigKeysCacheKey($itemKeys, $langTag);
+        CacheHelper::forgetFresnsKey($itemKeysCacheKey, 'fresnsConfigs');
+    }
+
     // put null cache count
     public static function putNullCacheCount(string $cacheKey, ?int $cacheMinutes = null): void
     {
