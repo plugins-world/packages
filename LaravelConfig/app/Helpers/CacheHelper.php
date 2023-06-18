@@ -48,7 +48,7 @@ class CacheHelper
     /**
      * forget fresns config keys.
      */
-    public static function forgetFresnsConfigByItemKeys(array $itemKeys, ?string $itemTag = null, ?string $langTag = null)
+    public static function forgetFresnsConfigByItemKeys(array $itemKeys, ?string $langTag = null)
     {
         foreach ($itemKeys as $itemKey) {
             $itemKeyCacheKey = ConfigHelper::getConfigKeyCacheKey($itemKey, $langTag);

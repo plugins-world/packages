@@ -26,7 +26,7 @@ class ConfigUtility
             $config->save();
         }
 
-        CacheHelper::forgetFresnsConfigByItemKeys($itemKeys, $itemTag);
+        CacheHelper::forgetFresnsConfigByItemKeys($itemKeys);
 
         $result = ConfigHelper::fresnsConfigByItemKeys($itemKeys, $itemTag);
 
