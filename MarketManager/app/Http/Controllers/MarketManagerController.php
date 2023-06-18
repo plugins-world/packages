@@ -4,7 +4,6 @@ namespace Plugins\MarketManager\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use Fresns\MarketManager\Models\Plugin;
-use Plugins\LaravelConfig\Models\Config;
 use Plugins\LaravelConfig\Helpers\CacheHelper;
 use Plugins\LaravelConfig\Helpers\ConfigHelper;
 use Plugins\LaravelConfig\Utilities\ConfigUtility;
@@ -77,7 +76,7 @@ class MarketManagerController extends Controller
             'install_datetime',
             'build_type',
             'github_token',
-        ], 'market_manager');
+        ]);
 
         return redirect(route('market-manager.setting'));
     }
