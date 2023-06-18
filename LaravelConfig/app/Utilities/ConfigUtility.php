@@ -33,7 +33,7 @@ class ConfigUtility
         return $result;
     }
 
-    public function addFresnsConfigItems(array $fresnsConfigItems): void
+    public static function addFresnsConfigItems(array $fresnsConfigItems): void
     {
         foreach ($fresnsConfigItems as $item) {
             $config = Config::where('item_key', $item['item_key'])->first();
