@@ -24,13 +24,13 @@ class Config extends Model
     public function getItemValueAttribute($value)
     {
         if (in_array($this->item_type, ['array', 'json', 'object'])) {
-            $value = json_decode($this->item_value, true) ?: [];
+            $value = json_decode($value, true) ?: [];
         } else if (in_array($this->item_type, ['boolean'])) {
-            $value = filter_var($this->item_value, FILTER_VALIDATE_BOOLEAN);
+            $value = filter_var($value, FILTER_VALIDATE_BOOLEAN);
         } else if ($this->item_type === 'string') {
-            $value = strval($this->item_value);
+            $value = strval($value);
         } else if ($this->item_type === 'number') {
-            $value = intval($this->item_value);
+            $value = intval($value);
         } else {
             $value = $value;
         }

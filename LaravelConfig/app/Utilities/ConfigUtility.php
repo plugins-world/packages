@@ -59,7 +59,7 @@ class ConfigUtility
     public static function removeFresnsConfigItems(array $fresnsConfigKeys): void
     {
         foreach ($fresnsConfigKeys as $item) {
-            $config = ConfigHelper::fresnsConfigByItemKey($item['item_key'], $item['item_tag']);
+            $config = Config::findConfig($item['item_key'], $item['item_tag']);
 
             if ($config?->is_custom == 1 && $config?->is_multilingual == 1) {
                 // Language::where('table_name', 'configs')->where('table_column', 'item_value')->where('table_key', $key)->forceDelete();

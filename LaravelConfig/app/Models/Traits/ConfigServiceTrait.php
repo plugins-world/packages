@@ -7,7 +7,7 @@ use Plugins\LaravelConfig\Models\Config;
 /**
  * @mixin Config
  */
-class ConfigServiceTrait
+trait ConfigServiceTrait
 {
     public static function findConfig(string $itemKey = null, ?string $itemTag, array $where = []): null|Config
     {
