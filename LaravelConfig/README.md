@@ -12,4 +12,11 @@ $ composer require plugins-world/laravel-config -vvv
 
 ## 使用
 
-TODO
+**规则说明**
+
+```
+Model 模型定义
+Model\Traits\ServiceTrait 模型操作函数
+Helpers\ 数据处理查询操作函数
+Utilities\ 增删改便捷操作函数
+```
