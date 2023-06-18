@@ -45,6 +45,8 @@ class MarketManagerController extends Controller
             'github_token',
         ];
 
+        CacheHelper::forgetFresnsConfigByItemKeys($itemKeys);
+
         $configs = ConfigHelper::fresnsConfigByItemKeys($itemKeys);
 
         return view('MarketManager::setting', [
@@ -69,16 +71,6 @@ class MarketManagerController extends Controller
         ];
 
         ConfigUtility::updateConfigs($itemKeys, 'market_manager');
-
-        // showSetting
-        CacheHelper::forgetFresnsConfigByItemKeys([
-            'market_server_host',
-            'system_url',
-            'settings_path',
-            'install_datetime',
-            'build_type',
-            'github_token',
-        ]);
 
         return redirect(route('market-manager.setting'));
     }
