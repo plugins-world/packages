@@ -1,6 +1,6 @@
 <?php
 
-namespace Plugins\LaravelConfig\Helphers;
+namespace Plugins\LaravelConfig\Helpers;
 
 use Illuminate\Support\Facades\Cache;
 use Plugins\LaravelConfig\Models\Config;
@@ -63,7 +63,7 @@ class ConfigHelper
     }
 
     // Get multiple values based on multiple keys
-    public static function fresnsConfigByItemKeys(array $itemKeys, ?string $itemTag, array $where = [], ?string $langTag = null): array
+    public static function fresnsConfigByItemKeys(array $itemKeys, ?string $itemTag = null, array $where = [], ?string $langTag = null): array
     {
         $langTag = $langTag ?: ConfigHelper::fresnsConfigDefaultLangTag();
 

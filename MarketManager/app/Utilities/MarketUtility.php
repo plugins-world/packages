@@ -4,7 +4,7 @@ namespace Plugins\MarketManager\Utilities;
 
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Http;
-use Plugins\LaravelConfig\Models\Config;
+use Plugins\LaravelConfig\Helpers\ConfigHelper;
 
 class MarketUtility
 {
@@ -32,14 +32,14 @@ class MarketUtility
 
     public static function getApiHost(): string
     {
-        $apiHost = Config::getValueByKey('market_server_host');
+        $apiHost = ConfigHelper::fresnsConfigByItemKey('market_server_host');
 
         return $apiHost;
     }
 
     public static function getMarketHeaders(): array
     {
-        $appConfig = Config::getValueByKeys([
+        $appConfig = ConfigHelper::fresnsConfigByItemKeys([
             'install_datetime',
             'build_type',
             'site_url',

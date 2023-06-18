@@ -3,8 +3,8 @@
 namespace Plugins\LaravelConfig\Utilities;
 
 use Plugins\LaravelConfig\Models\Config;
-use Plugins\LaravelConfig\Helphers\CacheHelper;
-use Plugins\LaravelConfig\Helphers\ConfigHelper;
+use Plugins\LaravelConfig\Helpers\CacheHelper;
+use Plugins\LaravelConfig\Helpers\ConfigHelper;
 
 class ConfigUtility
 {

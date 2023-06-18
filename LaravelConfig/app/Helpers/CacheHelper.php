@@ -1,6 +1,6 @@
 <?php
 
-namespace Plugins\LaravelConfig\Helphers;
+namespace Plugins\LaravelConfig\Helpers;
 
 use Carbon\Carbon;
 use Illuminate\Support\Arr;

@@ -4,7 +4,7 @@ namespace Plugins\MarketManager\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Artisan;
-use Plugins\LaravelConfig\Models\Config;
+use Plugins\LaravelConfig\Helpers\ConfigHelper;
 
 class MarketManagerApiController extends Controller
 {
@@ -38,7 +38,7 @@ class MarketManagerApiController extends Controller
             case 'plugin_package':
             case 'plugin_url':
                 if ($install_method == 'plugin_url') {
-                    $configs = Config::getValueByKeys([
+                    $configs = ConfigHelper::fresnsConfigByItemKeys([
                         'github_token',
                     ]);
 

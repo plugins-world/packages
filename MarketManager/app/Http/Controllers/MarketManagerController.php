@@ -6,12 +6,13 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Fresns\MarketManager\Models\Plugin;
 use Plugins\LaravelConfig\Models\Config;
+use Plugins\LaravelConfig\Helpers\ConfigHelper;
 
 class MarketManagerController extends Controller
 {
     public function index()
     {
-        $configs = Config::getValueByKeys([
+        $configs = ConfigHelper::fresnsConfigByItemKeys([
             'market_server_host',
             'system_url',
             'settings_path',
