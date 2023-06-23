@@ -45,14 +45,7 @@
                     <a class="nav-link active" data-bs-toggle="tab" data-bs-target="#nav-market-manager">管理插件</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link"
-                        @if(str_contains($configs['market_server_host'], 'packagist.org'))
-                            href="{{ $configs['market_server_host'] }}"
-                            target="_blank"
-                        @else
-                            data-bs-toggle="tab" data-bs-target="#nav-market"
-                        @endif
-                    >插件市场</a>
+                    <a class="nav-link" @if(str_contains($configs['market_server_host'], 'packagist.org' )) href="{{ $configs['market_server_host'] }}" target="_blank" @else data-bs-toggle="tab" data-bs-target="#nav-market" @endif>插件市场</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" id="installBtn" data-bs-target="#installModal" data-bs-toggle="modal" href="#">安装插件</a>
@@ -190,7 +183,7 @@
 </div>
 
 <div class="modal fade" id="output" tabindex="-1">
-    <div class="modal-dialog modal-lg">
+    <div class="modal-dialog modal-xl">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title">安装结果</h5>
@@ -200,7 +193,7 @@
                 <div class="spinner-border text-primary" id="outputLoading" role="status">
                     <span class="visually-hidden">正在安装中...</span>
                 </div>
-                <pre></pre>
+                <iframe id="content" style="width: 100%;"></iframe>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" onclick="$('#installModal').modal('show')">取消</button>
@@ -225,19 +218,19 @@
                 <div class="list-group">
                     <div class="list-group-item list-group-item-action" aria-current="true">
                         <div class="d-flex w-100 justify-content-between">
-                        <h5 class="mb-1">1. 打开插件详情页</h5>
+                            <h5 class="mb-1">1. 打开插件详情页</h5>
                         </div>
                         <p class="mb-1">请在插件市场搜索插件，并进入详情页</p>
                     </div>
                     <div class="list-group-item list-group-item-action">
                         <div class="d-flex w-100 justify-content-between">
-                        <h5 class="mb-1">2. 让详情页可以添加按钮</h5>
+                            <h5 class="mb-1">2. 让详情页可以添加按钮</h5>
                         </div>
                         <p class="mb-1">请通过开发者工具的元素选择器选择插件详情页</p>
                     </div>
                     <div class="list-group-item list-group-item-action">
                         <div class="d-flex w-100 justify-content-between">
-                        <h5 class="mb-1">3. 在详情页中添加代码</h5>
+                            <h5 class="mb-1">3. 在详情页中添加代码</h5>
                         </div>
                         <p class="mb-1">请在开发者工具的 <code>Console</code> 面板复制以下内容，并粘贴执行</p>
 
@@ -250,13 +243,13 @@
                     </div>
                     <div class="list-group-item list-group-item-action">
                         <div class="d-flex w-100 justify-content-between">
-                        <h5 class="mb-1">4. 开始安装</h5>
+                            <h5 class="mb-1">4. 开始安装</h5>
                         </div>
                         <p class="mb-1">请点击详情页中的安装按钮</p>
                     </div>
                     <div class="list-group-item list-group-item-action">
                         <div class="d-flex w-100 justify-content-between">
-                        <h5 class="mb-1">当前有哪些插件可以在 <code>Laravel</code> 中安装呢？</h5>
+                            <h5 class="mb-1">当前有哪些插件可以在 <code>Laravel</code> 中安装呢？</h5>
                         </div>
                         <p class="mb-1">具体可以安装的插件请前往仓库查看：<a href="https://github.com/plugins-world/plugins" target="_blank">https://github.com/plugins-world/plugins</a></p>
                     </div>
@@ -291,7 +284,7 @@
     // 确认安装
     $(document).on('click', '.install-btn', $.debounce(250, function(event) {
         $('#outputLoading').show();
-        $('#output pre').empty('');
+        $('#output #content').contents().find('body').empty('');
         $('#output .modal-title').text('安装结果');
         $('#installModal').modal('hide');
         $('#output').modal('show');
@@ -328,11 +321,21 @@
 
                 $('#installModal').hide();
                 $('#outputLoading').hide();
-                $('#output pre').html(html || '安装成功');
+                $('#output #content').contents().find('body').html(html || '安装成功');
+                $('#output #content').height($('#output #content').contents().outerHeight());
             },
             error: function(response) {
                 $('#outputLoading').hide();
-                $('#output pre').html(response.responseJSON.err_msg + "<br><br> 安装失败");
+
+                let html = "安装失败 <br><br>" + "请检查服务端日志";
+                if (response.responseJSON) {
+                    html = "安装失败 <br><br>" + response.responseJSON.err_msg;
+                } else if (response.responseText) {
+                    html = "安装失败 <br><br>" + response.responseText;
+                }
+
+                $('#output #content').contents().find('body').html(html);
+                $('#output #content').height($('#output #content').contents().outerHeight());
             },
         });
     });
@@ -360,7 +363,7 @@
                 break;
             case 'setting':
                 const obj = this;
-                $('#pluginPageIframe').attr('src', $(obj).data('settings-url')).on('load', function () {
+                $('#pluginPageIframe').attr('src', $(obj).data('settings-url')).on('load', function() {
                     $(obj).find('span').remove();
                     $(obj).prop('disabled', '');
 
@@ -419,12 +422,22 @@
             data: data,
             success: function(res) {
                 $('#outputLoading').hide();
-                $('#output pre').html(res || '卸载成果');
+                $('#output #content').contents().find('body').html(res || '卸载成功');
+                $('#output #content').height($('#output #content').contents().outerHeight());
             },
             error: function(err) {
                 console.log(err)
                 $('#outputLoading').hide();
-                $('#output pre').html(err.responseJSON.err_msg + "<br><br> 卸载失败");
+
+                let html = "卸载失败 <br><br>" + "请检查服务端日志";
+                if (response.responseJSON) {
+                    html = "卸载失败 <br><br>" + response.responseJSON.err_msg;
+                } else if (response.responseText) {
+                    html = "卸载失败 <br><br>" + response.responseText;
+                }
+
+                $('#output #content').contents().find('body').html(html);
+                $('#output #content').height($('#output #content').contents().outerHeight());
             }
         })
     }
@@ -439,15 +452,15 @@
             return
         }
 
-        if (! data.action || !data) {
+        if (!data.action || !data) {
             return
         }
 
-        switch(data.action.postMessageKey) {
+        switch (data.action.postMessageKey) {
             case 'fresnsInstallExtension':
                 // (new bootstrap.Modal('#installModal')).show();
 
-                setTimeout(function () {
+                setTimeout(function() {
                     $('#toggleInstallMentod').text($('.dropdown-menu a[data-install-method="plugin_package"]').text())
                     $('input[name="install_method"]').val('plugin_package')
                     $('input[name="plugin_package"]').val(data.data.fskey)
@@ -485,7 +498,7 @@
 
     }
 
-    $(document).ready(function () {
+    $(document).ready(function() {
         injectInstallBtn();
     });
 </script>
