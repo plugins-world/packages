@@ -325,7 +325,7 @@
 
                 $('#installModal').hide();
                 $('#outputLoading').hide();
-                $('#output #content').contents().find('body').html(html || '安装成功');
+                $('#output #content').contents().find('body').html(`<pre>${html || '安装成功'}</pre>`);
                 $('#output #content').height($('#output #content').contents().outerHeight());
             },
             error: function(response) {
@@ -426,6 +426,7 @@
             data: data,
             success: function(res) {
                 $('#outputLoading').hide();
+
                 $('#output #content').contents().find('body').html(res || '卸载成功');
                 $('#output #content').height($('#output #content').contents().outerHeight());
             },
