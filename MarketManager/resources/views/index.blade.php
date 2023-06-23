@@ -193,7 +193,7 @@
                 <div class="spinner-border text-primary" id="outputLoading" role="status">
                     <span class="visually-hidden">正在安装中...</span>
                 </div>
-                <iframe id="content" style="width: 100%;"></iframe>
+                <iframe src="#" id="content" style="width: 100%;"></iframe>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" onclick="$('#installModal').modal('show')">取消</button>
@@ -298,6 +298,10 @@
         $('input[name="plugin_package"]').val('');
         $('input[name="plugin_directory"]').val('');
         $('input[name="plugin_zipball"]').val('');
+    });
+
+    $('#output').on('shown.bs.modal', function() {
+        $('#output #content').height($('#output #content').contents().outerHeight());
     });
 
     // 安装
