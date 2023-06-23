@@ -290,7 +290,7 @@
         $('#output').modal('show');
     }));
 
-    $('#installModal').on('shown.bs.modal', function() {
+    $('#installModal').on('show.bs.modal', function() {
         $('form button[type="submit"] span').remove();
         $('form button[type="submit"]').prop('disabled', false);
 
@@ -300,8 +300,14 @@
         $('input[name="plugin_zipball"]').val('');
     });
 
-    $('#output').on('shown.bs.modal', function() {
+    $('#output').on('show.bs.modal', function() {
+        $('#output #content').contents().find('html').html('');
+        $('#output #content').contents().find('body').html('');
         $('#output #content').height($('#output #content').contents().outerHeight());
+        $('#output #content').css({
+            'min-height': 0,
+            'height': 0,
+        });
     });
 
     // 安装
