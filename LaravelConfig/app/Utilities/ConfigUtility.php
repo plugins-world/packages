@@ -65,9 +65,9 @@ class ConfigUtility
                 // Language::where('table_name', 'configs')->where('table_column', 'item_value')->where('table_key', $key)->forceDelete();
             }
 
-            CacheHelper::forgetFresnsKey($config->item_key);
+            CacheHelper::forgetFresnsKey($config?->item_key);
 
-            $config->forceDelete();
+            $config?->forceDelete();
         }
     }
 

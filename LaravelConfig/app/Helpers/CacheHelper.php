@@ -29,8 +29,12 @@ class CacheHelper
     /**
      * forget fresns key.
      */
-    public static function forgetFresnsKey(string $cacheKey, mixed $cacheTags = null): void
+    public static function forgetFresnsKey(?string $cacheKey, mixed $cacheTags = null): void
     {
+        if (! $cacheKey) {
+            return;
+        }
+
         $nullCacheKey = CacheHelper::getNullCacheKey($cacheKey);
         $nullCacheTag = ['fresnsNullCount'];
 
