@@ -8,6 +8,8 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Config extends Model
 {
+    const CACHE_KEY_PREFIX = 'item_key:';
+
     use HasFactory;
     use SoftDeletes;
     use Traits\ConfigServiceTrait;

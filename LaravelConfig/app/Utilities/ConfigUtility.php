@@ -3,7 +3,6 @@
 namespace Plugins\LaravelConfig\Utilities;
 
 use Plugins\LaravelConfig\Models\Config;
-use Plugins\LaravelConfig\Helpers\CacheHelper;
 use Plugins\LaravelConfig\Helpers\ConfigHelper;
 
 class ConfigUtility
@@ -24,9 +23,9 @@ class ConfigUtility
 
             $config->item_value = \request($config->item_key);
             $config->save();
-        }
 
-        CacheHelper::forgetFresnsConfigByItemKeys($itemKeys);
+            Config::forgetCache($config->item_key);
+        }
 
         $result = ConfigHelper::fresnsConfigByItemKeys($itemKeys, $itemTag);
 
@@ -65,9 +64,9 @@ class ConfigUtility
                 // Language::where('table_name', 'configs')->where('table_column', 'item_value')->where('table_key', $key)->forceDelete();
             }
 
-            CacheHelper::forgetFresnsKey($config?->item_key);
-
             $config?->forceDelete();
+
+            Config::forgetCache($config?->item_key);
         }
     }
 
@@ -92,6 +91,8 @@ class ConfigUtility
 
                 ConfigUtility::changeFresnsLanguageItems($fresnsLangItems);
             }
+
+            Config::forgetCache($item['item_key']);
         }
     }
 
