@@ -8,8 +8,9 @@
 
 namespace Plugins\MarketManager\Providers;
 
-use Fresns\MarketManager\Models\Plugin;
+use Doctrine\Common\Cache\Cache;
 use Illuminate\Support\Facades\Route;
+use Fresns\MarketManager\Models\Plugin;
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as BaseServiceProvider;
 
 class RouteServiceProvider extends BaseServiceProvider
@@ -35,14 +36,25 @@ class RouteServiceProvider extends BaseServiceProvider
     {
         $host = null;
 
-        try {
-            if (class_exists(Plugin::class)) {
-                $pluginHost = Plugin::findByFskey('MarketManager')?->plugin_host;
-                $host = str_replace(['http://', 'https://'], '', rtrim($pluginHost, '/'));
-            }
-        } catch (\Throwable $e) {
-            info("get plugin host failed: " . $e->getMessage());
-        }
+        // try {
+        //     if (class_exists(Plugin::class)) {
+        //         $fskey = 'MarketManager';
+        //         $cacheKey = "MarketManager_model";
+
+        //         $pluginModel = Cache::get($cacheKey);
+        //         if (empty($pluginModel)) {
+        //             $pluginModel = Plugin::withTrashed()->where('fskey', $fskey)->first();
+
+        //             Cache::put($cacheKey, $pluginModel, now()->addMinutes(30));
+        //         }
+
+        //         $pluginHost = $pluginModel?->plugin_host ?? '';
+
+        //         $host = str_replace(['http://', 'https://'], '', rtrim($pluginHost, '/'));
+        //     }
+        // } catch (\Throwable $e) {
+        //     info("get plugin host failed: " . $e->getMessage());
+        // }
 
         Route::group([
             'domain' => $host,
