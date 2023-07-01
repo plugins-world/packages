@@ -96,7 +96,7 @@ class StrUtility
             return null;
         }
 
-        if (str_starts_with($uri, '://')) {
+        if (str_contains($uri, '://')) {
             return $uri;
         }
 
