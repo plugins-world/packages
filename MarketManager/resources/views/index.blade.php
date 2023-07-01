@@ -1,5 +1,9 @@
 @extends('MarketManager::layouts.master')
 
+@php
+use \Plugins\MarketManager\Utilities\StrUtility;
+@endphp
+
 @section('content')
 <header class="container-fulid mb-3 border-bottom">
     <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
@@ -115,11 +119,11 @@
                                                 <button type="button" data-fskey="{{ $plugin['fskey'] }}" data-action="activate" class="table-row btn-sm btn btn-link text-success">启用</button>
                                                 @elseif($plugin['fskey'] !== 'MarketManager')
 
-                                                @if($plugin['is_enabled'] && $plugin['access_url'])
-                                                <button type="button" data-fskey="{{ $plugin['fskey'] }}" data-action="setting" data-settings-url="{{ $plugin['access_url'] }}" class="table-row btn-sm btn btn-light">管理</button>
+                                                @if($plugin['is_enabled'] && $plugin['access_path'])
+                                                <button type="button" data-fskey="{{ $plugin['fskey'] }}" data-action="setting" data-settings-url="{{ StrUtility::qualifyUrl($plugin['access_path'], $plugin['plugin_host']) }}" class="table-row btn-sm btn btn-light">管理</button>
                                                 @endif
-                                                @if($plugin['is_enabled'] && $plugin['settings_url'])
-                                                <button type="button" data-fskey="{{ $plugin['fskey'] }}" data-action="setting" data-settings-url="{{ $plugin['settings_url'] }}" class="table-row btn-sm btn btn-light">设置</button>
+                                                @if($plugin['is_enabled'] && $plugin['settings_path'])
+                                                <button type="button" data-fskey="{{ $plugin['fskey'] }}" data-action="setting" data-settings-url="{{ StrUtility::qualifyUrl($plugin['settings_path'], $plugin['plugin_host']) }}" class="table-row btn-sm btn btn-light">设置</button>
                                                 @endif
 
                                                 <button type="button" data-fskey="{{ $plugin['fskey'] }}" data-action="deactivate" class="table-row btn-sm btn btn-link text-danger">停用</button>
