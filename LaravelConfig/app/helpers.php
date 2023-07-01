@@ -35,7 +35,7 @@ if (! function_exists('db_config_central')) {
 if (! function_exists('central')) {
     function central(callable $callable): mixed
     {
-        if (! function_exists('tenancy')) {            
+        if (! function_exists('tenancy')) {
             $tenant = null;
 
             return $callable($tenant);
