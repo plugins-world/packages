@@ -1,7 +1,7 @@
 @extends('MarketManager::layouts.master')
 
 @php
-use \Plugins\MarketManager\Utilities\StrUtility;
+use \Plugins\MarketManager\Utilities\PluginUtility;
 @endphp
 
 @section('content')
@@ -120,10 +120,10 @@ use \Plugins\MarketManager\Utilities\StrUtility;
                                                 @elseif($plugin['fskey'] !== 'MarketManager')
 
                                                 @if($plugin['is_enabled'] && $plugin['access_path'])
-                                                <button type="button" data-fskey="{{ $plugin['fskey'] }}" data-action="setting" data-settings-url="{{ StrUtility::qualifyUrl($plugin['access_path'], $plugin['plugin_host']) }}" class="table-row btn-sm btn btn-light">管理</button>
+                                                <button type="button" data-fskey="{{ $plugin['fskey'] }}" data-action="setting" data-settings-url="{{ PluginUtility::qualifyUrl($plugin, 'access_path') }}" class="table-row btn-sm btn btn-light">管理</button>
                                                 @endif
                                                 @if($plugin['is_enabled'] && $plugin['settings_path'])
-                                                <button type="button" data-fskey="{{ $plugin['fskey'] }}" data-action="setting" data-settings-url="{{ StrUtility::qualifyUrl($plugin['settings_path'], $plugin['plugin_host']) }}" class="table-row btn-sm btn btn-light">设置</button>
+                                                <button type="button" data-fskey="{{ $plugin['fskey'] }}" data-action="setting" data-settings-url="{{ PluginUtility::qualifyUrl($plugin, 'settings_path') }}" class="table-row btn-sm btn btn-light">设置</button>
                                                 @endif
 
                                                 <button type="button" data-fskey="{{ $plugin['fskey'] }}" data-action="deactivate" class="table-row btn-sm btn btn-link text-danger">停用</button>
