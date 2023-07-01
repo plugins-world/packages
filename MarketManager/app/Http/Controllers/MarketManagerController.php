@@ -4,7 +4,6 @@ namespace Plugins\MarketManager\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use Fresns\MarketManager\Models\Plugin;
-use Plugins\LaravelConfig\Helpers\CacheHelper;
 use Plugins\LaravelConfig\Helpers\ConfigHelper;
 use Plugins\LaravelConfig\Utilities\ConfigUtility;
 
@@ -44,8 +43,6 @@ class MarketManagerController extends Controller
             'build_type',
             'github_token',
         ];
-
-        CacheHelper::forgetFresnsConfigByItemKeys($itemKeys);
 
         $configs = ConfigHelper::fresnsConfigByItemKeys($itemKeys);
 
