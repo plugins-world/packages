@@ -146,7 +146,7 @@ use \Plugins\MarketManager\Utilities\PluginUtility;
 </div>
 
 
-<div class="modal fade" id="installModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-2" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+<div class="modal fade" id="installModal" tabindex="-2" data-bs-backdrop="static" data-bs-keyboard="false" aria-labelledby="staticBackdropLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <form action="{{ route('plugin.install') }}" method="post" enctype="multipart/form-data">
@@ -186,7 +186,7 @@ use \Plugins\MarketManager\Utilities\PluginUtility;
     </div>
 </div>
 
-<div class="modal fade" id="output" tabindex="-1">
+<div class="modal fade" id="output" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" aria-labelledby="staticBackdropLabel" aria-hidden="true">
     <div class="modal-dialog modal-xl">
         <div class="modal-content">
             <div class="modal-header">
