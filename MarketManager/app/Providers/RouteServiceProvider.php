@@ -74,7 +74,7 @@ class RouteServiceProvider extends BaseServiceProvider
      */
     protected function mapWebRoutes()
     {
-        Route::middleware('web')
+        Route::middleware(['web', 'market-manager.auth'])
             ->group(dirname(__DIR__, 2) . '/routes/web.php');
     }
 
@@ -87,7 +87,7 @@ class RouteServiceProvider extends BaseServiceProvider
      */
     protected function mapApiRoutes()
     {
-        Route::prefix('api')
+        Route::prefix('api', 'market-manager.auth')
             ->middleware('api')
             ->group(dirname(__DIR__, 2) . '/routes/api.php');
     }
