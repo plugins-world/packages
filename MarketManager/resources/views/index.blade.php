@@ -149,7 +149,7 @@ use \Plugins\MarketManager\Utilities\PluginUtility;
 <div class="modal fade" id="installModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-2" aria-labelledby="staticBackdropLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
-            <form action="{{ route('plugin.install') }}" method="post">
+            <form action="{{ route('plugin.install') }}" method="post" enctype="multipart/form-data">
                 <div class="modal-header">
                     <h1 class="modal-title fs-5" id="installModalLabel">安装插件</h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -319,8 +319,7 @@ use \Plugins\MarketManager\Utilities\PluginUtility;
         event.preventDefault();
 
         // 减少上传文件
-        console.log($('input[name="install_method"]'))
-        if ($('input[name="install_method"]') !== 'plugin_zipball') {
+        if ($('input[name="install_method"]').val() !== 'plugin_zipball') {
             $('input[name="plugin_zipball"]').val('');
         }
 
