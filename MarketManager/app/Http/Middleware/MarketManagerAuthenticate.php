@@ -4,7 +4,7 @@ namespace Plugins\MarketManager\Http\Middleware;
 
 use Plugins\MarketManager\MarketManager;
 
-class Authenticate
+class MarketManagerAuthenticate
 {
     /**
      * Handle the incoming request.
@@ -15,6 +15,6 @@ class Authenticate
      */
     public function handle($request, $next)
     {
-        return MarketManager::check($request) ? $next($request) : abort(403);
+        return MarketManager::checkAuth($request) ? $next($request) : abort(403);
     }
 }

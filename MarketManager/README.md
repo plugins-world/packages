@@ -57,18 +57,24 @@ git commit -m "feat: Install laravel market-manager."
 3. 访问路由：`/market-manager`
 
 4. 限制访问授权
-默认只允许 `local` 与 `develop` 环境访问。
-
-如果需要限制访问权限，可以在 `app/Providers/AppServiceProvider.php` 的 `boot` 函数中，通过指定 MarketManager 如何进行认证来完成限制，参考如下：
+- MarketManager 默认只允许 `local` 与 `develop` 环境访问。
+- Plugin 默认全部放行访问。
+- 如果需要限制访问权限，可以在 `app/Providers/AppServiceProvider.php` 的 `boot` 函数中，通过指定 MarketManager 如何进行认证来完成限制，参考如下：
 
 - 通过 `AppServiceProvider` 授权
 ```
 \Plugins\MarketManager\MarketManager::auth(function ($request) {
     // return true / false;
 });
+
+
+\Plugins\MarketManager\MarketManager::pluginAuth(function ($request) {
+    // return true / false;
+});
 ```
 
-- 通过命令字 `\FresnsCmdWord::plugin('Manager')->auth([])` 授权，需要自行实现 `Manager` 的 `auth` 命令字。
+- 通过命令字 `\FresnsCmdWord::plugin('Manager')->checkAuth([])` 授权 MarketManager 访问，需要自行实现 `Manager` 的 `checkAuth` 命令字。
+- 通过命令字 `\FresnsCmdWord::plugin('Manager')->checkAuth([])` 授权 Plugin 访问，需要自行实现 `Manager` 的 `checkPluginAuth` 命令字。
 
 
 **注意，安装的时候，会询问是以下内容，请输入： `y`**

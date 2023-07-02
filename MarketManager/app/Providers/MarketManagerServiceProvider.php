@@ -10,7 +10,8 @@ namespace Plugins\MarketManager\Providers;
 
 use Illuminate\Support\Facades\Route;
 use Plugins\MarketManager\Utilities\MarketUtility;
-use Plugins\MarketManager\Http\Middleware\Authenticate;
+use Plugins\MarketManager\Http\Middleware\MarketManagerAuthenticate;
+use Plugins\MarketManager\Http\Middleware\PluginAuthenticate;
 use Illuminate\Support\ServiceProvider as BaseServiceProvider;
 
 class MarketManagerServiceProvider extends BaseServiceProvider
@@ -32,7 +33,8 @@ class MarketManagerServiceProvider extends BaseServiceProvider
 
         $this->loadMigrationsFrom(dirname(__DIR__, 2) . '/database/migrations');
 
-        Route::aliasMiddleware('market-manager.auth', Authenticate::class);
+        Route::aliasMiddleware('market-manager.auth', MarketManagerAuthenticate::class);
+        Route::aliasMiddleware('plugin.auth', PluginAuthenticate::class);
         $this->app->register(RouteServiceProvider::class);
 
         MarketUtility::macroMarketHeaders();
