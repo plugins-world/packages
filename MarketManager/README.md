@@ -74,7 +74,7 @@ git commit -m "feat: Install laravel market-manager."
 ```
 
 - 通过命令字 `\FresnsCmdWord::plugin('Manager')->checkAuth([])` 授权 MarketManager 访问，需要自行实现 `Manager` 的 `checkAuth` 命令字。
-- 通过命令字 `\FresnsCmdWord::plugin('Manager')->checkAuth([])` 授权 Plugin 访问，需要自行实现 `Manager` 的 `checkPluginAuth` 命令字。
+- 通过命令字 `\FresnsCmdWord::plugin('Manager')->checkPluginAuth([])` 授权 Plugin 访问，需要自行实现 `Manager` 的 `checkPluginAuth` 命令字。
 
 
 **注意，安装的时候，会询问是以下内容，请输入： `y`**
