@@ -40,7 +40,7 @@ trait ConfigServiceTrait
             return Config::query()->where($where)->first();
         });
 
-        return $config->item_value;
+        return $config?->item_value;
     }
 
     public static function getValueByKeys(array $itemKeys, ?string $itemTag = null, array $where = []): array
