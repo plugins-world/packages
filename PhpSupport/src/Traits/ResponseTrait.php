@@ -227,6 +227,10 @@ trait ResponseTrait
                 return $this->fail('未登录', $e->getCode() ?: config('laravel-init-template.auth.unauthorize_code', 401));
             }
 
+            if ($e instanceof \Symfony\Component\HttpKernel\Exception\HttpException && $e->getStatusCode() == 403) {
+                return $this->fail('未授权', $e->getStatusCode() ?: config('laravel-init-template.auth.unauthorize_code', 403));
+            }
+
             if ($e instanceof \Illuminate\Validation\ValidationException) {
                 return $this->fail($e->validator->errors()->first(), Response::HTTP_UNPROCESSABLE_ENTITY);
             }
