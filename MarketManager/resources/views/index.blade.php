@@ -187,7 +187,7 @@ use \Plugins\MarketManager\Utilities\PluginUtility;
 </div>
 
 <div class="modal fade" id="output" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-    <div class="modal-dialog modal-xl">
+    <div class="modal-dialog modal-dialog-scrollable modal-xl">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title">安装结果</h5>
