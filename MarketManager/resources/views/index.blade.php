@@ -207,7 +207,7 @@ use \Plugins\MarketManager\Utilities\PluginUtility;
     </div>
 </div>
 
-<div class="modal fade" id="installHelpModal" tabindex="-1">
+<div class="modal fade" id="installHelpModal" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" aria-labelledby="staticBackdropLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
@@ -215,47 +215,39 @@ use \Plugins\MarketManager\Utilities\PluginUtility;
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <div class="alert alert-success" role="alert">
-                    目前还未建设 <code>Laravel</code> 的插件市场，每次从 <code>https://packagist.org</code> 安装插件时，都需要按照以下步骤执行。
-                </div>
+                <ul class="list-group mb-3">
+                    <li class="list-group-item list-group-item-warning">
+                        目前 <code>Laravel</code> 的插件市场还在建设中，在 <a href="https://marketplace.plugins-world.cn/" target="_blank">https://marketplace.plugins-world.cn/</a> 查看已经发布的插件。
+                    </li>
+                    <li class="list-group-item list-group-item-warning">
+                        公开插件的源码请前往仓库查看：<a href="https://github.com/plugins-world/plugins/" target="_blank">https://github.com/plugins-world/plugins/</a>
+                    </li>
+                </ul>
 
                 <div class="list-group">
                     <div class="list-group-item list-group-item-action" aria-current="true">
                         <div class="d-flex w-100 justify-content-between">
-                            <h5 class="mb-1">1. 打开插件详情页</h5>
+                            <h5 class="mb-1">1. 打开插件列表页</h5>
                         </div>
-                        <p class="mb-1">请在插件市场搜索插件，并进入详情页</p>
+                        <p class="mb-1">点击左侧菜单中的插件市场，查找需要使用的插件。</p>
                     </div>
                     <div class="list-group-item list-group-item-action">
                         <div class="d-flex w-100 justify-content-between">
-                            <h5 class="mb-1">2. 让详情页可以添加按钮</h5>
+                            <h5 class="mb-1">2. 复制链接</h5>
                         </div>
-                        <p class="mb-1">请通过开发者工具的元素选择器选择插件详情页</p>
+                        <p class="mb-1">选择需要的插件，右键复制链接备用。</p>
                     </div>
                     <div class="list-group-item list-group-item-action">
                         <div class="d-flex w-100 justify-content-between">
-                            <h5 class="mb-1">3. 在详情页中添加代码</h5>
+                            <h5 class="mb-1">3. 安装插件</h5>
                         </div>
-                        <p class="mb-1">请在开发者工具的 <code>Console</code> 面板复制以下内容，并粘贴执行</p>
-
-                        <small>
-                            <div class="input-group">
-                                <textarea id="installPackageBtnCodePreview" rows="5" class="form-control" aria-label="With textarea"></textarea>
-                                <span class="input-group-text copy" data-clipboard-target="#installPackageBtnCodePreview">复制</span>
-                            </div>
-                        </small>
+                        <p class="mb-1">点击左侧菜单中的安装插件，选择安装方式<code>输入插件下载地址</code>，并在输入框中粘贴上一步的链接。</p>
                     </div>
                     <div class="list-group-item list-group-item-action">
                         <div class="d-flex w-100 justify-content-between">
                             <h5 class="mb-1">4. 开始安装</h5>
                         </div>
-                        <p class="mb-1">请点击详情页中的安装按钮</p>
-                    </div>
-                    <div class="list-group-item list-group-item-action">
-                        <div class="d-flex w-100 justify-content-between">
-                            <h5 class="mb-1">当前有哪些插件可以在 <code>Laravel</code> 中安装呢？</h5>
-                        </div>
-                        <p class="mb-1">具体可以安装的插件请前往仓库查看：<a href="https://github.com/plugins-world/plugins" target="_blank">https://github.com/plugins-world/plugins</a></p>
+                        <p class="mb-1">点击确认按钮，开始安装，并等待安装完成，预计时常 1~5 分钟，取决于您的项目网络环境。</p>
                     </div>
                 </div>
             </div>
