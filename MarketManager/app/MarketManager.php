@@ -26,9 +26,9 @@ class MarketManager
      * @param  \Illuminate\Http\Request  $request
      * @return bool
      */
-    public static function checkAuth($request)
+    public static function checkAuth($request, $next)
     {
-        return (static::$authUsing ?: function () use ($request) {
+        return (static::$authUsing ?: function ($request, $next) {
             $pluginsCmds = \FresnsCmdWord::all();
             if (array_key_exists('Manager', $pluginsCmds)) {
                 $marketManagerCmds = $pluginsCmds['Manager'];
@@ -37,14 +37,19 @@ class MarketManager
                     /** @var \Fresns\CmdWordManager\CmdWordResponse */
                     $resp = \FresnsCmdWord::plugin('Manager')->checkAuth([
                         'request' => $request,
+                        'next' => $next,
                     ]);
 
                     return $resp->isSuccessResponse();
                 }
             }
 
-            return app()->environment(['local', 'develop']);
-        })($request);
+            if (app()->environment(['local', 'develop'])) {
+                return $next($request);
+            }
+
+            return abort(403);
+        })($request, $next);
     }
 
     /**
@@ -53,9 +58,9 @@ class MarketManager
      * @param  \Illuminate\Http\Request  $request
      * @return bool
      */
-    public static function checkPluginAuth($request)
+    public static function checkPluginAuth($request, $next)
     {
-        return (static::$pluginAuthUsing ?: function () use ($request) {
+        return (static::$pluginAuthUsing ?: function ($request, $next) {
             $pluginsCmds = \FresnsCmdWord::all();
             if (array_key_exists('Manager', $pluginsCmds)) {
                 $marketManagerCmds = $pluginsCmds['Manager'];
@@ -64,14 +69,15 @@ class MarketManager
                     /** @var \Fresns\CmdWordManager\CmdWordResponse */
                     $resp = \FresnsCmdWord::plugin('Manager')->checkPluginAuth([
                         'request' => $request,
+                        'next' => $next,
                     ]);
 
                     return $resp->isSuccessResponse();
                 }
             }
 
-            return true;
-        })($request);
+            return $next($request);
+        })($request, $next);
     }
 
     /**

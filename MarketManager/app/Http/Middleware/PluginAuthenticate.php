@@ -15,6 +15,6 @@ class PluginAuthenticate
      */
     public function handle($request, $next)
     {
-        return MarketManager::checkPluginAuth($request) ? $next($request) : abort(403);
+        return MarketManager::checkPluginAuth($request, $next) ?: $next($request);
     }
 }

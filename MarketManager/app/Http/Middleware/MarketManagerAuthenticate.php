@@ -15,6 +15,6 @@ class MarketManagerAuthenticate
      */
     public function handle($request, $next)
     {
-        return MarketManager::checkAuth($request) ? $next($request) : abort(403);
+        return MarketManager::checkAuth($request, $next) ?: $next($request);
     }
 }
