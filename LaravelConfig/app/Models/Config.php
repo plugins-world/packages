@@ -43,6 +43,14 @@ class Config extends Model
     public function setItemValueAttribute($value)
     {
         if (in_array($this->item_type, ['array', 'json', 'object']) || is_array($value)) {
+            if (is_null($value)) {
+                $value = match ($this->item_type) {
+                    default => $value = '{}',
+                    'array' => $value = '[]',
+                    'json', 'object' => $value = '{}',
+                };
+            }
+
             if (!is_string($value)) {            
                 $value = json_encode($value, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_NUMERIC_CHECK);
             }
