@@ -220,7 +220,7 @@ use \Plugins\MarketManager\Utilities\PluginUtility;
                         目前 <code>Laravel</code> 的插件市场还在建设中，在 <a href="https://marketplace.plugins-world.cn/" target="_blank">https://marketplace.plugins-world.cn/</a> 查看已经发布的插件。
                     </li>
                     <li class="list-group-item list-group-item-warning">
-                        公开插件的源码请前往仓库查看：<a href="https://github.com/plugins-world/plugins/" target="_blank">https://github.com/plugins-world/plugins/</a>
+                        公开插件的源码请前往仓库查看：<a href="https://github.com/plugins-world/plugins/" target="_blank">https://github.com/plugins-world/plugins/</a>。
                     </li>
                 </ul>
 
