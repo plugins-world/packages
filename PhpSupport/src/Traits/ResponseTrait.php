@@ -227,8 +227,17 @@ trait ResponseTrait
                 return $this->fail('未登录', $e->getCode() ?: config('laravel-init-template.auth.unauthorize_code', 401));
             }
 
-            if ($e instanceof \Symfony\Component\HttpKernel\Exception\HttpException && $e->getStatusCode() == 403) {
-                return $this->fail('未授权', $e->getStatusCode() ?: config('laravel-init-template.auth.unauthorize_code', 403));
+            if ($e instanceof \Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException) {
+                return $this->fail('未授权', $e->getStatusCode());
+            }
+
+            if ($e instanceof \Symfony\Component\HttpKernel\Exception\HttpException) {
+                $message = '请求失败';
+                if ($e->getStatusCode() == 403) {
+                    $message = '拒绝访问';
+                }
+
+                return $this->fail($message, $e->getStatusCode());
             }
 
             if ($e instanceof \Illuminate\Validation\ValidationException) {
@@ -243,14 +252,19 @@ trait ResponseTrait
                 return $this->fail('404 Url Not Found.', Response::HTTP_NOT_FOUND);
             }
 
+            $code = $e->getCode() ?: Response::HTTP_INTERNAL_SERVER_ERROR;
+            if (method_exists($e, 'getStatusCode')) {
+                $code = $e->getStatusCode();
+            }
+
             \info('error', [
                 'class' => get_class($e),
-                'code' => $e->getCode(),
+                'code' => $code,
                 'message' => $e->getMessage(),
                 'file_line' => sprintf('%s:%s', $e->getFile(), $e->getLine()),
             ]);
-
-            return $this->fail($e->getMessage(), $e->getCode() ?: Response::HTTP_INTERNAL_SERVER_ERROR);
+            
+            return $this->fail($e->getMessage(), $code);
         };
     }
 }
