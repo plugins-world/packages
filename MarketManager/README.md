@@ -64,12 +64,12 @@ git commit -m "feat: Install laravel market-manager."
 - 通过 `AppServiceProvider` 授权
 ```
 \Plugins\MarketManager\MarketManager::auth(function ($request, $next) {
-    // return $next($request);
+    // return \Illuminate\Support\Facades\Auth::onceBasic() ?: $next($request);
 });
 
 
 \Plugins\MarketManager\MarketManager::pluginAuth(function ($request, $next) {
-    // return $next($request);
+    // return \Illuminate\Support\Facades\Auth::onceBasic() ?: $next($request);
 });
 ```
 
