@@ -25,7 +25,7 @@ class Config extends Model
 
     public function getItemValueAttribute($value)
     {
-        if (in_array($this->item_type, ['array', 'json', 'object'])) {
+        if (in_array($this->item_type, ['array', 'json', 'object', 'plugins'])) {
             $value = json_decode($value, true) ?: [];
         } else if (in_array($this->item_type, ['boolean'])) {
             $value = filter_var($value, FILTER_VALIDATE_BOOLEAN);
