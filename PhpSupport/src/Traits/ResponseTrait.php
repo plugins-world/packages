@@ -228,7 +228,11 @@ trait ResponseTrait
             }
 
             if ($e instanceof \Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException) {
-                return $this->fail('未授权', $e->getStatusCode());
+                if (\request()->wantsJson()) {
+                    return $this->fail('未授权', $e->getStatusCode());
+                }
+
+                return \response()->noContent($e->getStatusCode(), $e->getHeaders());
             }
 
             if ($e instanceof \Symfony\Component\HttpKernel\Exception\HttpException) {

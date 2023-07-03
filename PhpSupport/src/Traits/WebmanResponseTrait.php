@@ -23,7 +23,7 @@ trait WebmanResponseTrait
         }
 
         $encoding_list = [
-            "ASCII",'UTF-8',"GB2312","GBK",'BIG5'
+            "ASCII", 'UTF-8', "GB2312", "GBK", 'BIG5'
         ];
 
         $encode = mb_detect_encoding($string, $encoding_list);
@@ -43,7 +43,7 @@ trait WebmanResponseTrait
         );
 
         $paginate
-            ->withPath('/'.\request()->path())
+            ->withPath('/' . \request()->path())
             ->withQueryString();
 
         return $this->paginate($paginate);
@@ -63,7 +63,7 @@ trait WebmanResponseTrait
         }
 
         // 处理非分页数据
-        if (! $data instanceof \Illuminate\Pagination\LengthAwarePaginator) {
+        if (!$data instanceof \Illuminate\Pagination\LengthAwarePaginator) {
             return $this->success($data);
         }
 
@@ -82,7 +82,7 @@ trait WebmanResponseTrait
                 }
 
                 return $item;
-            }, $paginate?->items()), 
+            }, $paginate?->items()),
         ]);
     }
 
@@ -135,11 +135,11 @@ trait WebmanResponseTrait
                 'data' => $data,
             ],
         };
-        
+
         $res = $res + array_filter(compact('meta'));
 
         return \response(
-            \json_encode($res, \JSON_UNESCAPED_SLASHES|\JSON_UNESCAPED_UNICODE|\JSON_PRETTY_PRINT),
+            \json_encode($res, \JSON_UNESCAPED_SLASHES | \JSON_UNESCAPED_UNICODE | \JSON_PRETTY_PRINT),
             Response::HTTP_OK,
             array_merge([
                 'Content-Type' => 'application/json',
@@ -177,8 +177,8 @@ trait WebmanResponseTrait
             ],
         };
 
-        if (! \request()->expectsJson()) {
-            $err_msg = \json_encode($res, \JSON_UNESCAPED_SLASHES|\JSON_UNESCAPED_UNICODE|\JSON_PRETTY_PRINT);
+        if (!\request()->expectsJson()) {
+            $err_msg = \json_encode($res, \JSON_UNESCAPED_SLASHES | \JSON_UNESCAPED_UNICODE | \JSON_PRETTY_PRINT);
             if (!array_key_exists($err_code, Response::$statusTexts)) {
                 $err_code = 500;
             }
@@ -208,7 +208,11 @@ trait WebmanResponseTrait
             }
 
             if ($e instanceof \Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException) {
-                return $this->fail('未授权', $e->getStatusCode());
+                if (\request()->expectsJson()) {
+                    return $this->fail('未授权', $e->getStatusCode());
+                }
+
+                return \response()->noContent($e->getStatusCode(), $e->getHeaders());
             }
 
             if ($e instanceof \Symfony\Component\HttpKernel\Exception\HttpException) {
@@ -243,7 +247,7 @@ trait WebmanResponseTrait
             //     'message' => $e->getMessage(),
             //     'file_line' => sprintf('%s:%s', $e->getFile(), $e->getLine()),
             // ]);
-            
+
             return $this->fail($e->getMessage(), $code);
         };
     }
