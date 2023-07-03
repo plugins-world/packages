@@ -71,6 +71,12 @@ git commit -m "feat: Install laravel market-manager."
 \Plugins\MarketManager\MarketManager::pluginAuth(function ($request, $next) {
     // return \Illuminate\Support\Facades\Auth::onceBasic() ?: $next($request);
 });
+
+# 配置首页默认路由，并进行 basic 认证（需要在数据库创建 users 信息，通过 email, password 登录）
+Route::domain(parse_url(config('app.url'), PHP_URL_HOST))->get('/', function () {
+    return redirect('/market-manager');
+    return view('welcome');
+})->middleware('auth.basic');
 ```
 
 - 通过命令字 `\FresnsCmdWord::plugin('Manager')->checkAuth([])` 授权 MarketManager 访问，需要自行实现 `Manager` 的 `checkAuth` 命令字。
