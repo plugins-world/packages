@@ -14,6 +14,8 @@ return new class extends Migration
     {
         if (! Schema::hasTable('plugins')) {
             Schema::create('plugins', function (Blueprint $table) {
+                $table->comment('插件表');
+
                 $table->integer('id', true);
                 $table->string('fskey', 64)->unique('plugin_fskey');
                 $table->unsignedTinyInteger('type')->default(1);
@@ -49,6 +51,8 @@ return new class extends Migration
         }
 
         Schema::create('plugin_usages', function (Blueprint $table) {
+            $table->comment('插件关联使用表');
+
             $table->increments('id');
             $table->unsignedTinyInteger('usage_type')->index('plugin_usage_type');
             $table->string('plugin_fskey', 64);
@@ -83,6 +87,8 @@ return new class extends Migration
         });
 
         Schema::create('plugin_badges', function (Blueprint $table) {
+            $table->comment('插件徽标数据表');
+
             $table->bigIncrements('id');
             $table->string('plugin_fskey', 64);
             $table->unsignedBigInteger('user_id');
@@ -97,6 +103,8 @@ return new class extends Migration
         });
 
         Schema::create('plugin_callbacks', function (Blueprint $table) {
+            $table->comment('插件回调表');
+
             $table->bigIncrements('id');
             $table->string('plugin_fskey', 64);
             $table->unsignedBigInteger('account_id')->nullable();
