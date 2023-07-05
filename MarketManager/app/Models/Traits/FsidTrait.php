@@ -9,7 +9,9 @@ trait FsidTrait
     public static function bootFsidTrait(): void
     {
         static::creating(function ($model) {
-            $model->{$model->getFsidKey()} = $model->{$model->getFsidKey()} ?? static::generateFsid(8);
+            if (method_exists($model, 'getFsidKey')){
+                $model->{$model->getFsidKey()} = $model->{$model->getFsidKey()} ?? static::generateFsid(8);
+            }
         });
     }
 
@@ -37,4 +39,12 @@ trait FsidTrait
     {
         return $query->where($this->getFsidKey(), $fsid);
     }
+
+    /** 
+     * fsid
+     */
+    // public function getFsidKey()
+    // {
+    //     return 'fsid';
+    // }
 }
