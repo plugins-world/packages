@@ -223,6 +223,10 @@ trait ResponseTrait
     public function renderableHandle()
     {
         return function (\Throwable $e) {
+            if (! \request()->wantsJson()) {
+                return;
+            }
+
             if ($e instanceof \Illuminate\Auth\AuthenticationException) {
                 return $this->fail('未登录', $e->getCode() ?: config('laravel-init-template.auth.unauthorize_code', 401));
             }

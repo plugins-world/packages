@@ -203,6 +203,10 @@ trait WebmanResponseTrait
     public function renderableHandle()
     {
         return function (\Throwable $e) {
+            if (! \request()->expectsJson()) {
+                return;
+            }
+
             if ($e instanceof \Illuminate\Auth\AuthenticationException) {
                 return $this->fail('未登录', $e->getCode() ?: config('laravel-init-template.auth.unauthorize_code', 401));
             }
