@@ -139,7 +139,7 @@ trait WebmanResponseTrait
         $res = $res + array_filter(compact('meta'));
 
         return \response(
-            \json_encode($res, \JSON_UNESCAPED_SLASHES | \JSON_UNESCAPED_UNICODE | \JSON_PRETTY_PRINT),
+            \json_encode($res, \JSON_UNESCAPED_SLASHES|\JSON_PRETTY_PRINT),
             Response::HTTP_OK,
             array_merge([
                 'Content-Type' => 'application/json',
@@ -178,7 +178,7 @@ trait WebmanResponseTrait
         };
 
         if (!\request()->expectsJson()) {
-            $err_msg = \json_encode($res, \JSON_UNESCAPED_SLASHES | \JSON_UNESCAPED_UNICODE | \JSON_PRETTY_PRINT);
+            $err_msg = \json_encode($res, \JSON_UNESCAPED_SLASHES|\JSON_PRETTY_PRINT);
             if (!array_key_exists($err_code, Response::$statusTexts)) {
                 $err_code = 500;
             }
