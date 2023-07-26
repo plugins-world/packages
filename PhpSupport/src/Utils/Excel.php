@@ -417,6 +417,13 @@ class Excel
         $sheetCell->setValue($value);
     }
 
+    public static function getListData(array $firstZipData, array ...$otherZipDatas)
+    {
+        $data = collect($firstZipData)->zip(...$otherZipDatas);
+
+        return $data;
+    }
+
     /**
      * 设置表头加粗居中
      * 
