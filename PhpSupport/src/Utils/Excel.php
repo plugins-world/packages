@@ -510,6 +510,46 @@ class Excel
         Excel::setExplainData($event, $explain, $explainMergeRange);
     }
 
+    public static function setListCell($event, $columnName, $dataStartCellNum, $sheetName, $startCellAndEndCell, $maxRowNum = 1000, $errorTitle = null, $errorMessage = null, $promptTitle = null, $promptMessage = null)
+    {
+        /** @var \PhpOffice\PhpSpreadsheet\Worksheet\Worksheet */
+        $spreadsheet = Excel::getSheet($event);
+
+        $dataEndCellNum = $dataStartCellNum + $maxRowNum;
+        foreach (range($dataStartCellNum, $dataEndCellNum) as $i) {
+            $validation = $spreadsheet->getCell($columnName.$i)->getDataValidation();
+            $validation->setType(\PhpOffice\PhpSpreadsheet\Cell\DataValidation::TYPE_LIST);
+            $validation->setErrorStyle(\PhpOffice\PhpSpreadsheet\Cell\DataValidation::STYLE_INFORMATION);
+            $validation->setAllowBlank(false);
+            $validation->setShowInputMessage(true);
+            $validation->setShowErrorMessage(true);
+            $validation->setShowDropDown(true);
+            if ($errorTitle) {
+                // $validation->setErrorTitle('Input error');
+                $validation->setErrorTitle('Input error');
+            }
+            if ($errorMessage) {
+                // $validation->setError('Value is not in list.');
+                $validation->setError($errorMessage);
+            }
+            if ($promptTitle) {
+                // $validation->setPromptTitle('Pick from list');
+                $validation->setPromptTitle($promptTitle);
+            }
+            if ($promptMessage) {
+                // $validation->setPrompt('Please pick a value from the drop-down list.');
+                $validation->setPrompt($promptMessage);
+            }
+            // dd(<<<EOL
+            // =INDIRECT("{$sheetName}!{$startCellAndEndCell}")
+            // EOL);
+
+            $validation->setFormula1(<<<EOL
+            =INDIRECT("{$sheetName}!{$startCellAndEndCell}")
+            EOL);
+        }
+    }
+
     /**
      * 设置单元格样式，默认 14号字体，加粗居中
      * 
