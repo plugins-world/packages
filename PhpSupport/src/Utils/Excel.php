@@ -395,7 +395,26 @@ class Excel
         $sheet = Excel::getSheet($event);
 
         $sheet->mergeCells($range, $behaviour);
-        
+    }
+
+    /**
+     * 设置单元格数据
+     *
+     * call in:
+     *      public static function afterSheet(AfterSheet $event)
+     *
+     * @param  Event  $event
+     * @param  string $cell
+     * @param  mixed $value
+     * @return void
+     */
+    public static function setCellValue(Event $event, string $cell, $value)
+    {
+        $sheet = Excel::getSheet($event);
+
+        $sheetCell = $sheet->getCell($cell);
+
+        $sheetCell->setValue($value);
     }
 
     /**
@@ -429,6 +448,10 @@ class Excel
                 'color' => [
                     'argb' => 'ffffff',
                 ],
+            ],
+            'alignment' => [
+                'horizontal' => Alignment::HORIZONTAL_CENTER,
+                'vertical'=> Alignment::VERTICAL_CENTER
             ],
             'fill' => [
                 'fillType' => Fill::FILL_SOLID,
@@ -491,6 +514,10 @@ class Excel
                 ],
             ],
             'alignment' => [
+                'horizontal' => Alignment::HORIZONTAL_CENTER,
+                'vertical'=> Alignment::VERTICAL_CENTER
+            ],
+            'alignment' => [
                 // 'horizontal' => Alignment::HORIZONTAL_CENTER,
                 'vertical' => Alignment::VERTICAL_CENTER,
                 'wrapText' => true,
@@ -548,7 +575,7 @@ class Excel
     }
 
     /**
-     * 设置单元格样式，默认 14号字体，加粗居中
+     * 设置单元格样式，默认 14号字体，不加粗居中
      * 
      * call in:
      *      public static function afterSheet(AfterSheet $event)
@@ -568,9 +595,13 @@ class Excel
                 'color' => [
                     'argb' => '000000',
                 ],
-                'bold' => true,
+                'bold' => false,
                 'size' => 12,
                 'name' => '微软雅黑',
+            ],
+            'alignment' => [
+                'horizontal' => Alignment::HORIZONTAL_CENTER,
+                'vertical'=> Alignment::VERTICAL_CENTER
             ],
             // 'fill' => [
             //     'fillType' => Fill::FILL_SOLID,
