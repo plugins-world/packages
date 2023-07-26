@@ -12,6 +12,13 @@ use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 
 class Excel
 {
+    public static function readChineseHeader()
+    {
+        config([
+            'excel.imports.heading_row.formatter' => null,
+        ]);
+    }
+
     /**
      * 获取 Worksheet
      *
@@ -37,8 +44,8 @@ class Excel
         $maxColumnLetter = \PhpOffice\PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex($maxCol);
 
         return [
-            'maxRow' => $maxRow, 
-            'maxCol' => $maxCol, 
+            'maxRow' => $maxRow,
+            'maxCol' => $maxCol,
             'maxColumnLetter' => $maxColumnLetter,
         ];
     }
@@ -59,7 +66,7 @@ class Excel
     public static function getSheetColumnLetter(int $col)
     {
         $columnLetter = \PhpOffice\PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex($col);
-        
+
         return $columnLetter;
     }
 
@@ -80,7 +87,8 @@ class Excel
         $backTrace = debug_backtrace(2, 2);
         $callFunctionName = $backTrace[1]['function'];
 
-        info(sprintf("%s: 最大单元格为 %s, 最大列: %s 最大行号: %s",
+        info(sprintf(
+            "%s: 最大单元格为 %s, 最大列: %s 最大行号: %s",
             $callFunctionName,
             $cellInfo['cell'],
             $sheetInfo['maxCol'],
@@ -195,7 +203,7 @@ class Excel
             $day = $datetimeData[0];
             $time = "";
         }
-        
+
         $day = match (true) {
             default => null,
             str_contains($day, '-') => $datetime,
@@ -205,7 +213,7 @@ class Excel
 
         $datetime = $day;
         if ($time) {
-            $datetime .= " ". $time;
+            $datetime .= " " . $time;
         }
 
         if (!str_contains($datetime, ':')) {
@@ -458,7 +466,7 @@ class Excel
             ],
             'alignment' => [
                 'horizontal' => Alignment::HORIZONTAL_CENTER,
-                'vertical'=> Alignment::VERTICAL_CENTER
+                'vertical' => Alignment::VERTICAL_CENTER
             ],
             'fill' => [
                 'fillType' => Fill::FILL_SOLID,
@@ -482,11 +490,11 @@ class Excel
             $sheet->getStyle($cell)->applyFromArray($styleArray, $advancedBorders);
         }
     }
-    
+
     public static function setExplainData($event, $explain, $inCellRange, $height = 200, $advancedBorders = true)
     {
         $sheet = Excel::getSheet($event);
-        
+
         // $explain = <<<"TXT"
         // 填写须知：
         // 1. 请勿修改表格结构；
@@ -522,7 +530,7 @@ class Excel
             ],
             'alignment' => [
                 'horizontal' => Alignment::HORIZONTAL_CENTER,
-                'vertical'=> Alignment::VERTICAL_CENTER
+                'vertical' => Alignment::VERTICAL_CENTER
             ],
             'alignment' => [
                 // 'horizontal' => Alignment::HORIZONTAL_CENTER,
@@ -551,7 +559,7 @@ class Excel
 
         $dataEndCellNum = $dataStartCellNum + $maxRowNum;
         foreach (range($dataStartCellNum, $dataEndCellNum) as $i) {
-            $validation = $spreadsheet->getCell($columnName.$i)->getDataValidation();
+            $validation = $spreadsheet->getCell($columnName . $i)->getDataValidation();
             $validation->setType(\PhpOffice\PhpSpreadsheet\Cell\DataValidation::TYPE_LIST);
             $validation->setErrorStyle(\PhpOffice\PhpSpreadsheet\Cell\DataValidation::STYLE_INFORMATION);
             $validation->setAllowBlank(false);
@@ -608,7 +616,7 @@ class Excel
             ],
             'alignment' => [
                 'horizontal' => Alignment::HORIZONTAL_CENTER,
-                'vertical'=> Alignment::VERTICAL_CENTER
+                'vertical' => Alignment::VERTICAL_CENTER
             ],
             // 'fill' => [
             //     'fillType' => Fill::FILL_SOLID,
