@@ -540,9 +540,6 @@ class Excel
                 // $validation->setPrompt('Please pick a value from the drop-down list.');
                 $validation->setPrompt($promptMessage);
             }
-            // dd(<<<EOL
-            // =INDIRECT("{$sheetName}!{$startCellAndEndCell}")
-            // EOL);
 
             $validation->setFormula1(<<<EOL
             =INDIRECT("{$sheetName}!{$startCellAndEndCell}")
