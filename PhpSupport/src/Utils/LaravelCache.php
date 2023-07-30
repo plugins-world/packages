@@ -47,7 +47,8 @@ class LaravelCache
             $callable = $cacheTime;
 
             // 防止缓存雪崩，对不同数据随机缓存时间。从半小时到 1天
-            $cacheSeconds = rand(0, 100) % count(LaravelCache::DEFAULT_CACHE_TIME);
+            $index = rand(0, 100) % count(LaravelCache::DEFAULT_CACHE_TIME);
+            $cacheSeconds = LaravelCache::DEFAULT_CACHE_TIME[$index];
             $cacheTime = now()->addSeconds($cacheSeconds);
         }
 
