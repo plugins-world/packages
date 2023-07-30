@@ -67,19 +67,8 @@ trait ConfigServiceTrait
         }
 
         // 已查出部分缓存中的 key，还有部分 key 需要查询
-        $values = Config::query()
-            ->whereIn('item_key', $itemKeys)
-            ->where($where)
-            ->get();
-
         foreach ($itemKeys as $index => $itemKey) {
-            $cacheKey = Config::CACHE_KEY_PREFIX . $itemKey;
-
-            $itemValue = LaravelCache::remember($cacheKey, function () use ($values, $itemKey) {
-                return collect($values)->where('item_key', $itemKey)->first();
-            });
-
-            $data[$itemKey] = $itemValue?->item_value;
+            $data[$itemKey] = static::getValueByKey($itemKey);
         }
 
         return $data;
