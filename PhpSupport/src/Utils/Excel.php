@@ -647,6 +647,10 @@ class Excel
     {
         if (!str_starts_with($format, '=')) {
             $value = $format;
+            if (preg_match('/^\d+?$/', $format) == false) {
+                return $value;
+            }
+
             $format = '="%s"';
 
             if (!$value) {
