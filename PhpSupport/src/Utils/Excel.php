@@ -552,8 +552,16 @@ class Excel
         Excel::setExplainData($event, $explain, $explainMergeRange);
     }
 
-    public static function setListCell($event, $columnName, $dataStartCellNum, $sheetName, $startCellAndEndCell, $maxRowNum = 1000, $errorTitle = null, $errorMessage = null, $promptTitle = null, $promptMessage = null)
+    public static function setListCell($event, $columnName, $dataStartCellNum, $sheetNameOrDropdownList, $startCellAndEndCell = null, $maxRowNum = 1000, $errorTitle = null, $errorMessage = null, $promptTitle = null, $promptMessage = null)
     {
+        /** @see https://github.com/PHPOffice/PhpSpreadsheet/blob/master/samples/Basic/39_Dropdown.php */
+
+        if (!is_array($sheetNameOrDropdownList)) {
+            if (empty($startCellAndEndCell)) {
+                return null;
+            }
+        }
+
         /** @var \PhpOffice\PhpSpreadsheet\Worksheet\Worksheet */
         $spreadsheet = Excel::getSheet($event);
 
@@ -583,9 +591,17 @@ class Excel
                 $validation->setPrompt($promptMessage);
             }
 
-            $validation->setFormula1(<<<EOL
-            =INDIRECT("{$sheetName}!{$startCellAndEndCell}")
-            EOL);
+
+            if (is_string($sheetNameOrDropdownList)) {
+                $validation->setFormula1(<<<EOL
+                =INDIRECT("{$$sheetNameOrDropdownList}!{$startCellAndEndCell}")
+                EOL);
+            } else if(is_array($sheetNameOrDropdownList)) {
+                $dataString = implode(',', $sheetNameOrDropdownList);
+
+                /** @see https://spreadsheet-coding.com/phpspreadsheet/create-xlsx-files-with-drop-down-list-data-validation */
+                $validation->setFormula1(sprintf('"%s"', $dataString));
+            }
         }
     }
 
