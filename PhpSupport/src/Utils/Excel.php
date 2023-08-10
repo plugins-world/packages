@@ -641,17 +641,19 @@ class Excel
      *
      * @param  string $format
      * @param  string|array ...$value
-     * @return string
+     * @return string|null
      */
-    public static function valueToCellString($format = '="%s"', ...$value): string
+    public static function valueToCellString($format = '="%s"', ...$value): ?string
     {
         if (!str_starts_with($format, '=')) {
-            $value = [$format];
-            $format = '="\'%s\'"';
-        }
+            $value = $format;
+            $format = '="%s"';
 
-        if (!$value) {
-            return null;
+            if (!$value) {
+                return null;
+            }
+
+            $value = [$value];
         }
 
         return sprintf($format, ...$value);
