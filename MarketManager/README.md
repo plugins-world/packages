@@ -8,19 +8,9 @@
 
 ## 安装
 
-你可以通过 composer 安装这个扩展包，与应用插件不同的是，此扩展会安装到 `vendor/` 目录下
+你可以通过 composer 安装这个扩展包，与应用插件不同的是，此扩展会安装到 `vendor/` 目录下。下面是操作步骤：
 
-⚠️注意：需要确保项目 `composer.json` 允许安装稳定性依赖为 `dev` 的扩展包
-```
-{
-    ...
-    "minimum-stability": "dev",
-    "prefer-stable": true,
-    ...
-}
-```
-
-1. 初始化
+1. 创建项目
 ```bash
 # 创建新项目 laravel-test
 composer create-project --prefer-dist laravel/laravel laravel-test
@@ -34,7 +24,21 @@ git commit -m "feat: Init."
 # composer config repositories.plugin-manager vcs https://gitee.com/fresns/plugin-manager
 # composer config repositories.market-manager vcs https://gitee.com/fresns/market-manager
 # composer config repositories.cmd-word-manager vcs https://gitee.com/fresns/cmd-word-manager
+```
 
+2. 修改依赖包约束
+⚠️注意：需要确保项目 `composer.json` 允许安装稳定性依赖为 `dev` 的扩展包
+```
+{
+    ...
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+    ...
+}
+```
+
+3. 安装插件管理器，并完成初始化。
+```bash
 # 安装 Laravel 的应用市场管理器
 composer require plugins-world/market-manager
 # 配置 .env 中的数据库与项目信息
@@ -54,9 +58,9 @@ git add .
 git commit -m "feat: Install laravel market-manager."
 ```
 
-3. 访问路由：`/market-manager`
+4. 访问路由：`/market-manager`
 
-4. 限制访问授权
+5. 限制访问授权
 - MarketManager 默认只允许 `local` 与 `develop` 环境访问。
 - Plugin 默认全部放行访问。
 - 如果需要限制访问权限，可以在 `app/Providers/AppServiceProvider.php` 的 `boot` 函数中，通过指定 MarketManager 如何进行认证来完成限制，参考如下：
@@ -87,7 +91,6 @@ Route::domain(parse_url(config('app.url'), PHP_URL_HOST))->get('/', function () 
 > wikimedia/composer-merge-plugin contains a Composer plugin which is currently not in your allow-plugins config. See https://getcomposer.org/allow-plugins  
 > 
 > Do you trust "wikimedia/composer-merge-plugin" to execute code and wish to enable it now? (writes "allow-plugins" to composer.json) [y,n,d,?]
-
 
 
 ## 说明
