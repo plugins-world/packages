@@ -90,13 +90,22 @@ Route::domain(parse_url(config('app.url'), PHP_URL_HOST))->get('/', function () 
 
 
 
-## 注意
+## 说明
 
-1. 应用市场：目前还没有发布官方的 Laravel 应用市场，你可以将应用市场的地址配置为 `https://packagist.plugins-world.cn/` 进行使用。当前默认采用 `https://packagist.org` 作为应用市场。
-2. 目前，https://github.com/plugins-world/plugins 下的插件都可以作为插件进行安装。请注意插件间可能存在冲突。
-3. 项目需要配置好权限，避免 web 程序的用户无法读取、创建目录。
-4. 每次安装后，插件默认关闭，需要进行启用操作。
-5. 如希望增加是否可以访问应用市场的验证，请耐心等待下一版本迭代。
+1. 应用市场：https://marketplace.plugins-world.cn
+2. 符合插件管理器开发规范的插件可以被安装
+3. 插件安装方式：
+   1. 从 url 安装 zip 插件
+   2. 从 github url 安装私有插件
+   3. 从 github url 安装公开插件
+   4. 从 下载站获取 url 安装插件：https://apps.plugins-world.cn
+   5. 从 https://packagist.org 通过安命令完成插件安装
+   6. 上传 zip 插件到服务器进行安装
+   7. 从指定目录安装
+   8. 从插件市场安装插件（开发中）
+4. 目前，官方插件代码仓库为：https://github.com/plugins-world/plugins
+5. 项目需要配置好权限，避免插件无法下载，解压，安装。插件的安装需要 web 程序的用户读取、创建目录。
+6. 每次安装后，插件默认关闭，需要进行启用操作。
 
 
 ## 遇到问题
