@@ -594,7 +594,7 @@ class Excel
 
             if (is_string($sheetNameOrDropdownList)) {
                 $validation->setFormula1(<<<EOL
-                =INDIRECT("{$$sheetNameOrDropdownList}!{$startCellAndEndCell}")
+                =INDIRECT("{$sheetNameOrDropdownList}!{$startCellAndEndCell}")
                 EOL);
             } else if(is_array($sheetNameOrDropdownList)) {
                 $dataString = implode(',', $sheetNameOrDropdownList);
