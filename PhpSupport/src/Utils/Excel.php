@@ -188,7 +188,10 @@ class Excel
             return null;
         }
 
-        if (Str::isPureInt($datetime)) {
+        $isPureInt = preg_match('/^\d+?$/', $datetime);
+        $isFloatData = preg_match('/^\d+?\.\d+?$/', $datetime);
+
+        if ($isPureInt || $isFloatData) {
             return \PhpOffice\PhpSpreadsheet\Shared\Date::excelToDateTimeObject($datetime)?->format($format);
         }
 
@@ -206,14 +209,34 @@ class Excel
 
         $day = match (true) {
             default => null,
-            str_contains($day, '-') => $datetime,
+            str_contains($day, '-') => $day,
             str_contains($day, '.') => str_replace('.', '-', $day),
             str_contains($day, '/') => str_replace('/', '-', $day),
         };
 
         $datetime = $day;
         if ($time) {
-            $datetime .= " " . $time;
+            $timeData = explode(':', $time);
+            
+            $timeData = array_map(function ($item) {
+                return str_pad($item, 2, 0, STR_PAD_LEFT);
+            }, $timeData);
+
+            $timeData = array_filter($timeData);
+            
+            $timeDataItemCount = count($timeData);
+            $timeStr = implode(':', $timeData);
+
+            $timeStr = match ($timeDataItemCount) {
+                default => '',
+                0 => '',
+                1 => $timeStr . ':00:00',
+                2 => $timeStr . ':00',
+                3 => $timeStr . '',
+            };
+
+            $datetime .= " " . $timeStr;
+            $datetime = rtrim($datetime);
         }
 
         if (!str_contains($datetime, ':')) {
