@@ -701,4 +701,19 @@ class Excel
 
         return sprintf($format, ...$value);
     }
+
+    /**
+     * 单元格计算 cell
+     *
+     * @param  [type] $value
+     * @return void
+     */
+    public static function valueToCalcCell($value)
+    {
+        if (!str_starts_with($value, '=')) {
+            return $value;
+        }
+
+        return "'".$value;
+    }
 }
