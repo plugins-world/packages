@@ -10,10 +10,16 @@ use Symfony\Component\HttpFoundation\Response;
 trait WebmanResponseTrait
 {
     public static $responseCodeKey = 1; // 1:code msg、2:code message、3:err_code err_msg、errcode errmsg
+    public static $responseSuccessCode = 1; // 0,200
 
     public static function setResponseCodeKey(int $responseCodeKey = 1)
     {
-        ResponseTrait::$responseCodeKey = $responseCodeKey;
+        static::$responseCodeKey = $responseCodeKey;
+    }
+
+    public static function setResponseSuccessCode(int $err_code = 200)
+    {
+        static::$responseSuccessCode = $err_code;
     }
 
     public static function string2utf8($string = '')
@@ -102,13 +108,13 @@ trait WebmanResponseTrait
 
         $err_msg = static::string2utf8($err_msg);
 
-        if ($err_code === 200 && ($config_err_code = config('laravel-init-template.response.err_code', 200)) !== $err_code) {
-            $err_code = $config_err_code;
+        if ($err_code !== static::$responseSuccessCode) {
+            $err_code = static::$responseSuccessCode;
         }
 
         $data = $data ?: null;
 
-        $res = match (ResponseTrait::$responseCodeKey) {
+        $res = match (static::$responseCodeKey) {
             default => [
                 'err_code' => $err_code,
                 'err_msg' => $err_msg,
@@ -149,7 +155,7 @@ trait WebmanResponseTrait
 
     public function fail($err_msg = 'unknown error', $err_code = 400, $data = [], $headers = [])
     {
-        $res = match (ResponseTrait::$responseCodeKey) {
+        $res = match (static::$responseCodeKey) {
             default => [
                 'err_code' => $err_code,
                 'err_msg' => $err_msg,
