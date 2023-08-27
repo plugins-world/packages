@@ -10,7 +10,7 @@ use Symfony\Component\HttpFoundation\Response;
 trait WebmanResponseTrait
 {
     public static $responseCodeKey = 1; // 1:code msg、2:code message、3:err_code err_msg、errcode errmsg
-    public static $responseSuccessCode = 1; // 0,200
+    public static $responseSuccessCode = 200; // 0,200
 
     public static function setResponseCodeKey(int $responseCodeKey = 1)
     {
@@ -92,8 +92,11 @@ trait WebmanResponseTrait
         ]);
     }
 
-    public function success($data = [], $err_msg = 'success', $err_code = 200, $headers = [])
+    public function success($data = [], $err_msg = 'success', $err_code = 200, $headers = [], $options = [])
     {
+        static::setResponseCodeKey($options['responseCodeKey'] ?? 1);
+        static::setResponseSuccessCode($options['responseSuccessCode'] ?? 200);
+
         if (is_string($data)) {
             $err_code = is_string($err_msg) ? $err_code : $err_msg;
             $err_msg = $data;
@@ -153,7 +156,7 @@ trait WebmanResponseTrait
         );
     }
 
-    public function fail($err_msg = 'unknown error', $err_code = 400, $data = [], $headers = [])
+    public function fail($err_msg = 'unknown error', $err_code = 400, $data = [], $headers = [], $options = [])
     {
         $res = match (static::$responseCodeKey) {
             default => [
@@ -198,7 +201,7 @@ trait WebmanResponseTrait
             );
         }
 
-        return $this->success($data, $err_msg ?: 'unknown error', $err_code ?: 500, $headers);
+        return $this->success($data, $err_msg ?: 'unknown error', $err_code ?: 500, $headers, $options);
     }
 
     public function reportableHandle(\Throwable $e)

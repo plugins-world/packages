@@ -11,7 +11,7 @@ use Symfony\Component\HttpFoundation\Response;
 trait ResponseTrait
 {
     public static $responseCodeKey = 1; // 1:code msg、2:code message、3:err_code err_msg、errcode errmsg
-    public static $responseSuccessCode = 1; // 0,200
+    public static $responseSuccessCode = 200; // 0,200
 
     public static function setResponseCodeKey(int $responseCodeKey = 1)
     {
@@ -30,7 +30,7 @@ trait ResponseTrait
         }
 
         $encoding_list = [
-            "ASCII",'UTF-8',"GB2312","GBK",'BIG5'
+            "ASCII", 'UTF-8', "GB2312", "GBK", 'BIG5'
         ];
 
         $encode = mb_detect_encoding($string, $encoding_list);
@@ -67,7 +67,7 @@ trait ResponseTrait
         );
 
         $paginate
-            ->withPath('/'.\request()->path())
+            ->withPath('/' . \request()->path())
             ->withQueryString();
 
         return $this->paginate($paginate, null, $meta);
@@ -87,7 +87,7 @@ trait ResponseTrait
         }
 
         // 处理非分页数据
-        if (! $data instanceof \Illuminate\Pagination\LengthAwarePaginator) {
+        if (!$data instanceof \Illuminate\Pagination\LengthAwarePaginator) {
             return $this->success($data);
         }
 
@@ -106,12 +106,15 @@ trait ResponseTrait
                 }
 
                 return $item;
-            }, $paginate?->items()), 
+            }, $paginate?->items()),
         ]);
     }
 
-    public function success($data = [], $err_msg = 'success', $err_code = 200, $headers = [])
+    public function success($data = [], $err_msg = 'success', $err_code = 200, $headers = [], $options = [])
     {
+        static::setResponseCodeKey($options['responseCodeKey'] ?? 1);
+        static::setResponseSuccessCode($options['responseSuccessCode'] ?? 200);
+
         if (is_string($data)) {
             $err_code = is_string($err_msg) ? $err_code : $err_msg;
             $err_msg = $data;
@@ -159,11 +162,11 @@ trait ResponseTrait
                 'data' => $data,
             ],
         };
-        
+
         $res = $res + array_filter(compact('meta'));
 
         return \response(
-            \json_encode($res, \JSON_UNESCAPED_SLASHES|\JSON_PRETTY_PRINT),
+            \json_encode($res, \JSON_UNESCAPED_SLASHES | \JSON_PRETTY_PRINT),
             Response::HTTP_OK,
             array_merge([
                 'Content-Type' => 'application/json',
@@ -171,7 +174,7 @@ trait ResponseTrait
         );
     }
 
-    public function fail($err_msg = 'unknown error', $err_code = 400, $data = [], $headers = [])
+    public function fail($err_msg = 'unknown error', $err_code = 400, $data = [], $headers = [], $options = [])
     {
         $res = match (static::$responseCodeKey) {
             default => [
@@ -201,8 +204,8 @@ trait ResponseTrait
             ],
         };
 
-        if (! \request()->wantsJson()) {
-            $err_msg = \json_encode($res, \JSON_UNESCAPED_SLASHES|\JSON_PRETTY_PRINT);
+        if (!\request()->wantsJson()) {
+            $err_msg = \json_encode($res, \JSON_UNESCAPED_SLASHES | \JSON_PRETTY_PRINT);
             if (!array_key_exists($err_code, Response::$statusTexts)) {
                 $err_code = 500;
             }
@@ -216,7 +219,7 @@ trait ResponseTrait
             );
         }
 
-        return $this->success($data, $err_msg ?: 'unknown error', $err_code ?: 500, $headers);
+        return $this->success($data, $err_msg ?: 'unknown error', $err_code ?: 500, $headers, $options);
     }
 
     public function reportableHandle()
@@ -229,7 +232,7 @@ trait ResponseTrait
     public function renderableHandle()
     {
         return function (\Throwable $e) {
-            if (! \request()->wantsJson()) {
+            if (!\request()->wantsJson()) {
                 return;
             }
 
@@ -277,7 +280,7 @@ trait ResponseTrait
                 'message' => $e->getMessage(),
                 'file_line' => sprintf('%s:%s', $e->getFile(), $e->getLine()),
             ]);
-            
+
             return $this->fail($e->getMessage(), $code);
         };
     }
