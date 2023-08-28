@@ -129,4 +129,65 @@ class DateUtility
 
         return $dayOfWeek;
     }
+
+    public static function getYearMonth($year = null)
+    {
+        $currentYear = $year;
+
+        // 获取当前年份
+        if (!$currentYear) {
+            $currentYear = date("Y");
+        }
+
+        // 创建一个数组来保存12个月份
+        $months = [];
+
+        for ($i = 1; $i <= 12; $i++) {
+            // 数字月份前面补零，比如 '01'，'02'，...，'12'
+            $month = str_pad($i, 2, '0', STR_PAD_LEFT);
+
+            // 将年份和月份结合，格式为 'YYYY-MM'
+            $months[] = "{$currentYear}-{$month}-01";
+        }
+
+        return $months;
+    }
+
+    public static function getYearMonthRange(array $monthRange)
+    {
+        $data = [];
+        foreach ($monthRange as $item) {
+            $startDay = static::getYearMonthDay($item, 'first');
+            $endDay = static::getYearMonthDay($item, 'last');
+
+            $data[] = [
+                $startDay,
+                $endDay,
+            ];
+        }
+
+        return $data;
+    }
+
+    public static function getYearMonthDay($monthDay = null, $type = 'first')
+    {
+        $type = match ($type) {
+            default => 'first',
+            'first' => 'first',
+            'last' => 'last',
+        };
+
+        $date = new \DateTime($monthDay);
+        $date->modify("{$type} day of this month");
+
+        $dateString = $date->format('Y-m-d');
+
+        $dateTimeString = match ($type) {
+            default => $dateString . ' 00:00:00',
+            'first' => $dateString . ' 00:00:00',
+            'last' => $dateString . ' 23:59:59',
+        };
+
+        return $dateTimeString;
+    }
 }
