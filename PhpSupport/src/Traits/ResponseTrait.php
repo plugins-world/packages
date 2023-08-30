@@ -176,6 +176,8 @@ trait ResponseTrait
 
     public function fail($err_msg = 'unknown error', $err_code = 400, $data = [], $headers = [], $options = [])
     {
+        static::setResponseCodeKey($options['responseCodeKey'] ?? 1);
+
         $res = match (static::$responseCodeKey) {
             default => [
                 'err_code' => $err_code,
@@ -219,7 +221,14 @@ trait ResponseTrait
             );
         }
 
-        return $this->success($data, $err_msg ?: 'unknown error', $err_code ?: 500, $headers, $options);
+        // return $this->success($data, $err_msg ?: 'unknown error', $err_code ?: 500, $headers, $options);
+        return \response(
+            \json_encode($res, \JSON_UNESCAPED_SLASHES | \JSON_PRETTY_PRINT),
+            Response::HTTP_OK,
+            array_merge([
+                'Content-Type' => 'application/json',
+            ], $headers)
+        );
     }
 
     public function reportableHandle()
