@@ -5,6 +5,8 @@
 [![Latest Unstable Version](http://poser.pugx.org/plugins-world/market-manager/v/unstable)](https://packagist.org/packages/plugins-world/market-manager) [![License](http://poser.pugx.org/plugins-world/market-manager/license)](https://packagist.org/packages/plugins-world/market-manager)
 [![PHP Version Require](http://poser.pugx.org/plugins-world/market-manager/require/php)](https://packagist.org/packages/plugins-world/market-manager)
 
+- 应用市场：https://marketplace.plugins-world.cn
+
 
 ## 安装
 
@@ -116,9 +118,8 @@ Route::domain(parse_url(config('app.url'), PHP_URL_HOST))->get('/', function () 
 
 ## 说明
 
-1. 应用市场：https://marketplace.plugins-world.cn
-2. 符合插件管理器开发规范的插件可以被安装
-3. 插件安装方式：
+1. 符合插件管理器开发规范的插件可以被安装
+2. 插件安装方式：
    1. 从 url 安装 zip 插件
    2. 从 github url 安装私有插件
    3. 从 github url 安装公开插件
@@ -127,9 +128,9 @@ Route::domain(parse_url(config('app.url'), PHP_URL_HOST))->get('/', function () 
    6. 上传 zip 插件到服务器进行安装
    7. 从指定目录安装
    8. 从插件市场安装插件（开发中）
-4. 目前，官方插件代码仓库为：https://github.com/plugins-world/plugins
-5. 项目需要配置好权限，避免插件无法下载，解压，安装。插件的安装需要 web 程序的用户读取、创建目录。
-6. 每次安装后，插件默认关闭，需要进行启用操作。
+3. 目前，官方插件代码仓库为：https://github.com/plugins-world/plugins
+4. 项目需要配置好权限，避免插件无法下载，解压，安装。插件的安装需要 web 程序的用户读取、创建目录。
+5. 每次安装后，插件默认关闭，需要进行启用操作。
 
 
 ## 遇到问题
