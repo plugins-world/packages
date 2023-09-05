@@ -1,4 +1,4 @@
-# MarketManager
+# 插件管理器
 
 [![Latest Stable Version](http://poser.pugx.org/plugins-world/market-manager/v)](https://packagist.org/packages/plugins-world/market-manager)
 [![Total Downloads](http://poser.pugx.org/plugins-world/market-manager/downloads)](https://packagist.org/packages/plugins-world/market-manager)
@@ -8,7 +8,15 @@
 
 ## 安装
 
-你可以通过 composer 安装这个扩展包，与应用插件不同的是，此扩展会安装到 `vendor/` 目录下。下面是操作步骤：
+你可以通过 composer 安装这个扩展包，与应用插件不同的是，此扩展会安装到 `vendor/` 目录下。
+
+⚠️注意，安装的时候，会询问是以下内容，请输入： `y`
+> wikimedia/composer-merge-plugin contains a Composer plugin which is currently not in your allow-plugins config. See https://getcomposer.org/allow-plugins  
+> 
+> Do you trust "wikimedia/composer-merge-plugin" to execute code and wish to enable it now? (writes "allow-plugins" to composer.json) [y,n,d,?]
+
+
+下面是初始化项目并引入插件管理器的操作步骤：
 
 1. 创建项目
 ```bash
@@ -58,12 +66,31 @@ git add .
 git commit -m "feat: Install laravel market-manager."
 ```
 
-4. 访问路由：`/market-manager`
+4. 正确配置项目权限  
+宝塔：`chown www:www -R /path/to/laravel-test`
 
-5. 限制访问授权
+5. 访问：`http://域名/market-manager`，查看安装结果
+
+
+## 挑选插件
+
+访问 `http://域名/market-manager`，打开左侧的插件市场菜单，并在其中查找需要的插件。进入插件详情页后点击安装。
+
+⚠️注意：独立打开插件市场，不会显示安装按钮。
+
+
+## 插件管理页的访问限制
+
+⚠️注意：
 - MarketManager 默认只允许 `local` 与 `develop` 环境访问。
 - Plugin 默认全部放行访问。
 - 如果需要限制访问权限，可以在 `app/Providers/AppServiceProvider.php` 的 `boot` 函数中，通过指定 MarketManager 如何进行认证来完成限制，参考如下：
+
+
+操作步骤：
+1. 安装 SanctumAuth 插件
+2. 通过 artisan 命令 app:user-add 创建一个初始账号
+3. 正确配置主程序。下面是配置参考
 
 - 通过 `AppServiceProvider` 授权
 ```
@@ -85,12 +112,6 @@ Route::domain(parse_url(config('app.url'), PHP_URL_HOST))->get('/', function () 
 
 - 通过命令字 `\FresnsCmdWord::plugin('Manager')->checkAuth([])` 授权 MarketManager 访问，需要自行实现 `Manager` 的 `checkAuth` 命令字。
 - 通过命令字 `\FresnsCmdWord::plugin('Manager')->checkPluginAuth([])` 授权 Plugin 访问，需要自行实现 `Manager` 的 `checkPluginAuth` 命令字。
-
-
-**注意，安装的时候，会询问是以下内容，请输入： `y`**
-> wikimedia/composer-merge-plugin contains a Composer plugin which is currently not in your allow-plugins config. See https://getcomposer.org/allow-plugins  
-> 
-> Do you trust "wikimedia/composer-merge-plugin" to execute code and wish to enable it now? (writes "allow-plugins" to composer.json) [y,n,d,?]
 
 
 ## 说明
