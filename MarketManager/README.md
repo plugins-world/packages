@@ -38,7 +38,7 @@ git commit -m "feat: Init."
 
 2. 修改依赖包约束
 ⚠️注意：需要确保项目 `composer.json` 允许安装稳定性依赖为 `dev` 的扩展包
-```
+```js
 {
     ...
     "minimum-stability": "dev",
@@ -95,7 +95,7 @@ git commit -m "feat: Install laravel market-manager."
 3. 正确配置主程序。下面是配置参考
 
 - 通过 `AppServiceProvider` 授权
-```
+```php
 \Plugins\MarketManager\MarketManager::auth(function ($request, $next) {
     // return \Illuminate\Support\Facades\Auth::onceBasic() ?: $next($request);
 });
