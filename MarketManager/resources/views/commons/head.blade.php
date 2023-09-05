@@ -11,8 +11,6 @@
 
 <!-- topbar js: @see documention https://buunguyen.github.io/topbar/ -->
 <script src="https://cdn.jsdelivr.net/npm/topbar"></script>
-<!-- ansi_to_html: @see https://github.com/drudru/ansi_up -->
-<script src="https://cdn.jsdelivr.net/npm/ansi_up"></script>
 <!-- jquery: @see documention http://jquery.cuishifeng.cn/ -->
 <script src="https://cdn.jsdelivr.net/npm/jquery"></script>
 <!-- jquery throttle and debounce: @see https://stackoverflow.com/questions/27787768/debounce-function-in-jquery -->

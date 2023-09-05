@@ -6,8 +6,13 @@ use \Plugins\MarketManager\Utilities\PluginUtility;
 
 @section('content')
 <style>
-    .plugin-link {text-decoration:none;}
-    .plugin-link:hover {text-decoration:underline;}
+    .plugin-link {
+        text-decoration: none;
+    }
+
+    .plugin-link:hover {
+        text-decoration: underline;
+    }
 </style>
 
 <header class="container-fulid mb-3 border-bottom">
@@ -274,7 +279,12 @@ use \Plugins\MarketManager\Utilities\PluginUtility;
     </div>
 </div>
 
-<script>
+<script type="module" type="text/javascript">
+    // ansi_to_html: @see https://github.com/drudru/ansi_up
+    import {
+        AnsiUp
+    } from 'https://cdn.jsdelivr.net/npm/ansi_up';
+
     // 安装类型选择
     $('.dropdown .dropdown-item').on('click', $.debounce(500, function(event) {
         const userChoiceInputMethod = $(this).data('install-method');
