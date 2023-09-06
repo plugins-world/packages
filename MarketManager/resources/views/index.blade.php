@@ -285,6 +285,7 @@ use \Plugins\MarketManager\Utilities\PluginUtility;
         AnsiUp
     } from 'https://cdn.jsdelivr.net/npm/ansi_up';
 
+
     // 安装类型选择
     $('.dropdown .dropdown-item').on('click', $.debounce(500, function(event) {
         const userChoiceInputMethod = $(this).data('install-method');
@@ -410,8 +411,11 @@ use \Plugins\MarketManager\Utilities\PluginUtility;
 
         return;
     }));
+</script>
 
-    function goToPluginPage(ele) {
+<script>
+
+function goToPluginPage(ele) {
         event.preventDefault();
         const href = $(ele).data('href');
         if (href == '#') {
@@ -427,7 +431,7 @@ use \Plugins\MarketManager\Utilities\PluginUtility;
         });
     }
 
-    var updatePlugin = function(data, _this) {
+    function updatePlugin(data, _this) {
         $.ajax({
             url: "{{ route('plugin.update', []) }}",
             type: "POST",
@@ -445,7 +449,7 @@ use \Plugins\MarketManager\Utilities\PluginUtility;
         })
     };
 
-    var uninstallPlugin = function(data, _this) {
+    function uninstallPlugin(data, _this) {
         $('#output').modal('show');
 
         $.ajax({
@@ -474,9 +478,7 @@ use \Plugins\MarketManager\Utilities\PluginUtility;
             }
         })
     }
-</script>
 
-<script>
     window.addEventListener('message', (e) => {
         let data
         try {
