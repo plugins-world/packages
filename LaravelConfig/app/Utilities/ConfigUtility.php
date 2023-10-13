@@ -17,14 +17,28 @@ class ConfigUtility
             }
 
             $config = Config::findConfig($itemKey, $itemTag);
-            if (!$config) {
-                continue;
+            if ($config) {
+                $config->item_value = \request($itemKey);
+                $config->save();
+    
+                Config::forgetCache($config->item_key);
+            } else {
+                $itemValue = \request($itemKey);
+                $itemType = match(true) {
+                    default => 'string',
+                    is_string($itemValue) => 'string',
+                    is_array($itemValue) => 'json',
+                };
+
+                ConfigUtility::addFresnsConfigItems([
+                    [
+                        'item_tag' => $itemTag,
+                        'item_key' => $itemKey,
+                        'item_type' => $itemType,
+                        'item_value' => $itemValue,
+                    ],
+                ]);
             }
-
-            $config->item_value = \request($config->item_key);
-            $config->save();
-
-            Config::forgetCache($config->item_key);
         }
 
         $result = ConfigHelper::fresnsConfigByItemKeys($itemKeys, $itemTag);
