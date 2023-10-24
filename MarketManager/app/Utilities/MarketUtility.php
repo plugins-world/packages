@@ -22,11 +22,17 @@ class MarketUtility
     public static function macroMarketHeaders()
     {
         Http::macro('market', function () {
-            return Http::withHeaders(
-                MarketUtility::getMarketHeaders()
-            )->baseUrl(
-                MarketUtility::getApiHost()
-            );
+            $httpProxy = config('app.http_proxy');
+            $http = Http::baseUrl(MarketUtility::getApiHost())
+                ->withHeaders(MarketUtility::getMarketHeaders())
+                ->withOptions([
+                    'proxy' => [
+                        'http' => $httpProxy,
+                        'https' => $httpProxy,
+                    ],
+                ]);
+
+            return $http;
         });
     }
 
