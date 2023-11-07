@@ -31,9 +31,9 @@
     "require": {
         "php": ">= 8.0",
         "plugins-world/laravel-config": "^2.0",
-        "fresns/cmd-word-manager": "^1.0",
-        "fresns/market-manager": "^3.0",
-        "fresns/plugin-manager": "^3.0"
+        "fresns/cmd-word-manager": "^1.0 | dev-master",
+        "fresns/market-manager": "^3.0 | dev-master",
+        "fresns/plugin-manager": "^3.0 | dev-master"
     },
     "require-dev": {
         "orangehill/iseed": "^3.0"
