@@ -15,6 +15,10 @@ return new class extends Migration
      */
     public function up(): void
     {
+        if (!is_dir(base_path('extensions'))) {
+            return;
+        }
+
         $commands = [];
 
         // 备份
@@ -50,6 +54,10 @@ return new class extends Migration
      */
     public function down(): void
     {
+        if (!is_dir(base_path('extensions2_back'))) {
+            return;
+        }
+
         $commands = [];
 
         // 备份
