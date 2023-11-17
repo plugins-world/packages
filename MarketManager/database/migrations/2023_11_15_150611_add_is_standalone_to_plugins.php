@@ -11,11 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('plugins', function (Blueprint $table) {
-            $table->unsignedTinyInteger('is_standalone')->default(0)->after('settings_path');
-
-            $table->dropColumn('theme_functions');
-        });
+        if (!Schema::hasColumn('plugins', 'is_standalone')) {
+            Schema::table('plugins', function (Blueprint $table) {
+                $table->unsignedTinyInteger('is_standalone')->default(0)->after('settings_path');
+    
+                $table->dropColumn('theme_functions');
+            });
+        }
     }
 
     /**
@@ -23,9 +25,11 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('plugins', function (Blueprint $table) {
-            $table->unsignedTinyInteger('theme_functions')->default(0)->after('settings_path');
-            $table->dropColumn('is_standalone');
-        });
+        if (Schema::hasColumn('plugins', 'is_standalone')) {
+            Schema::table('plugins', function (Blueprint $table) {
+                $table->unsignedTinyInteger('theme_functions')->default(0)->after('settings_path');
+                $table->dropColumn('is_standalone');
+            });
+        }
     }
 };
