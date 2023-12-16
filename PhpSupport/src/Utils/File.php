@@ -162,7 +162,7 @@ class File
         return $dirpath;
     }
 
-    public static function scandir(string $path, callable $callable)
+    public static function scandir(string $dirpath, callable $callable)
     {
         $dirIterator = new \RecursiveDirectoryIterator($path, \FilesystemIterator::FOLLOW_SYMLINKS | \FilesystemIterator::SKIP_DOTS);
         $iterator = new \RecursiveIteratorIterator($dirIterator);
