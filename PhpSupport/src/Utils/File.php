@@ -164,7 +164,7 @@ class File
 
     public static function scandir(string $dirpath, callable $callable)
     {
-        $dirIterator = new \RecursiveDirectoryIterator($path, \FilesystemIterator::FOLLOW_SYMLINKS | \FilesystemIterator::SKIP_DOTS);
+        $dirIterator = new \RecursiveDirectoryIterator($dirpath, \FilesystemIterator::FOLLOW_SYMLINKS | \FilesystemIterator::SKIP_DOTS);
         $iterator = new \RecursiveIteratorIterator($dirIterator);
         /** @var \SplFileInfo $fille */
         foreach ($iterator as $file) {
