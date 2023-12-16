@@ -161,4 +161,17 @@ class File
 
         return $dirpath;
     }
+
+    public static function scandir(string $path, callable $callable)
+    {
+        $dirIterator = new \RecursiveDirectoryIterator($path, \FilesystemIterator::FOLLOW_SYMLINKS | \FilesystemIterator::SKIP_DOTS);
+        $iterator = new \RecursiveIteratorIterator($dirIterator);
+        /** @var \SplFileInfo $fille */
+        foreach ($iterator as $file) {
+            if (in_array($file->getBasename(), ['.', '..', '__MACOSX', '.DS_Store'])) continue;
+            if (str_contains($file->getPathname(), '__MACOSX')) continue;
+            
+            $callable($file);
+        }
+    }
 }
