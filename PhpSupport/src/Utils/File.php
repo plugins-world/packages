@@ -170,8 +170,10 @@ class File
         foreach ($iterator as $file) {
             if (in_array($file->getBasename(), ['.', '..', '__MACOSX', '.DS_Store'])) continue;
             if (str_contains($file->getPathname(), '__MACOSX')) continue;
-            
-            $callable($file);
+
+            if ($callable($file) === false) {
+                break;
+            }
         }
     }
 }
