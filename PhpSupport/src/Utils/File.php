@@ -172,7 +172,7 @@ class File
             if (str_contains($file->getPathname(), '__MACOSX')) continue;
 
             if ($callable($file) === false) {
-                break;
+                return;
             }
         }
     }
