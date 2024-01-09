@@ -29,8 +29,8 @@ trait RequestTrait
      * @param array $headers
      * @return \Illuminate\Testing\TestResponse
      */
-    public function getJson($uri, array $query = [], array $headers = [])
+    public function getJsonWithQuery($uri, array $query = [], array $headers = [], $options = 0)
     {
-        return $this->json('GET', $uri, $query, $headers);
+        return $this->json('GET', $uri, $query, $headers, $options);
     }
 }

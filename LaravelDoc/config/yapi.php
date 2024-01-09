@@ -20,12 +20,13 @@ return [
         ]
     ],
 
-    // apifox
+    // apifox @see https://apifox-openapi.apifox.cn/
     'apifox' => [
-        'enable' => env('APIFOX_ENABLE', false),
-        'account' => env('APIFOX_ACCOUNT'),
-        'password' => env('APIFOX_PASSWORD'),
-        'project_id' => env('APIFOX_PROJECT_ID'),
+        'enable' => env('APIFOX_ENABLE', true),
+        'api_version' => '2022-11-16', // 默认写死，见 apifox 的接口文档说明
+        'base_url' => 'https://api.apifox.cn',
+        'project_id' => env('APIFOX_PROJECT_ID', 0),
+        'user_token' => env('APIFOX_USER_TOKEN', null),
     ],
 
     'openapi' => [
