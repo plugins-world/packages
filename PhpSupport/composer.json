@@ -1,5 +1,5 @@
 {
-    "name": "zhenmu/support",
+    "name": "plugins-world/php-support",
     "description": "Php 代码扩展包, 一些常用的 php 代码封装",
     "keywords": ["support", "mouyong", "zhenmu", "laravel", "webman", "aes", "php", "composer", "xml", "uuid", "url", "state", "file", "tool", "utils", "util"],
     "license": "MIT",
