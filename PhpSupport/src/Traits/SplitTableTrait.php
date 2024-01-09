@@ -1,6 +1,6 @@
 <?php
 
-namespace ZhenMu\Support\Traits;
+namespace Plugins\PhpSupport\Traits;
 
 use Carbon\Carbon;
 use Illuminate\Database\Schema\Blueprint;

@@ -1,6 +1,6 @@
 <?php
 
-namespace MouYong\LaravelDoc\Jobs;
+namespace Plugins\LaravelDoc\Jobs;
 
 use Illuminate\Support\Arr;
 use Cblink\YApi\YApiRequest;

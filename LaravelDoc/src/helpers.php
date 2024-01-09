@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Database\Eloquent\Model;
-use MouYong\LaravelDoc\Models\Config;
+use Plugins\LaravelDoc\Models\Config;
 
 if (! function_exists('db_config')) {
     function db_config($itemKey = null): string|array|Model

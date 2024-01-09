@@ -25,7 +25,7 @@ use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Routing\Controller as BaseController;
-use ZhenMu\Support\Traits\ResponseTrait; // here
+use Plugins\PhpSupport\Traits\ResponseTrait; // here
 
 class Controller extends BaseController
 {
@@ -45,7 +45,7 @@ namespace App\Exceptions;
 
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Throwable;
-use ZhenMu\Support\Traits\ResponseTrait; // here
+use Plugins\PhpSupport\Traits\ResponseTrait; // here
 
 class Handler extends ExceptionHandler
 {

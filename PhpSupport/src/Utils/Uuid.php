@@ -1,6 +1,6 @@
 <?php
 
-namespace ZhenMu\Support\Utils;
+namespace Plugins\PhpSupport\Utils;
 
 use Illuminate\Support\Facades\DB;
 

@@ -1,6 +1,6 @@
 <?php
 
-namespace ZhenMu\Support\Utils;
+namespace Plugins\PhpSupport\Utils;
 
 use Symfony\Component\Process\Process as SymfonyProcess;
 use Symfony\Component\Console\Output\OutputInterface;

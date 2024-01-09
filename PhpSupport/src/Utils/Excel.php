@@ -1,6 +1,6 @@
 <?php
 
-namespace ZhenMu\Support\Utils;
+namespace Plugins\PhpSupport\Utils;
 
 use Carbon\Carbon;
 use Maatwebsite\Excel\Events\Event;

@@ -1,10 +1,10 @@
 <?php
 
-namespace MouYong\LaravelDoc;
+namespace Plugins\LaravelDoc;
 
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
-use MouYong\LaravelDoc\Http\Controllers\OpenapiController;
+use Plugins\LaravelDoc\Http\Controllers\OpenapiController;
 
 class LaravelDocServiceProvider extends ServiceProvider
 {

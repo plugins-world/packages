@@ -39,7 +39,7 @@
     },
     "autoload": {
         "psr-4": {
-            "MouYong\\LaravelDoc\\": "src"
+            "Plugins\\LaravelDoc\\": "src"
         },
         "files": [
             "./src/helpers.php"
@@ -48,7 +48,7 @@
     "extra": {
         "laravel": {
             "providers": [
-                "MouYong\\LaravelDoc\\LaravelDocServiceProvider"
+                "Plugins\\LaravelDoc\\LaravelDocServiceProvider"
             ]
         },
         "hooks": {

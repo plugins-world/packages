@@ -6,7 +6,7 @@
  * Released under the Apache-2.0 License.
  */
 
-namespace ZhenMu\Support\Utils;
+namespace Plugins\PhpSupport\Utils;
 
 use Illuminate\Support\Facades\File;
 use PhpZip\ZipFile;

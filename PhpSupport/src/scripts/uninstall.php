@@ -3,4 +3,4 @@
 
 require_once __DIR__.'/../../../../autoload.php';
 
-\ZhenMu\Support\Install::uninstall();
+\Plugins\PhpSupport\Install::uninstall();

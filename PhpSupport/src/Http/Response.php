@@ -1,10 +1,10 @@
 <?php
 
-namespace ZhenMu\Support\Http;
+namespace Plugins\PhpSupport\Http;
 
 use Illuminate\Support\Collection;
 use Psr\Http\Message\ResponseInterface;
-use ZhenMu\Support\Utils\XML;
+use Plugins\PhpSupport\Utils\XML;
 use GuzzleHttp\Psr7\Response as GuzzleResponse;
 
 class Response extends GuzzleResponse

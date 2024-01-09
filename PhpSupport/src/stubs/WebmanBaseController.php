@@ -2,7 +2,7 @@
 
 namespace app\controller;
 
-use ZhenMu\Support\Traits\WebmanResponseTrait;
+use Plugins\PhpSupportportportportportportportportportportportportportport\Traits\WebmanResponseTrait;
 
 class WebmanBaseController
 {

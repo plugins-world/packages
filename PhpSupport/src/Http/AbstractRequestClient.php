@@ -1,13 +1,13 @@
 <?php
 
-namespace ZhenMu\Support\Http;
+namespace Plugins\PhpSupport\Http;
 
 use GuzzleHttp\MessageFormatter;
 use GuzzleHttp\Middleware;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Log\LogLevel;
-use ZhenMu\Support\Contracts\AccessToken;
+use Plugins\PhpSupport\Contracts\AccessToken;
 
 abstract class AbstractRequestClient extends Request
 {

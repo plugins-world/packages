@@ -1,6 +1,6 @@
 <?php
 
-namespace ZhenMu\Support\Contracts;
+namespace Plugins\PhpSupport\Contracts;
 
 use Psr\Http\Message\RequestInterface;
 

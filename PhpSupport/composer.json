@@ -31,7 +31,7 @@
             "src/helpers.php"
         ],
         "psr-4": {
-            "ZhenMu\\Support\\": "src"
+            "Plugins\\PhpSupport\\": "src"
         }
     }
 }

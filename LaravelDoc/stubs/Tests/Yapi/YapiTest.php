@@ -4,7 +4,7 @@ namespace Tests\Yapi;
 
 use Tests\TestCase;
 use Cblink\YApiDoc\YapiJobs;
-use MouYong\LaravelDoc\Jobs\ApifoxJobs;
+use Plugins\LaravelDoc\Jobs\ApifoxJobs;
 
 class YapiTest extends TestCase
 {

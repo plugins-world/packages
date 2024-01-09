@@ -1,6 +1,6 @@
 <?php
 
-namespace MouYong\LaravelDoc\Http\Controllers;
+namespace Plugins\LaravelDoc\Http\Controllers;
 
 use Illuminate\Routing\Controller;
 

@@ -35,9 +35,9 @@ openapi 文档的访问路由，默认是 /openapi
 `routes/tenant.php`
 ```
 // 定义路由，实际开发时替换为正式的 method、uri、controller、action
-Route::any('/api/oem-info', [\MouYong\LaravelDoc\Http\Controllers\OpenapiController::class, 'example']);
-Route::get('/api/patients', [\MouYong\LaravelDoc\Http\Controllers\OpenapiController::class, 'example']);
-Route::post('/api/patients', [\MouYong\LaravelDoc\Http\Controllers\OpenapiController::class, 'example']);
+Route::any('/api/oem-info', [\Plugins\LaravelDoc\Http\Controllers\OpenapiController::class, 'example']);
+Route::get('/api/patients', [\Plugins\LaravelDoc\Http\Controllers\OpenapiController::class, 'example']);
+Route::post('/api/patients', [\Plugins\LaravelDoc\Http\Controllers\OpenapiController::class, 'example']);
 ```
 
 `tests/TestCase.php`
@@ -47,7 +47,7 @@ Route::post('/api/patients', [\MouYong\LaravelDoc\Http\Controllers\OpenapiContro
 namespace Tests;
 
 use Illuminate\Foundation\Testing\TestCase as BaseTestCase;
-use MouYong\LaravelDoc\Traits\YapiTrait; // here
+use Plugins\LaravelDoc\Traits\YapiTrait; // here
 
 abstract class TestCase extends BaseTestCase
 {

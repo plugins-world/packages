@@ -25,7 +25,7 @@ use Webman\Http\Request;
 use Webman\Http\Response;
 use Throwable;
 use Webman\Exception\ExceptionHandler;
-use ZhenMu\Support\Traits\WebmanResponseTrait;
+use Plugins\PhpSupport\Traits\WebmanResponseTrait;
 
 /**
  * Class Handler

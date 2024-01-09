@@ -1,11 +1,11 @@
 <?php
 
-namespace ZhenMu\Support\Traits;
+namespace Plugins\PhpSupport\Traits;
 
 use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Support\Collection;
 use Psr\Http\Message\ResponseInterface;
-use ZhenMu\Support\Http\Response;
+use Plugins\PhpSupport\Http\Response;
 
 trait ResponseCastable
 {

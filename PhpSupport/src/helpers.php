@@ -15,7 +15,7 @@ if (!function_exists('tap')) {
                 return new \Illuminate\Support\HigherOrderTapProxy($value);
             }
 
-            return new \ZhenMu\Support\Utils\HigherOrderTapProxy($value);
+            return new \Plugins\PhpSupport\Utils\HigherOrderTapProxy($value);
         }
 
         $callback($value);

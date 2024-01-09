@@ -1,8 +1,8 @@
 <?php
 
-namespace ZhenMu\Support\Http;
+namespace Plugins\PhpSupport\Http;
 
-use ZhenMu\Support\Traits\HasHttpRequests;
+use Plugins\PhpSupport\Traits\HasHttpRequests;
 
 class Request
 {

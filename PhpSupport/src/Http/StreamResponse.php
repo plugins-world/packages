@@ -1,6 +1,6 @@
 <?php
 
-namespace ZhenMu\Support\Http;
+namespace Plugins\PhpSupport\Http;
 
 use ZhenMu\Utils\File;
 

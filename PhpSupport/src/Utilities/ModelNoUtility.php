@@ -1,6 +1,6 @@
 <?php
 
-namespace ZhenMu\Support\Utilities;
+namespace Plugins\PhpSupport\Utilities;
 
 class ModelNoUtility
 {

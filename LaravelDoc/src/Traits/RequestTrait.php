@@ -1,6 +1,6 @@
 <?php
 
-namespace MouYong\LaravelDoc\Traits;
+namespace Plugins\LaravelDoc\Traits;
 
 /**
  * Trait RequestTrait
