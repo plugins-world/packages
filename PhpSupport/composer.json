@@ -31,7 +31,7 @@
             "src/helpers.php"
         ],
         "psr-4": {
-            "Plugins\\PhpSupport\\": "src"
+            "Plugins\\PhpSupport\\": "app"
         }
     }
 }
