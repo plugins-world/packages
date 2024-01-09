@@ -39,7 +39,7 @@
     },
     "autoload": {
         "psr-4": {
-            "Plugins\\LaravelDoc\\": "src"
+            "Plugins\\LaravelDoc\\": "app"
         },
         "files": [
             "./src/helpers.php"
@@ -48,7 +48,7 @@
     "extra": {
         "laravel": {
             "providers": [
-                "Plugins\\LaravelDoc\\LaravelDocServiceProvider"
+                "Plugins\\LaravelDoc\\Providers\\LaravelDocServiceProvider"
             ]
         },
         "hooks": {
