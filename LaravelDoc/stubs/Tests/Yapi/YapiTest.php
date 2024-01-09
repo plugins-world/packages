@@ -22,7 +22,7 @@ class YapiTest extends TestCase
 
     public function test_api_request()
     {
-        $response = $this->getJsonWithQuery('http://localhost:8000/api');
+        $response = $this->getJsonWithQuery('/api');
 
         // 断言接口响应数据格式
         $this->assertSuccess($response, []);
