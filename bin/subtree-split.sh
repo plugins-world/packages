@@ -26,7 +26,7 @@ remote MarketManager git@github.com:plugins-world/MarketManager.git
 
 remote LaravelOauth git@github.com:mouyong/laravel-oauth.git
 remote LaravelConfig git@github.com:plugins-world/LaravelConfig.git
-remote LaravelDoc git@github.com:plugons-world/LaravelDoc.git
+remote LaravelDoc git@github.com:plugins-world/LaravelDoc.git
 remote PhpSupport git@github.com:plugins-world/PhpSupport.git
 remote Translate git@github.com:mouyong/translate.git
 remote ECloudHousekeeper git@github.com:mouyong/ECloudHousekeeper.git
