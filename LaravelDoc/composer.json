@@ -27,7 +27,7 @@
     "require": {
         "php": ">=8.0",
         "cblink/yapi-doc": "^1.2|dev-master",
-        "zhenmu/support": "^1.0|dev-master"
+        "plugins-world/php-support": "^1.0|dev-master"
     },
     "require-dev": {
         "brainmaestro/composer-git-hooks": "^2.8",
