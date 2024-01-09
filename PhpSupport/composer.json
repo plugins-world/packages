@@ -28,7 +28,7 @@
     },
     "autoload": {
         "files": [
-            "src/helpers.php"
+            "app/helpers.php"
         ],
         "psr-4": {
             "Plugins\\PhpSupport\\": "app"

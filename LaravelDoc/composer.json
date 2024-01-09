@@ -42,7 +42,7 @@
             "Plugins\\LaravelDoc\\": "app"
         },
         "files": [
-            "./src/helpers.php"
+            "./app/helpers.php"
         ]
     },
     "extra": {
