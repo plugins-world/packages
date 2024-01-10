@@ -10,7 +10,8 @@ class MarketUtility
 {
     const version = '1.0.0';
     const versionInt = 1;
-    
+    const defaultMarketHost = 'https://marketplace.plugins-world.cn';
+
     public static function currentVersion()
     {
         return [
@@ -18,7 +19,7 @@ class MarketUtility
             'versionInt' => static::versionInt,
         ];
     }
-    
+
     public static function macroMarketHeaders()
     {
         Http::macro('market', function () {
@@ -36,9 +37,13 @@ class MarketUtility
         });
     }
 
-    public static function getApiHost(): string
+    public static function getApiHost()
     {
         $apiHost = ConfigHelper::fresnsConfigByItemKey('market_server_host');
+
+        if (!$apiHost) {
+            return static::defaultMarketHost;
+        }
 
         return $apiHost;
     }
@@ -68,8 +73,8 @@ class MarketUtility
             'panelLangTag' => App::getLocale(),
             'installDatetime' => $appConfig['install_datetime'],
             'buildType' => $appConfig['build_type'],
-            'version' => self::currentVersion()['version'],
-            'versionInt' => self::currentVersion()['versionInt'],
+            'version' => static::currentVersion()['version'],
+            'versionInt' => static::currentVersion()['versionInt'],
             'httpSsl' => $isHttps ? 1 : 0,
             'httpHost' => \request()->getHost(),
             'httpPort' => \request()->getPort(),
