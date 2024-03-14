@@ -9,11 +9,6 @@
 return [
     'name' => 'MarketManager',
 
-    'paths' => [
-        'base' => base_path('extensions'),
-        'markets' => base_path('storage/extensions'),
-    ],
-
     /*
     |--------------------------------------------------------------------------
     | Composer File Template
@@ -28,7 +23,7 @@ return [
             [
                 'name'  => 'MouYong',
                 'email' => 'my24251325@gmail.com',
-                'homepage' => 'https://plugins-world.org/',
+                'homepage' => 'https://plugins-world.cn/',
                 'role' => 'Creator',
             ],
         ],
