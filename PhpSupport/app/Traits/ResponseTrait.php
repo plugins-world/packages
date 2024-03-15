@@ -258,6 +258,14 @@ trait ResponseTrait
             }
 
             if ($e instanceof \Symfony\Component\HttpKernel\Exception\HttpException) {
+                if ($e->getPrevious() instanceof \Illuminate\Database\Eloquent\ModelNotFoundException) {
+                    return $this->fail('404 Data Not Found.', Response::HTTP_NOT_FOUND);
+                }
+
+                if ($e->getPrevious() instanceof \Symfony\Component\HttpKernel\Exception\NotFoundHttpException) {
+                    return $this->fail('404 Url Not Found.', Response::HTTP_NOT_FOUND);
+                }
+
                 $message = '请求失败';
                 if ($e->getStatusCode() == 403) {
                     $message = '拒绝访问';
