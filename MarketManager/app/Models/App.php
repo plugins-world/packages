@@ -2,21 +2,20 @@
 
 namespace Plugins\MarketManager\Models;
 
-class Plugin extends Model
+class App extends Model
 {
     const TYPE_PLUGIN = 1;
-    const TYPE_PANEL = 2;
-    const TYPE_ENGINE = 3;
-    const TYPE_THEME = 4;
-    const TYPE_STANDALONE = 5;
+    const TYPE_THEME = 2;
+    const TYPE_APP_REMOTE = 3;
+    const TYPE_APP_DOWNLOAD = 4;
 
     use Traits\IsEnabledTrait;
 
     protected $casts = [
-        'scene' => 'array',
+        'panel_usages' => 'array',
     ];
 
-    public function getSceneAttribute($value)
+    public function getPanelUsagesAttribute($value)
     {
         if (is_string($value)) {
             $value = json_decode($value, true);

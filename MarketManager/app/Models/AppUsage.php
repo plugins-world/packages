@@ -2,7 +2,7 @@
 
 namespace Plugins\MarketManager\Models;
 
-class PluginUsage extends Model
+class AppUsage extends Model
 {
     use Traits\IsEnabledTrait;
 

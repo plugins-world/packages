@@ -2,7 +2,7 @@
 
 namespace Plugins\MarketManager\Models;
 
-class PluginCallback extends Model
+class TempCallbackContent extends Model
 {
     protected $casts = [
         'content' => 'json',
