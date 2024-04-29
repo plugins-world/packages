@@ -4,10 +4,13 @@ namespace Plugins\MarketManager\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Artisan;
+use Plugins\PhpSupport\Traits\ResponseTrait;
 use Plugins\LaravelConfig\Helpers\ConfigHelper;
 
 class MarketManagerApiController extends Controller
 {
+    use ResponseTrait;
+
     public function __construct()
     {
         if(!defined('STDIN'))  define('STDIN',  fopen('php://stdin',  'rb'));
@@ -19,13 +22,13 @@ class MarketManagerApiController extends Controller
     {
         \request()->validate([
             'install_type' => 'nullable', // plugin, theme
-            'install_method' => 'required|in:plugin_fskey,plugin_package,plugin_url,plugin_directory,plugin_zipball',
+            'install_method' => 'required|in:app_fskey,app_package,app_url,app_directory,app_zipball',
 
-            'plugin_fskey' => 'required_if:install_method,plugin_fskey',
-            'plugin_package' => 'required_if:install_method,plugin_package',
-            'plugin_url' => 'required_if:install_method,plugin_url',
-            'plugin_directory' => 'required_if:install_method,plugin_directory',
-            'plugin_zipball' => 'required_if:install_method,plugin_zipball',
+            'app_fskey' => 'required_if:install_method,app_fskey',
+            'app_package' => 'required_if:install_method,app_package',
+            'app_url' => 'required_if:install_method,app_url',
+            'app_directory' => 'required_if:install_method,app_directory',
+            'app_zipball' => 'required_if:install_method,app_zipball',
         ]);
 
         $install_type = \request('install_type', 'plugin');
@@ -34,10 +37,10 @@ class MarketManagerApiController extends Controller
 
         switch ($install_method) {
             // fskey
-            case 'plugin_fskey':
-            case 'plugin_package':
-            case 'plugin_url':
-                if ($install_method == 'plugin_url') {
+            case 'app_fskey':
+            case 'app_package':
+            case 'app_url':
+                if ($install_method == 'app_url') {
                     $configs = ConfigHelper::fresnsConfigByItemKeys([
                         'github_token',
                     ]);
@@ -60,7 +63,7 @@ class MarketManagerApiController extends Controller
             break;
 
             // directory
-            case 'plugin_directory':
+            case 'app_directory':
                 $pluginDirectory = $installValue;
 
                 // plugin-manager or theme-manager
@@ -71,8 +74,8 @@ class MarketManagerApiController extends Controller
                 $output = Artisan::output();
             break;
 
-            // plugin_zipball
-            case 'plugin_zipball':
+            // app_zipball
+            case 'app_zipball':
                 $pluginZipball = null;
                 $file = $installValue;
 

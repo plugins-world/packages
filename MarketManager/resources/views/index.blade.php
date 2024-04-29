@@ -181,21 +181,21 @@ use \Plugins\MarketManager\Utilities\PluginUtility;
 
                         <button class="btn btn-outline-secondary dropdown-toggle" id="toggleInstallMentod" type="button" data-bs-toggle="dropdown" aria-expanded="false">输入标识名</button>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item active" href="#" data-install-method="plugin_fskey">输入标识名</a></li>
-                            <li><a class="dropdown-item" href="#" data-install-method="plugin_package">输入 composer 包</a></li>
-                            <li><a class="dropdown-item" href="#" data-install-method="plugin_url">输入插件下载地址</a></li>
-                            <li><a class="dropdown-item" href="#" data-install-method="plugin_directory">输入安装目录</a></li>
-                            <li><a class="dropdown-item" href="#" data-install-method="plugin_zipball">上传 zip 压缩包</a></li>
+                            <li><a class="dropdown-item active" href="#" data-install-method="app_fskey">输入标识名</a></li>
+                            <li><a class="dropdown-item" href="#" data-install-method="app_package">输入 composer 包</a></li>
+                            <li><a class="dropdown-item" href="#" data-install-method="app_url">输入插件下载地址</a></li>
+                            <li><a class="dropdown-item" href="#" data-install-method="app_directory">输入安装目录</a></li>
+                            <li><a class="dropdown-item" href="#" data-install-method="app_zipball">上传 zip 压缩包</a></li>
                         </ul>
 
                         <input type="hidden" name="install_type" value="plugin" required class="form-control" style="display: block;">
-                        <input type="hidden" name="install_method" value="plugin_fskey" required class="form-control" style="display: block;">
+                        <input type="hidden" name="install_method" value="app_fskey" required class="form-control" style="display: block;">
 
-                        <input type="text" name="plugin_fskey" class="form-control" placeholder="请输入插件 fskey" style="display: block;">
-                        <input type="text" name="plugin_package" class="form-control" placeholder="请输入composer 包安装信息" style="display: none;">
-                        <input type="text" name="plugin_url" class="form-control" placeholder="请输入插件下载地址" style="display: none;">
-                        <input type="text" name="plugin_directory" class="form-control" placeholder="请输入插件 fskey 或插件目录的绝对路径" style="display: none;">
-                        <input type="file" name="plugin_zipball" class="form-control" placeholder="请选择插件安装包" style="display: none;" accept=".zip">
+                        <input type="text" name="app_fskey" class="form-control" placeholder="请输入插件 fskey" style="display: block;">
+                        <input type="text" name="app_package" class="form-control" placeholder="请输入composer 包安装信息" style="display: none;">
+                        <input type="text" name="app_url" class="form-control" placeholder="请输入插件下载地址" style="display: none;">
+                        <input type="text" name="app_directory" class="form-control" placeholder="请输入插件 fskey 或插件目录的绝对路径" style="display: none;">
+                        <input type="file" name="app_zipball" class="form-control" placeholder="请选择插件安装包" style="display: none;" accept=".zip">
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -317,10 +317,10 @@ use \Plugins\MarketManager\Utilities\PluginUtility;
         $('form button[type="submit"] span').remove();
         $('form button[type="submit"]').prop('disabled', false);
 
-        $('input[name="plugin_fskey"]').val('');
-        $('input[name="plugin_package"]').val('');
-        $('input[name="plugin_directory"]').val('');
-        $('input[name="plugin_zipball"]').val('');
+        $('input[name="app_fskey"]').val('');
+        $('input[name="app_package"]').val('');
+        $('input[name="app_directory"]').val('');
+        $('input[name="app_zipball"]').val('');
     });
 
     $('#output').on('show.bs.modal', function() {
@@ -338,8 +338,8 @@ use \Plugins\MarketManager\Utilities\PluginUtility;
         event.preventDefault();
 
         // 减少上传文件
-        if ($('input[name="install_method"]').val() !== 'plugin_zipball') {
-            $('input[name="plugin_zipball"]').val('');
+        if ($('input[name="install_method"]').val() !== 'app_zipball') {
+            $('input[name="app_zipball"]').val('');
         }
 
         $.ajax({
@@ -496,12 +496,12 @@ function goToPluginPage(ele) {
                 // (new bootstrap.Modal('#installModal')).show();
 
                 setTimeout(function() {
-                    $('#toggleInstallMentod').text($('.dropdown-menu a[data-install-method="plugin_package"]').text())
-                    $('input[name="install_method"]').val('plugin_package')
-                    $('input[name="plugin_package"]').val(data.data.fskey)
+                    $('#toggleInstallMentod').text($('.dropdown-menu a[data-install-method="app_package"]').text())
+                    $('input[name="install_method"]').val('app_package')
+                    $('input[name="app_package"]').val(data.data.fskey)
 
-                    $('input[name="plugin_package"]').css('display', 'block').siblings('input').css('display', 'none')
-                    $('input[name="plugin_package"]').attr('required', true).siblings('input').attr('required', false)
+                    $('input[name="app_package"]').css('display', 'block').siblings('input').css('display', 'none')
+                    $('input[name="app_package"]').attr('required', true).siblings('input').attr('required', false)
 
                     $('.install-btn').click()
                 }, 1000);
