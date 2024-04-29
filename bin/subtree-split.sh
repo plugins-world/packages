@@ -28,7 +28,7 @@ remote LaravelOauth git@github.com:mouyong/laravel-oauth.git
 remote LaravelConfig git@github.com:plugins-world/LaravelConfig.git
 remote LaravelDoc git@github.com:plugins-world/LaravelDoc.git
 remote PhpSupport git@github.com:plugins-world/PhpSupport.git
-remote Translate git@github.com:plugins-world/translate.git
+remote Translate git@github.com:plugins-world/Translate.git
 remote ECloudHousekeeper git@github.com:mouyong/ECloudHousekeeper.git
 
 # split 'src/Illuminate/Foundation' foundation
