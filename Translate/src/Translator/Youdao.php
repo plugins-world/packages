@@ -1,18 +1,18 @@
 <?php
 
-namespace MouYong\Translate\Translator;
+namespace Plugins\Translate\Translator;
 
-use MouYong\Translate\Translator\Result\Translate;
-use MouYong\Translate\Kernel\Contracts\TranslatorInterface;
-use MouYong\Translate\Kernel\Exceptions\TranslateException;
+use Plugins\Translate\Translator\Result\Translate;
+use Plugins\Translate\Kernel\Contracts\TranslatorInterface;
+use Plugins\Translate\Kernel\Exceptions\TranslateException;
 
 /**
  * @see http://ai.youdao.com/docs/doc-trans-api.s#p02
  */
 class Youdao implements TranslatorInterface
 {
-    use \MouYong\Translate\Kernel\Traits\InteractWithConfig;
-    use \MouYong\Translate\Kernel\Traits\InteractWithHttpClient;
+    use \Plugins\Translate\Kernel\Traits\InteractWithConfig;
+    use \Plugins\Translate\Kernel\Traits\InteractWithHttpClient;
 
     public function getHttpClientDefaultOptions()
     {

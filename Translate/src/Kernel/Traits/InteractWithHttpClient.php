@@ -1,6 +1,6 @@
 <?php
 
-namespace MouYong\Translate\Kernel\Traits;
+namespace Plugins\Translate\Kernel\Traits;
 
 use Symfony\Component\HttpClient\HttpClient;
 use Symfony\Contracts\HttpClient\HttpClientInterface;

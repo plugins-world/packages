@@ -1,6 +1,6 @@
 <?php
 
-namespace MouYong\Translate\Kernel\Exceptions;
+namespace Plugins\Translate\Kernel\Exceptions;
 
 class Exception extends \Exception
 {

@@ -1,6 +1,6 @@
 <?php
 
-namespace MouYong\Translate\Translator\Google;
+namespace Plugins\Translate\Translator\Google;
 
 use Stichoza\GoogleTranslate\GoogleTranslate;
 

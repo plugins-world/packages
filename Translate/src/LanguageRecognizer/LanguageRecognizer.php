@@ -1,6 +1,6 @@
 <?php
 
-namespace MouYong\Translate\LanguageRecognizer;
+namespace Plugins\Translate\LanguageRecognizer;
 
 class LanguageRecognizer
 {

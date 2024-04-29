@@ -1,6 +1,6 @@
 <?php
 
-namespace MouYong\Translate\Kernel\Contracts;
+namespace Plugins\Translate\Kernel\Contracts;
 
 /**
  * Interface ProviderInterface.

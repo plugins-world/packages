@@ -1,8 +1,8 @@
 <?php
 
-namespace MouYong\Translate\LanguageRecognizer;
+namespace Plugins\Translate\LanguageRecognizer;
 
-use MouYong\Translate\Exceptions\LanguageDetectException;
+use Plugins\Translate\Exceptions\LanguageDetectException;
 
 /**
  * @class LanguageRecognizer
@@ -13,7 +13,7 @@ use MouYong\Translate\Exceptions\LanguageDetectException;
  */
 class LanguageRecognizerClient
 {
-    use \MouYong\Translate\Kernel\Traits\InteractWithHttpClient;
+    use \Plugins\Translate\Kernel\Traits\InteractWithHttpClient;
 
     const API_URL = 'https://api.translatedlabs.com/language-identifier/identify';
 

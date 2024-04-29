@@ -1,6 +1,6 @@
 <?php
 
-namespace MouYong\Translate\Translator\Result;
+namespace Plugins\Translate\Translator\Result;
 
 class Translate
 {
