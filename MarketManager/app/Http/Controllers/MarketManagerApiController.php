@@ -116,9 +116,9 @@ class MarketManagerApiController extends Controller
 
         $fskey = \request('plugin');
         if (\request()->get('is_enabled') != 0) {
-            $exitCode = Artisan::call('market:activate', ['fskey' => $fskey]);
+            $exitCode = Artisan::call('plugin:activate', ['fskey' => $fskey]);
         } else {
-            $exitCode = Artisan::call('market:deactivate', ['fskey' => $fskey]);
+            $exitCode = Artisan::call('plugin:deactivate', ['fskey' => $fskey]);
         }
 
         if ($exitCode !== 0) {
@@ -141,9 +141,9 @@ class MarketManagerApiController extends Controller
 
         $fskey = \request('plugin');
         if (\request()->get('clearData') == 1) {
-            $exitCode = Artisan::call('market:remove-plugin', ['fskey' => $fskey, '--cleardata' => true]);
+            $exitCode = Artisan::call('plugin:uninstall', ['fskey' => $fskey, '--cleardata' => true]);
         } else {
-            $exitCode = Artisan::call('market:remove-plugin', ['fskey' => $fskey, '--cleardata' => false]);
+            $exitCode = Artisan::call('plugin:uninstall', ['fskey' => $fskey, '--cleardata' => false]);
         }
 
         $message = '卸载成功';

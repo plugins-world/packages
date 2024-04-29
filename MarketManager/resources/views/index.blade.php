@@ -170,7 +170,7 @@ use \Plugins\MarketManager\Utilities\PluginUtility;
 <div class="modal fade" id="installModal" tabindex="-2" data-bs-backdrop="static" data-bs-keyboard="false" aria-labelledby="staticBackdropLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
-            <form action="{{ route('plugin.install') }}" method="post" enctype="multipart/form-data">
+            <form action="{{ route('app.install') }}" method="post" enctype="multipart/form-data">
                 <div class="modal-header">
                     <h1 class="modal-title fs-5" id="installModalLabel">安装插件</h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -433,7 +433,7 @@ function goToPluginPage(ele) {
 
     function updatePlugin(data, _this) {
         $.ajax({
-            url: "{{ route('plugin.update', []) }}",
+            url: "{{ route('app.update', []) }}",
             type: "POST",
             data: data,
             success: function(res) {
@@ -453,7 +453,7 @@ function goToPluginPage(ele) {
         $('#output').modal('show');
 
         $.ajax({
-            url: "{{ route('plugin.uninstall', []) }}",
+            url: "{{ route('app.uninstall', []) }}",
             type: "POST",
             data: data,
             success: function(res) {

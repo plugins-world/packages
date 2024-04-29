@@ -26,7 +26,7 @@ use Plugins\MarketManager\Http\Controllers as ApiController;
 // });
 
 Route::prefix('market-manager')->group(function() {
-    Route::post('/', [ApiController\MarketManagerApiController::class, 'install'])->name('plugin.install');
-    Route::post('plugin-update', [ApiController\MarketManagerApiController::class, 'update'])->name('plugin.update');
-    Route::post('plugin-uninstall', [ApiController\MarketManagerApiController::class, 'uninstall'])->name('plugin.uninstall');
+    Route::post('/', [ApiController\MarketManagerApiController::class, 'install'])->name('app.install');
+    Route::post('app-update', [ApiController\MarketManagerApiController::class, 'update'])->name('app.update');
+    Route::post('app-uninstall', [ApiController\MarketManagerApiController::class, 'uninstall'])->name('app.uninstall');
 });

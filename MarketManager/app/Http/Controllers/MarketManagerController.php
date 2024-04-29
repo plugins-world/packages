@@ -3,158 +3,72 @@
 namespace Plugins\MarketManager\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use Fresns\MarketManager\Models\App;
 use Plugins\LaravelConfig\Helpers\ConfigHelper;
-use Plugins\PhpSupport\Traits\ResponseTrait;
-use Illuminate\Support\Facades\Artisan;
+use Plugins\LaravelConfig\Utilities\ConfigUtility;
 
-class MarketManagerApiController extends Controller
+class MarketManagerController extends Controller
 {
-    use ResponseTrait;
-    
-    public function __construct()
+    public function index()
     {
-        if(!defined('STDIN'))  define('STDIN',  fopen('php://stdin',  'rb'));
-        if(!defined('STDOUT')) define('STDOUT', fopen('php://stdout', 'wb'));
-        if(!defined('STDERR')) define('STDERR', fopen('php://stderr', 'wb'));
-    }
-
-    public function install()
-    {
-        \request()->validate([
-            'install_type' => 'nullable', // plugin, theme
-            'install_method' => 'required|in:plugin_fskey,plugin_package,plugin_url,plugin_directory,plugin_zipball',
-
-            'plugin_fskey' => 'required_if:install_method,plugin_fskey',
-            'plugin_package' => 'required_if:install_method,plugin_package',
-            'plugin_url' => 'required_if:install_method,plugin_url',
-            'plugin_directory' => 'required_if:install_method,plugin_directory',
-            'plugin_zipball' => 'required_if:install_method,plugin_zipball',
+        $configs = ConfigHelper::fresnsConfigByItemKeys([
+            'market_server_host',
+            'system_url',
+            'settings_path',
+            'install_datetime',
+            'build_type',
+            'github_token',
         ]);
 
-        $install_type = \request('install_type', 'plugin');
-        $install_method = \request('install_method');
-        $installValue = \request($install_method);
-
-        switch ($install_method) {
-            // fskey
-            case 'plugin_fskey':
-            case 'plugin_package':
-            case 'plugin_url':
-                if ($install_method == 'plugin_url') {
-                    $configs = ConfigHelper::fresnsConfigByItemKeys([
-                        'github_token',
-                    ]);
-
-                    // 下载 github 私有插件
-                    if (str_starts_with($installValue, 'https://github.com')) {
-                        $installValue = str_replace('https://', 'https://' . $configs['github_token'] . ':@', $installValue);
-
-                        if (! str_ends_with($installValue, 'zip')) {
-                            $installValue = $installValue . '/archive/master.zip';
-                        }
-                    }
-                } 
-
-                // market-manager
-                $exitCode = Artisan::call('market:require', [
-                    'fskey' => $installValue,
-                ]);
-                $output = Artisan::output();
-            break;
-
-            // directory
-            case 'plugin_directory':
-                $pluginDirectory = $installValue;
-
-                // plugin-manager or theme-manager
-                $exitCode = Artisan::call("{$install_type}:install", [
-                    'path' => $pluginDirectory,
-                    '--is_dir' => true,
-                ]);
-                $output = Artisan::output();
-            break;
-
-            // plugin_zipball
-            case 'plugin_zipball':
-                $pluginZipball = null;
-                $file = $installValue;
-
-                if ($file && $file->isValid()) {
-                    $dir = storage_path('extensions');
-                    $filename = $file->hashName();
-                    $file->move($dir, $filename);
-
-                    $pluginZipball = "$dir/$filename";
-                }
-
-                if (empty($pluginZipball)) {
-                    return $this->fail('插件安装失败，请选择插件压缩包');
-                }
-
-                // plugin-manager or theme-manager
-                $exitCode = Artisan::call("{$install_type}:install", [
-                    'path' => $pluginZipball,
-                ]);
-                $output = Artisan::output();
-            break;
+        $where = [];
+        if (\request()->has('status')) { // 1-active, 0-inactive
+            $where['is_enabled'] = \request('status') == 'active' ? 1 : 0;
         }
 
-        if ($exitCode != 0) {
-            if ($output == '') {
-                $output = "请查看安装日志 storage/logs/laravel.log";
-            }
+        $apps = App::query()->where($where)->get();
 
-            return \response($output."\n 安装失败");
-        }
-
-        return \response($output."\n 安装成功");
+        return view('MarketManager::index', [
+            'configs' => $configs,
+            'apps' => $apps,
+        ]);
     }
 
-    public function update()
+    public function showSettingView()
+    {
+        $itemKeys = [
+            'market_server_host',
+            'system_url',
+            'settings_path',
+            'install_datetime',
+            'build_type',
+            'github_token',
+        ];
+
+        $configs = ConfigHelper::fresnsConfigByItemKeys($itemKeys);
+
+        return view('MarketManager::setting', [
+            'configs' => $configs,
+        ]);
+    }
+
+    public function saveSetting()
     {
         \request()->validate([
-            'plugin' => 'required|string',
-            'is_enabled' => 'required|boolean'
+            'market_server_host' => 'required|url',
+            'system_url' => 'nullable|url',
+            'settings_path' => 'required|string',
+            'github_token' => 'nullable|string',
         ]);
 
-        $fskey = \request('plugin');
-        if (\request()->get('is_enabled') != 0) {
-            $exitCode = Artisan::call('market:activate', ['fskey' => $fskey]);
-        } else {
-            $exitCode = Artisan::call('market:deactivate', ['fskey' => $fskey]);
-        }
+        $itemKeys = [
+            'market_server_host',
+            'system_url',
+            'settings_path',
+            'github_token',
+        ];
 
-        if ($exitCode !== 0) {
-            return $this->fail(Artisan::output());
-        }
+        ConfigUtility::updateConfigs($itemKeys, 'market_manager');
 
-        return \response()->json([
-            'err_code' => 0,
-            'err_msg' => 'success',
-            'data' => null,
-        ]);
+        return redirect(route('market-manager.setting'));
     }
-
-    public function uninstall()
-    {
-        \request()->validate([
-            'plugin' => 'required|string',
-            'clearData' => 'nullable|bool',
-        ]);
-
-        $fskey = \request('plugin');
-        if (\request()->get('clearData') == 1) {
-            $exitCode = Artisan::call('plugin:uninstall', ['fskey' => $fskey, '--cleardata' => true]);
-        } else {
-            $exitCode = Artisan::call('plugin:uninstall', ['fskey' => $fskey, '--cleardata' => false]);
-        }
-
-        $message = '卸载成功';
-        if ($exitCode != 0) {
-            $message = Artisan::output()."\n卸载失败";
-        }
-
-        return \response($message);
-    }
-
 }
