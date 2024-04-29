@@ -2,8 +2,9 @@
 
 namespace Plugins\MarketManager\Utilities;
 
-use Fresns\MarketManager\Models\Plugin;
+use Plugins\MarketManager\Models\App;
 use Illuminate\Database\Eloquent\Model;
+use Plugins\MarketManager\Models\TempCallbackContent;
 use Plugins\MarketManager\Utils\LaravelCache;
 
 class PluginUtility
@@ -23,7 +24,7 @@ class PluginUtility
         $cacheKey = "fresns_plugin_host_{$fskey}";
 
         return LaravelCache::remember($cacheKey, function () use ($fskey) {
-            return Plugin::where('fskey', $fskey)->value('plugin_host');
+            return App::where('fskey', $fskey)->value('plugin_host');
         });
     }
 
@@ -37,7 +38,7 @@ class PluginUtility
         $cacheKey = "fresns_plugin_url_{$fskey}";
 
         return LaravelCache::remember($cacheKey, function () use ($fskey) {
-            $plugin = Plugin::where('fskey', $fskey)->first();
+            $plugin = App::where('fskey', $fskey)->first();
 
             $pluginUrl = null;
             if ($plugin) {
@@ -70,7 +71,7 @@ class PluginUtility
             'data' => [],
         ];
 
-        $plugin = Plugin::where('fskey', $fskey)->first();
+        $plugin = App::where('fskey', $fskey)->first();
 
         if (empty($plugin)) {
             $callbackArr['code'] = 32101;
@@ -84,7 +85,7 @@ class PluginUtility
             return $callbackArr;
         }
 
-        $callback = PluginCallback::where('ulid', $ulid)->first();
+        $callback = TempCallbackContent::where('ulid', $ulid)->first();
 
         if (empty($callback)) {
             $callbackArr['code'] = 32303;
@@ -133,7 +134,7 @@ class PluginUtility
         $cacheKey = "fresns_plugin_version_{$fskey}";
 
         $version = LaravelCache::remember($cacheKey, function () use ($fskey) {
-            return Plugin::where('fskey', $fskey)->value('version');
+            return App::where('fskey', $fskey)->value('version');
         });
 
         return $version;
@@ -142,7 +143,7 @@ class PluginUtility
     // get plugin upgrade code
     public static function fresnsPluginUpgradeCodeByFskey(string $fskey): ?string
     {
-        $upgradeCode = Plugin::where('fskey', $fskey)->value('upgrade_code');
+        $upgradeCode = App::where('fskey', $fskey)->value('upgrade_code');
 
         if (empty($upgradeCode)) {
             return null;
