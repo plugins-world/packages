@@ -33,7 +33,8 @@
         "plugins-world/laravel-config": "^2.0",
         "fresns/cmd-word-manager": "^1.0 | dev-master",
         "fresns/market-manager": "^4.0 | 4.x-dev",
-        "fresns/plugin-manager": "^3.0 | 3.x-dev"
+        "fresns/plugin-manager": "^3.0 | 3.x-dev",
+        "plugins-world/php-support": "dev-master"
     },
     "require-dev": {
         "orangehill/iseed": "^3.0"

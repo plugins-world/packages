@@ -125,32 +125,32 @@ use \Plugins\MarketManager\Utilities\PluginUtility;
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @foreach($plugins as $plugin)
+                                        @foreach($apps as $app)
                                         <tr>
                                             <td>
                                                 <span class="fs-6">
-                                                    <a class="link-dark plugin-link" href="#">{{ $plugin['name'] }}</a>
+                                                    <a class="link-dark plugin-link" href="#">{{ $app['name'] }}</a>
                                                 </span>
-                                                <span class="badge bg-secondary" style="font-size: .5rem;">{{ $plugin['version'] }}</span>
+                                                <span class="badge bg-secondary" style="font-size: .5rem;">{{ $app['version'] }}</span>
                                             </td>
-                                            <td>{{ Str::limit($plugin['description'] ?? '', 100) }}</td>
-                                            <td>{{ $plugin['author'] }}</td>
+                                            <td>{{ Str::limit($app['description'] ?? '', 100) }}</td>
+                                            <td>{{ $app['author'] }}</td>
                                             <td>
-                                                @if($plugin['is_enabled'] == false)
-                                                <button type="button" data-fskey="{{ $plugin['fskey'] }}" data-action="activate" class="table-row btn-sm btn btn-link text-success">启用</button>
-                                                @elseif($plugin['fskey'] !== 'MarketManager')
+                                                @if($app['is_enabled'] == false)
+                                                <button type="button" data-fskey="{{ $app['fskey'] }}" data-action="activate" class="table-row btn-sm btn btn-link text-success">启用</button>
+                                                @elseif($app['fskey'] !== 'MarketManager')
 
-                                                @if($plugin['is_enabled'] && $plugin['access_path'])
-                                                <button type="button" data-fskey="{{ $plugin['fskey'] }}" data-action="setting" data-settings-url="{{ PluginUtility::qualifyUrl($plugin, 'access_path') }}" class="table-row btn-sm btn btn-light">管理</button>
+                                                @if($app['is_enabled'] && $app['access_path'])
+                                                <button type="button" data-fskey="{{ $app['fskey'] }}" data-action="setting" data-settings-url="{{ PluginUtility::qualifyUrl($app, 'access_path') }}" class="table-row btn-sm btn btn-light">管理</button>
                                                 @endif
-                                                @if($plugin['is_enabled'] && $plugin['settings_path'])
-                                                <button type="button" data-fskey="{{ $plugin['fskey'] }}" data-action="setting" data-settings-url="{{ PluginUtility::qualifyUrl($plugin, 'settings_path') }}" class="table-row btn-sm btn btn-light">设置</button>
+                                                @if($app['is_enabled'] && $app['settings_path'])
+                                                <button type="button" data-fskey="{{ $app['fskey'] }}" data-action="setting" data-settings-url="{{ PluginUtility::qualifyUrl($app, 'settings_path') }}" class="table-row btn-sm btn btn-light">设置</button>
                                                 @endif
 
-                                                <button type="button" data-fskey="{{ $plugin['fskey'] }}" data-action="deactivate" class="table-row btn-sm btn btn-link text-danger">停用</button>
+                                                <button type="button" data-fskey="{{ $app['fskey'] }}" data-action="deactivate" class="table-row btn-sm btn btn-link text-danger">停用</button>
                                                 @endif
-                                                @if($plugin['is_enabled'] == false)
-                                                <button type="button" data-fskey="{{ $plugin['fskey'] }}" data-action="remove" class="table-row btn-sm btn btn-link text-danger">卸载</button>
+                                                @if($app['is_enabled'] == false)
+                                                <button type="button" data-fskey="{{ $app['fskey'] }}" data-action="remove" class="table-row btn-sm btn btn-link text-danger">卸载</button>
                                                 @endif
                                             </td>
                                         </tr>
