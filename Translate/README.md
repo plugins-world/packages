@@ -21,6 +21,7 @@ $ composer require "plugins-world/translate" -vvv
 require __DIR__ . '/vendor/autoload.php';
 
 // jinshan
+// 金山翻译无法使用，验证时间 2024-04-29 21:56:00
 // $app = new \Plugins\Translate\Translator\Jinshan();
 
 // baidu

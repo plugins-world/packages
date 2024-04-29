@@ -35,11 +35,11 @@ class Jinshan implements TranslatorInterface
             'c'         => 'trans',
             'm'         => 'fy',
             'client'    => '6',
-            'auth_user' => 'key_web_fanyi',
+            'auth_user' => 'key_web_new_fanyi',
         ];
 
         // @see https://github.com/liuyug/code_example/blob/4be273f1e4aad1a1c6ded72d64997ea13c165df6/iciba.py#L16
-        $signKey = 'ifanyiweb8hc9s98e';
+        $signKey = '40f9cc60ddc4c76d';
 
         $data['sign'] = substr(bin2hex(md5(sprintf(
             "%s%s%s%s",
