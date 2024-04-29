@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Artisan;
 use Plugins\PhpSupport\Traits\ResponseTrait;
 use Plugins\LaravelConfig\Helpers\ConfigHelper;
+use Plugins\MarketManager\Models\App;
 
 class MarketManagerApiController extends Controller
 {
@@ -13,9 +14,9 @@ class MarketManagerApiController extends Controller
 
     public function __construct()
     {
-        if(!defined('STDIN'))  define('STDIN',  fopen('php://stdin',  'rb'));
-        if(!defined('STDOUT')) define('STDOUT', fopen('php://stdout', 'wb'));
-        if(!defined('STDERR')) define('STDERR', fopen('php://stderr', 'wb'));
+        if (!defined('STDIN'))  define('STDIN',  fopen('php://stdin',  'rb'));
+        if (!defined('STDOUT')) define('STDOUT', fopen('php://stdout', 'wb'));
+        if (!defined('STDERR')) define('STDERR', fopen('php://stderr', 'wb'));
     }
 
     public function install()
@@ -36,7 +37,7 @@ class MarketManagerApiController extends Controller
         $installValue = \request($install_method);
 
         switch ($install_method) {
-            // fskey
+                // fskey
             case 'app_fskey':
             case 'app_package':
             case 'app_url':
@@ -49,20 +50,20 @@ class MarketManagerApiController extends Controller
                     if (str_starts_with($installValue, 'https://github.com')) {
                         $installValue = str_replace('https://', 'https://' . $configs['github_token'] . ':@', $installValue);
 
-                        if (! str_ends_with($installValue, 'zip')) {
+                        if (!str_ends_with($installValue, 'zip')) {
                             $installValue = $installValue . '/archive/master.zip';
                         }
                     }
-                } 
+                }
 
                 // market-manager
                 $exitCode = Artisan::call('market:require', [
                     'fskey' => $installValue,
                 ]);
                 $output = Artisan::output();
-            break;
+                break;
 
-            // directory
+                // directory
             case 'app_directory':
                 $pluginDirectory = $installValue;
 
@@ -72,9 +73,9 @@ class MarketManagerApiController extends Controller
                     '--is_dir' => true,
                 ]);
                 $output = Artisan::output();
-            break;
+                break;
 
-            // app_zipball
+                // app_zipball
             case 'app_zipball':
                 $pluginZipball = null;
                 $file = $installValue;
@@ -96,7 +97,7 @@ class MarketManagerApiController extends Controller
                     'path' => $pluginZipball,
                 ]);
                 $output = Artisan::output();
-            break;
+                break;
         }
 
         if ($exitCode != 0) {
@@ -104,10 +105,10 @@ class MarketManagerApiController extends Controller
                 $output = "请查看安装日志 storage/logs/laravel.log";
             }
 
-            return \response($output."\n 安装失败");
+            return \response($output . "\n 安装失败");
         }
 
-        return \response($output."\n 安装成功");
+        return \response($output . "\n 安装成功");
     }
 
     public function update()
@@ -118,6 +119,7 @@ class MarketManagerApiController extends Controller
         ]);
 
         $fskey = \request('plugin');
+
         if (\request()->get('is_enabled') != 0) {
             $exitCode = Artisan::call('plugin:activate', ['fskey' => $fskey]);
         } else {
@@ -126,6 +128,13 @@ class MarketManagerApiController extends Controller
 
         if ($exitCode !== 0) {
             return $this->fail(Artisan::output());
+        }
+
+        $app = App::where('fskey', $fskey)->first();
+        if ($app) {
+            $app->update([
+                'is_enabled' => !$app->is_enabled,
+            ]);
         }
 
         return \response()->json([
@@ -149,12 +158,15 @@ class MarketManagerApiController extends Controller
             $exitCode = Artisan::call('plugin:uninstall', ['fskey' => $fskey, '--cleardata' => false]);
         }
 
+        if ($exitCode == 0) {
+            App::where('fskey', $fskey)->delete();
+        }
+
         $message = '卸载成功';
         if ($exitCode != 0) {
-            $message = Artisan::output()."\n卸载失败";
+            $message = Artisan::output() . "\n卸载失败";
         }
 
         return \response($message);
     }
-
 }
