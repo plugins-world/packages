@@ -20,8 +20,8 @@ class GoogleTranslateClient extends GoogleTranslate
     {
         $http = $this->config['http'] ?? [];
         if ($this->config['is_enable_proxy']) {
-            $http['http']['proxy']['http'] = $this->config['http_proxy'];
-            $http['http']['proxy']['https'] = $this->config['https_proxy'];
+            $http['proxy']['http'] = $this->config['http_proxy'];
+            $http['proxy']['https'] = $this->config['https_proxy'];
         }
 
         $options = array_merge([

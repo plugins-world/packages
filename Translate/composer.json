@@ -28,7 +28,7 @@
     },
     "autoload": {
         "psr-4": {
-            "Plugins\\Translate\\": "src"
+            "Plugins\\Translate\\": "app"
         }
     },
     "autoload-dev": {
