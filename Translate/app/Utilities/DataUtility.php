@@ -60,6 +60,18 @@ class DataUtility
 
     public static function getLanguageCodes()
     {
-        return DataUtility::getJsonDataFromFile(__DIR__."/../Dictionaries/language_codes.json");
+        $langTagList = DataUtility::getJsonDataFromFile(__DIR__."/../Dictionaries/language_codes.json");
+
+        $data = [];
+        foreach ($langTagList as $item) {
+            $codeInfo = explode('-', $item['code']);
+
+            $item['codeCountry'] = $codeInfo[0];
+            $item['codeCity'] = $codeInfo[1] ?? null;
+
+            $result[] = $item;
+        }
+
+        return $data;
     }
 }
