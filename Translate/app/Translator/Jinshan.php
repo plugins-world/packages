@@ -73,13 +73,13 @@ class Jinshan implements TranslatorInterface
         return $data;
     }
 
-    public function translate(string $q, $from = 'auto', $to = 'auto'): mixed
+    public function translate(string $q, $source_lang = 'auto', $target_lang = 'en'): mixed
     {
         DataUtility::ensureLangTagSupport($source_lang, $target_lang, 'jinshan');
 
         $response = $this->getHttpClient()->request('POST', '/', [
             'query' => $this->getRequestQuery($q),
-            'form_params' => $this->getRequestParams($q, $from, $to),
+            'form_params' => $this->getRequestParams($q, $source_lang, $target_lang),
         ]);
 
         $result = json_decode($response->getBody()->getContents(), true);
@@ -89,7 +89,7 @@ class Jinshan implements TranslatorInterface
         }
 
         if (!empty($result['error_code'])) {
-            throw new TranslateException("请求接口错误，错误信息：{$result['message']}", $result['error_code']);
+            throw new TranslateException("请求接口错误，错误信息：{$source_lang} => {$target_lang}, {$result['message']}", $result['error_code']);
         }
 
         return new Translate($this->mapTranslateResult([

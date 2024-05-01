@@ -88,12 +88,12 @@ class Deepl implements TranslatorInterface
      * 
      * @see https://developers.deepl.com/docs/v/zh/api-reference/translate/openapi-spec-for-text-translation
      */
-    public function translate(string $q, $from = 'auto', $to = 'EN'): mixed
+    public function translate(string $q, $source_lang = 'auto', $target_lang = 'EN'): mixed
     {
         DataUtility::ensureLangTagSupport($source_lang, $target_lang, 'deepl');
 
         $response = $this->getHttpClient()->request('POST', '/v2/translate', [
-            'json' => $this->getRequestParams($q, $from, $to),
+            'json' => $this->getRequestParams($q, $source_lang, $target_lang),
         ]);
 
         $result = json_decode($response->getBody()->getContents(), true);
@@ -103,7 +103,7 @@ class Deepl implements TranslatorInterface
         }
 
         if (!empty($result['message'])) {
-            throw new TranslateException("请求接口错误，错误信息：{$from} => {$to}, {$result['message']}");
+            throw new TranslateException("请求接口错误，错误信息：{$source_lang} => {$target_lang}, {$result['message']}");
         }
 
         return new Translate($this->mapTranslateResult([

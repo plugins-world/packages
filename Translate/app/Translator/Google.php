@@ -31,16 +31,16 @@ class Google implements TranslatorInterface
             ->setTarget($to);
     }
 
-    public function translate(string $q, $from = 'zh-CN', $to = 'en'): mixed
+    public function translate(string $q, $source_lang = 'zh-CN', $target_lang = 'en'): mixed
     {
         DataUtility::ensureLangTagSupport($source_lang, $target_lang, 'youdao');
 
-        $translateClient = $this->getTranslateClient($from, $to);
+        $translateClient = $this->getTranslateClient($source_lang, $target_lang);
 
         try {
             $result = $translateClient->translate($q);
         } catch (\Throwable $e) {
-            throw new TranslateException("请求接口错误，错误信息：{$e->getMessage()}", $e->getCode());
+            throw new TranslateException("请求接口错误，错误信息：{$source_lang} => {$target_lang}, {$e->getMessage()}", $e->getCode());
         }
 
         $rawResponse = $translateClient->getResponse($q);

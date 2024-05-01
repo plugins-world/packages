@@ -99,12 +99,12 @@ class Baidu implements TranslatorInterface
      * 
      * @see https://fanyi-api.baidu.com/api/trans/vip/translate
      */
-    public function translate(string $q, $from = 'zh', $to = 'en'): mixed
+    public function translate(string $q, $source_lang = 'zh', $target_lang = 'en'): mixed
     {
         DataUtility::ensureLangTagSupport($source_lang, $target_lang, 'baidu');
 
         $response = $this->getHttpClient()->request('POST', '', [
-            'form_params' => $this->getRequestParams($q, $from, $to),
+            'form_params' => $this->getRequestParams($q, $source_lang, $target_lang),
         ]);
 
         $result = json_decode($response->getBody()->getContents(), true);
@@ -114,7 +114,7 @@ class Baidu implements TranslatorInterface
         }
 
         if (!empty($result['error_code'])) {
-            throw new TranslateException("请求接口错误，错误信息：{$from} => {$to}, {$result['error_msg']}", $result['error_code']);
+            throw new TranslateException("请求接口错误，错误信息：{$source_lang} => {$target_lang}, {$result['error_msg']}", $result['error_code']);
         }
 
         return new Translate($this->mapTranslateResult($result));
