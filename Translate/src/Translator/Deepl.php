@@ -83,7 +83,7 @@ class Deepl implements TranslatorInterface
      */
     public function translate(string $q, $from = 'zh', $to = 'en'): mixed
     {
-        $response = $this->getHttpClient()->request('POST', '/v2/translate1', [
+        $response = $this->getHttpClient()->request('POST', '/v2/translate', [
             'json' => $this->getRequestParams($q, $from, $to),
         ]);
 

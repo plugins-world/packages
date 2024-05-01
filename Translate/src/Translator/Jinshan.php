@@ -36,7 +36,7 @@ class Jinshan implements TranslatorInterface
         return $options;
     }
 
-    public function getBaseUrl()
+    public function getBaseUri()
     {
         return Jinshan::API_URL;
     }

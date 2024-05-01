@@ -36,7 +36,7 @@ class Youdao implements TranslatorInterface
         return $options;
     }
 
-    public function getBaseUrl()
+    public function getBaseUri()
     {
         return Youdao::API_URL;
     }
