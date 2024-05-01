@@ -1,8 +1,9 @@
 <?php
 
-namespace Plugins\Translate\Translator\Google;
+namespace Plugins\Translate\Translator;
 
 use Plugins\Translate\Result\Translate;
+use Plugins\Translate\Core\Clients\GoogleTranslateClient;
 use Plugins\Translate\Core\Contracts\TranslatorInterface;
 use Plugins\Translate\Core\Exceptions\TranslateException;
 use Plugins\Translate\Core\Traits\InteractWithConfig;

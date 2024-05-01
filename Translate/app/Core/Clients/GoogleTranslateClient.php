@@ -1,6 +1,6 @@
 <?php
 
-namespace Plugins\Translate\Translator\Google;
+namespace Plugins\Translate\Core\Clients;
 
 use Stichoza\GoogleTranslate\GoogleTranslate;
 
