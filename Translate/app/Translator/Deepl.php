@@ -97,6 +97,10 @@ class Deepl implements TranslatorInterface
             throw new TranslateException("请求接口错误，未获取到翻译结果");
         }
 
+        if (!empty($result['message'])) {
+            throw new TranslateException("请求接口错误，错误信息：{$from} => {$to}, {$result['message']}");
+        }
+
         return new Translate($this->mapTranslateResult([
             'q' => $q,
             'trans_result' => $result,

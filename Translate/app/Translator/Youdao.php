@@ -125,7 +125,7 @@ class Youdao implements TranslatorInterface
             $errorCodeReasonHref = 'https://ai.youdao.com/DOCSIRMA/html/自然语言翻译/API文档/文本翻译服务/文本翻译服务-API文档.html#p02';
 
             throw new TranslateException(sprintf(
-                "请求接口错误，错误码：%s，查看错误原因：%s",
+                "请求接口错误，{$from} => {$to}, 错误码：%s，查看错误原因：%s",
                 $errorCode,
                 $errorCodeReasonHref
             ), $errorCode);

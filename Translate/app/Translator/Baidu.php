@@ -109,7 +109,7 @@ class Baidu implements TranslatorInterface
         }
 
         if (!empty($result['error_code'])) {
-            throw new TranslateException("请求接口错误，错误信息：{$result['error_msg']}", $result['error_code']);
+            throw new TranslateException("请求接口错误，错误信息：{$from} => {$to}, {$result['error_msg']}", $result['error_code']);
         }
 
         return new Translate($this->mapTranslateResult($result));
