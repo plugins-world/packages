@@ -50,15 +50,6 @@ class Deepl implements TranslatorInterface
         return $base_uri;
     }
 
-    public function getAppId()
-    {
-        if ($this->config['is_use_pro_api'] ?? false) {
-            return $this->config['pro_app_id'];
-        }
-
-        return $this->config['free_app_id'];
-    }
-
     public function getAppKey()
     {
         if ($this->config['is_use_pro_api'] ?? false) {
@@ -74,10 +65,9 @@ class Deepl implements TranslatorInterface
             'text' => [
                 $q,
             ],
-            'from' => $from ?: 'zh',
+            'source_lang' => $from ?: 'zh',
             'target_lang' => $to ?: 'en',
         ];
-
 
         return $params;
     }
@@ -93,26 +83,28 @@ class Deepl implements TranslatorInterface
      */
     public function translate(string $q, $from = 'zh', $to = 'en'): mixed
     {
-        $response = $this->getHttpClient()->request('POST', '/', [
+        $response = $this->getHttpClient()->request('POST', '/v2/translate1', [
             'json' => $this->getRequestParams($q, $from, $to),
         ]);
 
-        dd($response->getBody()->getContents());
-        $result = $response->toArray();
+        $result = json_decode($response->getBody()->getContents(), true);
 
-        if (!empty($result['error_code'])) {
-            throw new TranslateException("请求接口错误，错误信息：{$result['error_msg']}", $result['error_code']);
+        if (empty($result)) {
+            throw new TranslateException("请求接口错误，未获取到翻译结果");
         }
 
-        return new Translate($this->mapTranslateResult($result));
+        return new Translate($this->mapTranslateResult([
+            'q' => $q,
+            'trans_result' => $result,
+        ]));
     }
 
     public function mapTranslateResult(array $translateResult): array
     {
         return [
-            'src' => reset($translateResult['trans_result'])['src'],
-            'dst' => reset($translateResult['trans_result'])['dst'],
-            'original' => $translateResult,
+            'src' => $translateResult['q'],
+            'dst' => reset($translateResult['trans_result']['translations'])['text'],
+            'original' => $translateResult['trans_result']['translations'],
         ];
     }
 }

@@ -16,18 +16,39 @@ class Baidu implements TranslatorInterface
     use \Plugins\Translate\Kernel\Traits\InteractWithConfig;
     use \Plugins\Translate\Kernel\Traits\InteractWithHttpClient;
 
-    const HTTP_URL = 'http://api.fanyi.baidu.com/api/trans/vip/translate';
+    const HTTP_API_URL = 'http://api.fanyi.baidu.com/api/trans/vip/translate';
 
-    const HTTPS_URL = 'https://fanyi-api.baidu.com/api/trans/vip/translate';
+    const HTTPS_API_URL = 'https://fanyi-api.baidu.com/api/trans/vip/translate';
 
     public function getHttpClientDefaultOptions()
     {
-        return array_merge(
+        $http = $this->config['http'] ?? [];
+
+        $options = array_merge(
             [
-                'base_uri' => Baidu::HTTPS_URL,
+                'base_uri' => $http['base_uri'] ?? $this->getBaseUri(),
+                'timeout' => 5, // 请求 5s 超时
+                'http_errors' => false,
+                'headers' => [
+                    'Authorization' => "DeepL-Auth-Key {$this->getAppKey()}",
+                    'Content-Type' => 'application/json',
+                    'Accept' => 'application/json',
+                ],
             ],
-            (array) ($this->config['http'] ?? []),
+            $http
         );
+
+        return $options;
+    }
+
+    public function getBaseUri()
+    {
+        $base_uri = Baidu::HTTP_API_URL;
+        if ($this->config['is_use_https_api'] ?? true) {
+            $base_uri = Baidu::HTTPS_API_URL;
+        }
+
+        return $base_uri;
     }
 
     public function getAppId()
@@ -81,7 +102,11 @@ class Baidu implements TranslatorInterface
             'form_params' => $this->getRequestParams($q, $from, $to),
         ]);
 
-        $result = $response->toArray();
+        $result = json_decode($response->getBody()->getContents(), true);
+
+        if (empty($result)) {
+            throw new TranslateException("请求接口错误，未获取到翻译结果");
+        }
 
         if (!empty($result['error_code'])) {
             throw new TranslateException("请求接口错误，错误信息：{$result['error_msg']}", $result['error_code']);

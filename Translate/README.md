@@ -20,9 +20,24 @@ $ composer require "plugins-world/translate" -vvv
 
 require __DIR__ . '/vendor/autoload.php';
 
-// jinshan
-// 金山翻译无法使用，验证时间 2024-04-29 21:56:00
-// $app = new \Plugins\Translate\Translator\Jinshan();
+// deepl
+// $app = new \Plugins\Translate\Translator\Deepl([
+//     // 需要配置代理
+//     'is_use_pro_api' => false,
+//     'pro_app_key' => '',
+//     'free_app_key' => '',
+// ]);
+
+// google
+// $app = new \Plugins\Translate\Translator\Google\Google([
+//     // 需要配置代理
+//     'http' => [
+//         'proxy' => [
+//             'http' => 'http://10.0.30.3:7890',
+//             'https' => 'http://10.0.30.3:7890',
+//         ]
+//     ],
+// ]);
 
 // baidu
 // $app = new \Plugins\Translate\Translator\Baidu([
@@ -38,16 +53,10 @@ require __DIR__ . '/vendor/autoload.php';
 //     // 'app_key' => '你的有道智云 app_key',
 // ]);
 
-// google
-// $app = new \Plugins\Translate\Translator\Google\Google([
-//     // 需要配置代理
-//     'http' => [
-//         'proxy' => [
-//             'http' => 'http://10.0.30.3:7890',
-//             'https' => 'http://10.0.30.3:7890',
-//         ]
-//     ],
-// ]);
+// jinshan
+// 金山翻译无法使用，验证时间 2024-04-29 21:56:00
+// $app = new \Plugins\Translate\Translator\Jinshan();
+
 
 // try {
 //     $result = $app->translate('测试', 'zh', 'en');
@@ -68,6 +77,6 @@ var_dump($languageRecognizer->getData());
 
 ## TODO
 
-[ ] Deepl  
+[x] Deepl  
 [ ] Bing  
 [ ] Tencent  

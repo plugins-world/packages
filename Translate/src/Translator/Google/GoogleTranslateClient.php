@@ -19,6 +19,10 @@ class GoogleTranslateClient extends GoogleTranslate
     public function resetOptions()
     {
         $http = $this->config['http'] ?? [];
+        if ($this->config['is_enable_proxy']) {
+            $http['http']['proxy']['http'] = $this->config['http_proxy'];
+            $http['http']['proxy']['https'] = $this->config['https_proxy'];
+        }
 
         $options = array_merge([
             'base_uri' => $http['base_uri'] ?? '',

@@ -14,14 +14,31 @@ class Youdao implements TranslatorInterface
     use \Plugins\Translate\Kernel\Traits\InteractWithConfig;
     use \Plugins\Translate\Kernel\Traits\InteractWithHttpClient;
 
+    const API_URL = 'https://openapi.youdao.com/api';
+
     public function getHttpClientDefaultOptions()
     {
-        return array_merge(
+        $http = $this->config['http'] ?? [];
+
+        $options = array_merge(
             [
-                'base_uri' => 'https://openapi.youdao.com/api',
+                'base_uri' => $http['base_uri'] ?? $this->getBaseUri(),
+                'timeout' => 5, // 请求 5s 超时
+                'http_errors' => false,
+                'headers' => [
+                    'Content-Type' => 'application/json',
+                    'Accept' => 'application/json',
+                ],
             ],
-            (array) ($this->config['http'] ?? []),
+            $http
         );
+
+        return $options;
+    }
+
+    public function getBaseUrl()
+    {
+        return Youdao::API_URL;
     }
 
     public function getAppId()
@@ -64,7 +81,7 @@ class Youdao implements TranslatorInterface
     protected function makeSignature(array $params)
     {
         if ($params['signType'] != 'v3') {
-            $signStr = $this->getAppId().$params['q'].$params['salt'].$this->getAppKey();
+            $signStr = $this->getAppId() . $params['q'] . $params['salt'] . $this->getAppKey();
 
             return md5($signStr);
         }
@@ -78,10 +95,10 @@ class Youdao implements TranslatorInterface
 
         $qLen = mb_strlen($q);
         if ($qLen > 20) {
-            $input = mb_substr($q, 0, 10).$qLen.mb_substr($q, -10);
+            $input = mb_substr($q, 0, 10) . $qLen . mb_substr($q, -10);
         }
 
-        $signStr = $this->getAppId().$input.$params['salt'].$params['curtime'].$this->getAppKey();
+        $signStr = $this->getAppId() . $input . $params['salt'] . $params['curtime'] . $this->getAppKey();
 
         return hash('sha256', $signStr, false);
     }
@@ -95,10 +112,21 @@ class Youdao implements TranslatorInterface
             'form_params' => $this->getRequestParams($q, $from, $to),
         ]);
 
-        $result = $response->toArray();
+        $result = json_decode($response->getBody()->getContents(), true);
 
-        if ($this->isErrorResponse($result)) {
-            $this->handleErrorResponse($result);
+        if (empty($result)) {
+            throw new TranslateException("请求接口错误，未获取到翻译结果");
+        }
+
+        if ($result['errorCode'] != '0') {
+            $errorCode = $result['errorCode'];
+            $errorCodeReasonHref = 'https://ai.youdao.com/DOCSIRMA/html/自然语言翻译/API文档/文本翻译服务/文本翻译服务-API文档.html#p02';
+
+            throw new TranslateException(sprintf(
+                "请求接口错误，错误码：%s，查看错误原因：%s",
+                $errorCode,
+                $errorCodeReasonHref
+            ), $errorCode);
         }
 
         return new Translate($this->mapTranslateResult($result));
@@ -111,22 +139,5 @@ class Youdao implements TranslatorInterface
             'dst' => current($translateResult['translation']),
             'original' => $translateResult,
         ];
-    }
-
-    public function isErrorResponse(array $data): bool
-    {
-        return '0' != $data['errorCode'];
-    }
-
-    public function handleErrorResponse(array $data = [])
-    {
-        $errorCode = $data['errorCode'];
-        $errorCodeReasonHref = 'https://ai.youdao.com/DOCSIRMA/html/自然语言翻译/API文档/文本翻译服务/文本翻译服务-API文档.html#p02';
-
-        throw new TranslateException(sprintf(
-            "请求接口错误，错误码：%s，查看错误原因：%s",
-            $errorCode,
-            $errorCodeReasonHref
-        ), $errorCode);
     }
 }

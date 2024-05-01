@@ -14,14 +14,31 @@ class Jinshan implements TranslatorInterface
     use \Plugins\Translate\Kernel\Traits\InteractWithConfig;
     use \Plugins\Translate\Kernel\Traits\InteractWithHttpClient;
 
+    const API_URL = 'https://ifanyi.iciba.com/index.php';
+
     public function getHttpClientDefaultOptions()
     {
-        return array_merge(
+        $http = $this->config['http'] ?? [];
+
+        $options = array_merge(
             [
-                'base_uri' => 'https://ifanyi.iciba.com/index.php'
+                'base_uri' => $http['base_uri'] ?? $this->getBaseUri(),
+                'timeout' => 5, // 请求 5s 超时
+                'http_errors' => false,
+                'headers' => [
+                    'Content-Type' => 'application/json',
+                    'Accept' => 'application/json',
+                ],
             ],
-            (array) ($this->config['http'] ?? []),
+            $http
         );
+
+        return $options;
+    }
+
+    public function getBaseUrl()
+    {
+        return Jinshan::API_URL;
     }
 
     protected function getRequestParams($q, $from, $to)
@@ -59,7 +76,11 @@ class Jinshan implements TranslatorInterface
             'form_params' => $this->getRequestParams($q, $from, $to),
         ]);
 
-        $result = $response->toArray();
+        $result = json_decode($response->getBody()->getContents(), true);
+
+        if (empty($result)) {
+            throw new TranslateException("请求接口错误，未获取到翻译结果");
+        }
 
         if (!empty($result['error_code'])) {
             throw new TranslateException("请求接口错误，错误信息：{$result['message']}", $result['error_code']);
