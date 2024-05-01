@@ -3,6 +3,7 @@
 namespace Plugins\Translate\LanguageRecognizer;
 
 use Plugins\Translate\Exceptions\LanguageDetectException;
+use Plugins\Translate\Core\Traits\InteractWithHttpClient;
 
 /**
  * @class LanguageRecognizer
@@ -13,7 +14,7 @@ use Plugins\Translate\Exceptions\LanguageDetectException;
  */
 class LanguageRecognizerClient
 {
-    use \Plugins\Translate\Kernel\Traits\InteractWithHttpClient;
+    use InteractWithHttpClient;
 
     const API_URL = 'https://api.translatedlabs.com/language-identifier/identify';
 
