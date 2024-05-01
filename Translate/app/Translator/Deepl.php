@@ -7,7 +7,7 @@ use Plugins\Translate\Core\Contracts\TranslatorInterface;
 use Plugins\Translate\Core\Exceptions\TranslateException;
 use Plugins\Translate\Core\Traits\InteractWithConfig;
 use Plugins\Translate\Core\Traits\InteractWithHttpClient;
-use Plugins\Translate\Utilities\TranslateUtility;
+use Plugins\Translate\Utilities\DataUtility;
 
 /**
  * @see https://www.deepl.com/zh/your-account/keys
@@ -90,7 +90,7 @@ class Deepl implements TranslatorInterface
      */
     public function translate(string $q, $from = 'auto', $to = 'EN'): mixed
     {
-        TranslateUtility::ensureLangTagSupport($source_lang, $target_lang, 'deepl');
+        DataUtility::ensureLangTagSupport($source_lang, $target_lang, 'deepl');
 
         $response = $this->getHttpClient()->request('POST', '/v2/translate', [
             'json' => $this->getRequestParams($q, $from, $to),

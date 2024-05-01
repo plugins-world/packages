@@ -4,7 +4,7 @@ namespace Plugins\Translate\Utilities;
 
 use Plugins\Translate\Kernel\Exceptions\TranslateException;
 
-class TranslateUtility
+class DataUtility
 {
     public static function getJsonDataFromFile($filepath)
     {

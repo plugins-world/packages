@@ -7,7 +7,7 @@ use Plugins\Translate\Core\Contracts\TranslatorInterface;
 use Plugins\Translate\Core\Exceptions\TranslateException;
 use Plugins\Translate\Core\Traits\InteractWithConfig;
 use Plugins\Translate\Core\Traits\InteractWithHttpClient;
-use Plugins\Translate\Utilities\TranslateUtility;
+use Plugins\Translate\Utilities\DataUtility;
 
 /**
  * @see http://api.fanyi.baidu.com/manage/developer
@@ -101,7 +101,7 @@ class Baidu implements TranslatorInterface
      */
     public function translate(string $q, $from = 'zh', $to = 'en'): mixed
     {
-        TranslateUtility::ensureLangTagSupport($source_lang, $target_lang, 'baidu');
+        DataUtility::ensureLangTagSupport($source_lang, $target_lang, 'baidu');
 
         $response = $this->getHttpClient()->request('POST', '', [
             'form_params' => $this->getRequestParams($q, $from, $to),
