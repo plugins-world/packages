@@ -7,7 +7,7 @@ use Plugins\Translate\Core\Contracts\TranslatorInterface;
 use Plugins\Translate\Core\Exceptions\TranslateException;
 use Plugins\Translate\Core\Traits\InteractWithConfig;
 use Plugins\Translate\Core\Traits\InteractWithHttpClient;
-use Plugins\Translate\Utilities\DataUtility;
+use Plugins\Translate\Utilities\TranslateUtility;
 
 /**
  * @see http://ai.youdao.com/docs/doc-trans-api.s#p02
@@ -113,7 +113,7 @@ class Youdao implements TranslatorInterface
      */
     public function translate($q, $source_lang = 'auto', $target_lang = 'en'): mixed
     {
-        DataUtility::ensureLangTagSupport($source_lang, $target_lang, 'youdao');
+        TranslateUtility::ensureLangTagSupport($source_lang, $target_lang, 'youdao');
 
         $response = $this->getHttpClient()->request('POST', '', [
             'form_params' => $this->getRequestParams($q, $source_lang, $target_lang),

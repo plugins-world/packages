@@ -7,7 +7,7 @@ use Plugins\Translate\Core\Contracts\TranslatorInterface;
 use Plugins\Translate\Core\Exceptions\TranslateException;
 use Plugins\Translate\Core\Traits\InteractWithConfig;
 use Plugins\Translate\Core\Traits\InteractWithHttpClient;
-use Plugins\Translate\Utilities\DataUtility;
+use Plugins\Translate\Utilities\TranslateUtility;
 
 /**
  * @deprecated v1.0.0
@@ -75,7 +75,7 @@ class Jinshan implements TranslatorInterface
 
     public function translate(string $q, $from = 'auto', $to = 'auto'): mixed
     {
-        DataUtility::ensureLangTagSupport($source_lang, $target_lang, 'jinshan');
+        TranslateUtility::ensureLangTagSupport($source_lang, $target_lang, 'jinshan');
 
         $response = $this->getHttpClient()->request('POST', '/', [
             'query' => $this->getRequestQuery($q),

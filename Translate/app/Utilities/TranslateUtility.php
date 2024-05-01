@@ -4,7 +4,7 @@ namespace Plugins\Translate\Utilities;
 
 use Plugins\Translate\Kernel\Exceptions\TranslateException;
 
-class DataUtility
+class TranslateUtility
 {
     public static function getJsonDataFromFile($filepath)
     {
@@ -56,5 +56,10 @@ class DataUtility
         if (!DataUtility::ensureSupportLang($target_lang, $type)) {
             throw new TranslateException("请求接口错误，不支持的 target_lang {$target_lang}");
         }
+    }
+
+    public static function getLanguageCodes()
+    {
+        return DataUtility::getJsonDataFromFile(__DIR__."/../Dictionaries/language_codes.json");
     }
 }

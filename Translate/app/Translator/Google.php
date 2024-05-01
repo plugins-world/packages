@@ -7,6 +7,7 @@ use Plugins\Translate\Core\Clients\GoogleTranslateClient;
 use Plugins\Translate\Core\Contracts\TranslatorInterface;
 use Plugins\Translate\Core\Exceptions\TranslateException;
 use Plugins\Translate\Core\Traits\InteractWithConfig;
+use Plugins\Translate\Utilities\TranslateUtility;
 
 class Google implements TranslatorInterface
 {
@@ -32,6 +33,8 @@ class Google implements TranslatorInterface
 
     public function translate(string $q, $from = 'zh-CN', $to = 'en'): mixed
     {
+        TranslateUtility::ensureLangTagSupport($source_lang, $target_lang, 'youdao');
+
         $translateClient = $this->getTranslateClient($from, $to);
 
         try {
