@@ -1,6 +1,6 @@
 <?php
 
-namespace Plugins\Translate\Translator\Result;
+namespace Plugins\Translate\Result;
 
 class Translate
 {

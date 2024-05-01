@@ -1,6 +1,6 @@
 <?php
 
-namespace Plugins\Translate\Kernel\Contracts;
+namespace Plugins\Translate\Core\Contracts;
 
 /**
  * Interface ProviderInterface.

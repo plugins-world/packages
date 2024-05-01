@@ -1,6 +1,6 @@
 <?php
 
-namespace Plugins\Translate\Kernel\Traits;
+namespace Plugins\Translate\Core\Traits;
 
 trait InteractWithConfig
 {

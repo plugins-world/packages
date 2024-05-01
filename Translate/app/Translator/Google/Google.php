@@ -2,13 +2,13 @@
 
 namespace Plugins\Translate\Translator\Google;
 
-use Plugins\Translate\Translator\Result\Translate;
-use Plugins\Translate\Kernel\Contracts\TranslatorInterface;
-use Plugins\Translate\Kernel\Exceptions\TranslateException;
+use Plugins\Translate\Result\Translate;
+use Plugins\Translate\Core\Contracts\TranslatorInterface;
+use Plugins\Translate\Core\Exceptions\TranslateException;
 
 class Google implements TranslatorInterface
 {
-    use \Plugins\Translate\Kernel\Traits\InteractWithConfig;
+    use \Plugins\Translate\Core\Traits\InteractWithConfig;
 
     /**
      * @param string $from

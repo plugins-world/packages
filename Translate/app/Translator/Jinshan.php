@@ -2,9 +2,9 @@
 
 namespace Plugins\Translate\Translator;
 
-use Plugins\Translate\Translator\Result\Translate;
-use Plugins\Translate\Kernel\Contracts\TranslatorInterface;
-use Plugins\Translate\Kernel\Exceptions\TranslateException;
+use Plugins\Translate\Result\Translate;
+use Plugins\Translate\Core\Contracts\TranslatorInterface;
+use Plugins\Translate\Core\Exceptions\TranslateException;
 use Plugins\Translate\Utilities\DataUtility;
 
 /**
