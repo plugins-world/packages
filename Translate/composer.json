@@ -19,8 +19,9 @@
     },
     "require": {
         "php": ">=8.0",
-        "symfony/http-client": "^6.0",
-        "stichoza/google-translate-php": "^5.1"
+        "guzzlehttp/guzzle": "^7.4.5|^8.0",
+        "deeplcom/deepl-php": "^1.0",
+        "stichoza/google-translate-php": "^5.0"
     },
     "require-dev": {
         "phpunit/phpunit": "*",

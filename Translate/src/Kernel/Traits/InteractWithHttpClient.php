@@ -2,14 +2,14 @@
 
 namespace Plugins\Translate\Kernel\Traits;
 
-use Symfony\Component\HttpClient\HttpClient;
-use Symfony\Contracts\HttpClient\HttpClientInterface;
+use GuzzleHttp\Client;
+use Psr\Http\Client\ClientInterface;
 
 trait InteractWithHttpClient
 {
-    protected ?HttpClientInterface $httpClient = null;
+    protected ?Client $httpClient = null;
 
-    public function getHttpClient(): HttpClientInterface
+    public function getHttpClient(): Client
     {
         if (! $this->httpClient) {
             $this->httpClient = $this->createHttpClient();
@@ -18,11 +18,11 @@ trait InteractWithHttpClient
         return $this->httpClient;
     }
 
-    protected function createHttpClient(): HttpClientInterface
+    protected function createHttpClient(): ClientInterface|Client
     {
         $options = $this->getHttpClientDefaultOptions();
 
-        return HttpClient::create($options);
+        return new Client($options);
     }
 
     protected function getHttpClientDefaultOptions(): array

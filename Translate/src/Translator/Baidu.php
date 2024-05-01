@@ -78,7 +78,7 @@ class Baidu implements TranslatorInterface
     public function translate(string $q, $from = 'zh', $to = 'en'): mixed
     {
         $response = $this->getHttpClient()->request('POST', '', [
-            'body' => $this->getRequestParams($q, $from, $to),
+            'form_params' => $this->getRequestParams($q, $from, $to),
         ]);
 
         $result = $response->toArray();

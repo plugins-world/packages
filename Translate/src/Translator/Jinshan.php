@@ -56,7 +56,7 @@ class Jinshan implements TranslatorInterface
     {
         $response = $this->getHttpClient()->request('POST', '/', [
             'query' => $this->getRequestQuery($q),
-            'body' => $this->getRequestParams($q, $from, $to),
+            'form_params' => $this->getRequestParams($q, $from, $to),
         ]);
 
         $result = $response->toArray();

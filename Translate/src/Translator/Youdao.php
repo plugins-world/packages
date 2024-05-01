@@ -92,7 +92,7 @@ class Youdao implements TranslatorInterface
     public function translate($q, $from = 'zh-CHS', $to = 'EN'): mixed
     {
         $response = $this->getHttpClient()->request('POST', '', [
-            'body' => $this->getRequestParams($q, $from, $to),
+            'form_params' => $this->getRequestParams($q, $from, $to),
         ]);
 
         $result = $response->toArray();
