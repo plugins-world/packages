@@ -69,7 +69,7 @@ class DataUtility
             $item['codeCountry'] = $codeInfo[0];
             $item['codeCity'] = $codeInfo[1] ?? null;
 
-            $result[] = $item;
+            $data[] = $item;
         }
 
         return $data;
