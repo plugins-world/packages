@@ -2,7 +2,7 @@
 
 namespace Plugins\Translate\Utilities;
 
-use Plugins\Translate\Kernel\Exceptions\TranslateException;
+use Plugins\Translate\Core\Exceptions\TranslateException;
 
 class DataUtility
 {
