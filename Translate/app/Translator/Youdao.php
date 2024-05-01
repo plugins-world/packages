@@ -51,15 +51,15 @@ class Youdao implements TranslatorInterface
         return $this->config['app_key'] ?? null;
     }
 
-    protected function getRequestParams($q, $from = 'zh-CHS', $to = 'EN')
+    protected function getRequestParams($q, $from = 'auto', $to = 'EN')
     {
         $salt = uniqid();
         $curtime = time();
 
         $params = [
             'q' => $q,
-            'from' => $from,
-            'to' => $to,
+            'from' => $from ?: 'auto',
+            'to' => $to ?: 'EN',
             'appKey' => $this->getAppId(),
             'salt' => $salt,
             'signType' => $this->config['signType'] ?? 'v3',
@@ -104,9 +104,11 @@ class Youdao implements TranslatorInterface
     }
 
     /**
+     * auto 可以识别中文、英文、日文、韩文、法文、西班牙文、葡萄牙文、俄文、越南文、德文、阿拉伯文、印尼文、意大利文，其他语种无法识别，为提高准确率，请指定语种
+     * 
      * {@inheritdoc}
      */
-    public function translate($q, $from = 'zh-CHS', $to = 'EN'): mixed
+    public function translate($q, $from = 'auto', $to = 'en'): mixed
     {
         $response = $this->getHttpClient()->request('POST', '', [
             'form_params' => $this->getRequestParams($q, $from, $to),

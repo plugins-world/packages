@@ -7,6 +7,7 @@ use Plugins\Translate\Kernel\Contracts\TranslatorInterface;
 use Plugins\Translate\Kernel\Exceptions\TranslateException;
 
 /**
+ * @deprecated v1.0.0
  * @see https://www.iciba.com/fy
  */
 class Jinshan implements TranslatorInterface

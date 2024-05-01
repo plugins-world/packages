@@ -61,13 +61,13 @@ class Baidu implements TranslatorInterface
         return $this->config['app_key'] ?? null;
     }
 
-    protected function getRequestParams($q, $from = 'zh', $to = 'en')
+    protected function getRequestParams($q, $from = 'auto', $to = 'en')
     {
         $salt = time();
 
         $params = [
             'q' => $q,
-            'from' => $from ?: 'zh',
+            'from' => $from ?: 'auto',
             'to' => $to ?: 'en',
             'appid' => $this->getAppId(),
             'salt' => $salt,

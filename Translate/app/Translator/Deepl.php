@@ -59,14 +59,18 @@ class Deepl implements TranslatorInterface
         return $this->config['free_app_key'];
     }
 
-    protected function getRequestParams($q, $from = 'zh', $to = 'en')
+    protected function getRequestParams($q, $from = 'auto', $to = 'EN')
     {
+        if ($from === 'auto') {
+            $from = null;
+        }
+
         $params = [
             'text' => [
                 $q,
             ],
-            'source_lang' => $from ?: 'zh',
-            'target_lang' => $to ?: 'en',
+            'source_lang' => $from ?: null,
+            'target_lang' => $to ?: 'EN',
         ];
 
         return $params;
@@ -81,7 +85,7 @@ class Deepl implements TranslatorInterface
      * 
      * @see https://developers.deepl.com/docs/v/zh/api-reference/translate/openapi-spec-for-text-translation
      */
-    public function translate(string $q, $from = 'zh', $to = 'en'): mixed
+    public function translate(string $q, $from = 'auto', $to = 'EN'): mixed
     {
         $response = $this->getHttpClient()->request('POST', '/v2/translate', [
             'json' => $this->getRequestParams($q, $from, $to),
