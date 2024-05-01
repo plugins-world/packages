@@ -82,7 +82,7 @@ class Jinshan implements TranslatorInterface
             'form_params' => $this->getRequestParams($q, $source_lang, $target_lang),
         ]);
 
-        $result = json_decode($response->getBody()->getContents(), true);
+        $result = json_decode($response->getBody()->getContents(), true) ?? [];
 
         if (empty($result)) {
             throw new TranslateException("请求接口错误，未获取到翻译结果");

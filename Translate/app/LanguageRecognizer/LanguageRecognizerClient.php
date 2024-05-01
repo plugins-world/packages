@@ -35,7 +35,7 @@ class LanguageRecognizerClient
             'json' => $body,
         ]);
 
-        $result = $response->toArray();
+        $result = json_decode($response->getBody()->getContents(), true) ?? [];
 
         if ($this->isErrorResponse($result)) {
             $this->handleErrorResponse($result);   
