@@ -72,6 +72,8 @@ class Jinshan implements TranslatorInterface
 
     public function translate(string $q, $from = 'auto', $to = 'auto'): mixed
     {
+        DataUtility::ensureLangTagSupport($source_lang, $target_lang, 'jinshan');
+
         $response = $this->getHttpClient()->request('POST', '/', [
             'query' => $this->getRequestQuery($q),
             'form_params' => $this->getRequestParams($q, $from, $to),

@@ -5,6 +5,7 @@ namespace Plugins\Translate\Translator;
 use Plugins\Translate\Translator\Result\Translate;
 use Plugins\Translate\Kernel\Contracts\TranslatorInterface;
 use Plugins\Translate\Kernel\Exceptions\TranslateException;
+use Plugins\Translate\Utilities\DataUtility;
 
 /**
  * @see http://ai.youdao.com/docs/doc-trans-api.s#p02
@@ -108,10 +109,12 @@ class Youdao implements TranslatorInterface
      * 
      * {@inheritdoc}
      */
-    public function translate($q, $from = 'auto', $to = 'en'): mixed
+    public function translate($q, $source_lang = 'auto', $target_lang = 'en'): mixed
     {
+        DataUtility::ensureLangTagSupport($source_lang, $target_lang, 'youdao');
+
         $response = $this->getHttpClient()->request('POST', '', [
-            'form_params' => $this->getRequestParams($q, $from, $to),
+            'form_params' => $this->getRequestParams($q, $source_lang, $target_lang),
         ]);
 
         $result = json_decode($response->getBody()->getContents(), true);
@@ -125,7 +128,7 @@ class Youdao implements TranslatorInterface
             $errorCodeReasonHref = 'https://ai.youdao.com/DOCSIRMA/html/自然语言翻译/API文档/文本翻译服务/文本翻译服务-API文档.html#p02';
 
             throw new TranslateException(sprintf(
-                "请求接口错误，{$from} => {$to}, 错误码：%s，查看错误原因：%s",
+                "请求接口错误，{$source_lang} => {$target_lang}, 错误码：%s，查看错误原因：%s",
                 $errorCode,
                 $errorCodeReasonHref
             ), $errorCode);

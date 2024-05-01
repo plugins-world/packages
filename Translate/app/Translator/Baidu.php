@@ -98,6 +98,8 @@ class Baidu implements TranslatorInterface
      */
     public function translate(string $q, $from = 'zh', $to = 'en'): mixed
     {
+        DataUtility::ensureLangTagSupport($source_lang, $target_lang, 'baidu');
+
         $response = $this->getHttpClient()->request('POST', '', [
             'form_params' => $this->getRequestParams($q, $from, $to),
         ]);

@@ -87,6 +87,8 @@ class Deepl implements TranslatorInterface
      */
     public function translate(string $q, $from = 'auto', $to = 'EN'): mixed
     {
+        DataUtility::ensureLangTagSupport($source_lang, $target_lang, 'deepl');
+
         $response = $this->getHttpClient()->request('POST', '/v2/translate', [
             'json' => $this->getRequestParams($q, $from, $to),
         ]);
