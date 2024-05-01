@@ -5,6 +5,8 @@ namespace Plugins\Translate\Translator;
 use Plugins\Translate\Result\Translate;
 use Plugins\Translate\Core\Contracts\TranslatorInterface;
 use Plugins\Translate\Core\Exceptions\TranslateException;
+use Plugins\Translate\Core\Traits\InteractWithConfig;
+use Plugins\Translate\Core\Traits\InteractWithHttpClient;
 use Plugins\Translate\Utilities\DataUtility;
 
 /**
@@ -12,8 +14,8 @@ use Plugins\Translate\Utilities\DataUtility;
  */
 class Youdao implements TranslatorInterface
 {
-    use \Plugins\Translate\Core\Traits\InteractWithConfig;
-    use \Plugins\Translate\Core\Traits\InteractWithHttpClient;
+    use InteractWithConfig;
+    use InteractWithHttpClient;
 
     const API_URL = 'https://openapi.youdao.com/api';
 

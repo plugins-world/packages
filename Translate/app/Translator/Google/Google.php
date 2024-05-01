@@ -5,10 +5,11 @@ namespace Plugins\Translate\Translator\Google;
 use Plugins\Translate\Result\Translate;
 use Plugins\Translate\Core\Contracts\TranslatorInterface;
 use Plugins\Translate\Core\Exceptions\TranslateException;
+use Plugins\Translate\Core\Traits\InteractWithConfig;
 
 class Google implements TranslatorInterface
 {
-    use \Plugins\Translate\Core\Traits\InteractWithConfig;
+    use InteractWithConfig;
 
     /**
      * @param string $from

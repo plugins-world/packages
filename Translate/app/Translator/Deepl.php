@@ -5,6 +5,8 @@ namespace Plugins\Translate\Translator;
 use Plugins\Translate\Result\Translate;
 use Plugins\Translate\Core\Contracts\TranslatorInterface;
 use Plugins\Translate\Core\Exceptions\TranslateException;
+use Plugins\Translate\Core\Traits\InteractWithConfig;
+use Plugins\Translate\Core\Traits\InteractWithHttpClient;
 use Plugins\Translate\Utilities\DataUtility;
 
 /**
@@ -14,8 +16,8 @@ use Plugins\Translate\Utilities\DataUtility;
  */
 class Deepl implements TranslatorInterface
 {
-    use \Plugins\Translate\Core\Traits\InteractWithConfig;
-    use \Plugins\Translate\Core\Traits\InteractWithHttpClient;
+    use InteractWithConfig;
+    use InteractWithHttpClient;
 
     const FREE_API_URL = 'https://api-free.deepl.com';
     const PRO_API_URL = 'https://api.deepl.com';
