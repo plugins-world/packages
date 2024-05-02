@@ -118,7 +118,7 @@ class Baidu implements TranslatorInterface
             if ($result['error_code'] === '58001') {
                 $message = '小语种暂不支持';
             }
-            
+
             throw new TranslateException("请求接口错误，错误信息：{$source_lang} => {$target_lang}, error_code: {$result['error_code']}, error_msg: {$message}");
         }
 
