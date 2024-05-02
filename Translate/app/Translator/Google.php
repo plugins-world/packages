@@ -33,7 +33,7 @@ class Google implements TranslatorInterface
 
     public function translate(string $q, $source_lang = 'zh-CN', $target_lang = 'en'): mixed
     {
-        DataUtility::ensureLangTagSupport($source_lang, $target_lang, 'youdao');
+        DataUtility::ensureLangTagSupport($source_lang, $target_lang, 'google');
 
         $translateClient = $this->getTranslateClient($source_lang, $target_lang);
 
