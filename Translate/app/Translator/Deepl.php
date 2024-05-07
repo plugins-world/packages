@@ -25,6 +25,10 @@ class Deepl implements TranslatorInterface
     public function getHttpClientDefaultOptions()
     {
         $http = $this->config['http'] ?? [];
+        if ($this->config['is_enable_proxy'] ?? null || true) {
+            $http['proxy']['http'] = $this->config['http_proxy'];
+            $http['proxy']['https'] = $this->config['https_proxy'];
+        }
 
         $options = array_merge(
             [
