@@ -26,17 +26,17 @@ require __DIR__ . '/vendor/autoload.php';
 //     'is_use_pro_api' => false,
 //     'pro_app_key' => '',
 //     'free_app_key' => '',
+//     'is_enable_proxy' => true,
+//     'http_proxy' => 'http://10.0.50.101:7890',
+//     'http_proxys' => 'http://10.0.50.101:7890',
 // ]);
 
 // google
 // $app = new \Plugins\Translate\Translator\Google\Google([
 //     // 需要配置代理
-//     'http' => [
-//         'proxy' => [
-//             'http' => 'http://10.0.30.3:7890',
-//             'https' => 'http://10.0.30.3:7890',
-//         ]
-//     ],
+//     'is_enable_proxy' => true,
+//     'http_proxy' => 'http://10.0.50.101:7890',
+//     'https_proxy' => 'http://10.0.50.101:7890',
 // ]);
 
 // baidu
