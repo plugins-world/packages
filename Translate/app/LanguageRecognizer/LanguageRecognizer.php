@@ -69,11 +69,19 @@ class LanguageRecognizer
 
     public function getEthno3()
     {
+        if (!$this->getEthnologue()) {
+            return null;
+        }
+
         return trim($this->getEthnologue()['ethno-3']);
     }
 
     public function getEthnoUrl()
     {
+        if (!$this->getEthnologue()) {
+            return null;
+        }
+
         return trim($this->getEthnologue()['url']);
     }
 

@@ -24,11 +24,13 @@ class LanguageRecognizerClient
             return null;
         }
 
+        $fixedContent = str_replace("\u{A0}", ' ', $content);
+
         $body = json_decode(sprintf('{
             "etnologue": true,
             "uiLanguage": "zh",
             "text": "%s"
-        }', $content), true);
+        }', $fixedContent), true);
 
 
         $response = $this->getHttpClient()->request('POST', static::API_URL, [
