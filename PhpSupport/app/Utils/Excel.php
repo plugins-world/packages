@@ -188,6 +188,11 @@ class Excel
             return null;
         }
 
+        $datetime = trim($datetime);
+        if ($datetime === '-') {
+            return null;
+        }
+
         $isPureInt = preg_match('/^\d+?$/', $datetime);
         $isFloatData = preg_match('/^\d+?\.\d+?$/', $datetime);
 
