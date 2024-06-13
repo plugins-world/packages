@@ -2,7 +2,7 @@
 
 namespace Plugins\Translate\LanguageRecognizer;
 
-use Plugins\Translate\Exceptions\LanguageDetectException;
+use Plugins\Translate\Core\Exceptions\LanguageDetectException;
 use Plugins\Translate\Core\Traits\InteractWithHttpClient;
 
 /**
@@ -24,7 +24,8 @@ class LanguageRecognizerClient
             return null;
         }
 
-        $fixedContent = str_replace("\u{A0}", ' ', $content);
+        $fixedContent = str_replace("\u{A0}", ' ', $content); // 修复非断空格字符导致的不能检测问题
+        $fixedContent = str_replace(["\r", "\n"], ' ', $content); // 修复含有换行符导致内容不能检测的问题
 
         $body = json_decode(sprintf('{
             "etnologue": true,
