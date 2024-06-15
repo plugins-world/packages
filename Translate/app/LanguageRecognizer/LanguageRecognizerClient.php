@@ -27,12 +27,13 @@ class LanguageRecognizerClient
         // todo: 因改变 json 请求方式，不再使用 json_decode(sprintf(), true) 处理参数。下方两行修复代码可能并不需要了
         // $fixedContent = str_replace("\u{A0}", ' ', $content); // 修复非断空格字符导致的不能检测问题
         // $fixedContent = str_replace(["\r", "\n"], ' ', $content); // 修复含有换行符导致内容不能检测的问题
+        // $content = $fixedContent;
 
         $response = $this->getHttpClient()->request('POST', static::API_URL, [
             'json' => [
                 'etnologue' => true,
                 'uiLanguage' => true,
-                'text' => $fixedContent,
+                'text' => $content,
             ],
         ]);
 
