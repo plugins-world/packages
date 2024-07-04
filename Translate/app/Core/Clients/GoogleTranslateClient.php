@@ -31,6 +31,7 @@ class GoogleTranslateClient extends GoogleTranslate
             'headers' => [
                 'Accept' => 'application/json',
             ],
+            'verify' => false,
         ], $http);
 
         $this->options = $options;
