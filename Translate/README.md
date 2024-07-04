@@ -32,11 +32,16 @@ require __DIR__ . '/vendor/autoload.php';
 // ]);
 
 // google
-// $app = new \Plugins\Translate\Translator\Google\Google([
+// $app = new \Plugins\Translate\Translator\Google([
 //     // 需要配置代理
 //     'is_enable_proxy' => true,
 //     'http_proxy' => 'http://10.0.50.101:7890',
 //     'https_proxy' => 'http://10.0.50.101:7890',
+//     // 如需要重新定义 http options，在此配置
+//     'http' => [
+//         'timeout' => 5.0,
+//         'verify' => false,
+//     ],
 // ]);
 
 // baidu
