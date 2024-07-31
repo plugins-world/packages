@@ -148,9 +148,8 @@ class DateUtility
             $month = str_pad($i, 2, '0', STR_PAD_LEFT);
 
             // 将年份和月份结合，格式为 'YYYY-MM'
-            $monthsList[] = "{$currentYear}-{$month}-01";
+            $monthsList[] = "{$currentYear}-{$month}";
         }
-
 
         $months = [];
         foreach ($monthsList as $monthItem) {
