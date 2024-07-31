@@ -320,6 +320,7 @@ class DateUtility
             case 'recent30' :
                 $timeArr = DataTime::recent30();
                 break;
+            case 'today':
             default:
                 $timeArr = DataTime::today();
                 $timeArr['last_time'] = DataTime::yesterday();
