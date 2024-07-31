@@ -2,6 +2,9 @@
 
 namespace Plugins\PhpSupport\Utilities;
 
+/**
+ * @deprecated 2024-07-31 and will remove
+ */
 class ModelNoUtility
 {
     public static function setCurrentIndex($model, ?string $field = null, &$params = [], $prefix = null, $orderByField = 'created_at', $indexLength = 4, $dateFormat = 'ymd')

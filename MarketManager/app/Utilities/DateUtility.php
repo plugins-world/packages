@@ -2,6 +2,8 @@
 
 namespace Plugins\MarketManager\Utilities;
 
+use Plugins\MarketManager\Traits\DataTime;
+
 class DateUtility
 {
     public static function getRnageDay($pastDayNum, $featureDayNum)
@@ -130,7 +132,7 @@ class DateUtility
         return $dayOfWeek;
     }
 
-    public static function getYearMonth($year = null)
+    public static function getYearMonth($year = null, $limitToCurrentMonth = true)
     {
         $currentYear = $year;
 
@@ -140,14 +142,28 @@ class DateUtility
         }
 
         // 创建一个数组来保存12个月份
-        $months = [];
+        $monthsList = [];
 
         for ($i = 1; $i <= 12; $i++) {
             // 数字月份前面补零，比如 '01'，'02'，...，'12'
             $month = str_pad($i, 2, '0', STR_PAD_LEFT);
 
             // 将年份和月份结合，格式为 'YYYY-MM'
-            $months[] = "{$currentYear}-{$month}-01";
+            $monthsList[] = "{$currentYear}-{$month}-01";
+        }
+
+
+        $months = [];
+        foreach ($monthsList as $monthItem) {
+            $currentMonthItem = \Carbon\Carbon::createFromDate($monthItem);
+
+            if ($limitToCurrentMonth) {
+                if ($currentMonthItem->gt(now())) {
+                    continue;
+                }
+            }
+
+            $months[] = $monthItem;
         }
 
         return $months;
@@ -189,5 +205,127 @@ class DateUtility
         };
 
         return $dateTimeString;
+    }
+
+    /**
+     * 仪表盘日志使用
+     * 根据类型获取开始结束时间戳数组
+     * @param
+     */
+    public function getDateTimeInfoByDateType($type = 'today')
+    {
+        switch ($type) {
+            case 'yesterday' :
+                $timeArr = DataTime::yesterday();
+                $timeArr['last_time'] = DataTime::yesterday(1);
+                break;
+            case 'week' :
+                $timeArr = DataTime::week();
+                $timeArr['last_time'] = DataTime::lastWeek();
+                break;
+            case 'lastWeek' :
+                $timeArr = DataTime::lastWeek();
+                $timeArr['last_time'] = DataTime::lastWeek(1);
+                break;
+            case 'month' :
+                $timeArr = DataTime::month();
+                $timeArr['last_time'] = DataTime::lastMonth();
+                break;
+            case 'lastMonth' :
+                $timeArr = DataTime::lastMonth();
+                $timeArr['last_time'] = DataTime::lastMonth(1);
+                break;
+            case 'quarter' :
+                //本季度
+                $month = date('m');
+                if ($month == 1 || $month == 2 || $month == 3) {
+                    $daterange_start_time = strtotime(date('Y-01-01 00:00:00'));
+                    $daterange_end_time = strtotime(date("Y-03-31 23:59:59"));
+                } elseif ($month == 4 || $month == 5 || $month == 6) {
+                    $daterange_start_time = strtotime(date('Y-04-01 00:00:00'));
+                    $daterange_end_time = strtotime(date("Y-06-30 23:59:59"));
+                } elseif ($month == 7 || $month == 8 || $month == 9) {
+                    $daterange_start_time = strtotime(date('Y-07-01 00:00:00'));
+                    $daterange_end_time = strtotime(date("Y-09-30 23:59:59"));
+                } else {
+                    $daterange_start_time = strtotime(date('Y-10-01 00:00:00'));
+                    $daterange_end_time = strtotime(date("Y-12-31 23:59:59"));
+                }
+
+                //上季度
+                $month = date('m');
+                if ($month == 1 || $month == 2 || $month == 3) {
+                    $year = date('Y') - 1;
+                    $daterange_start_time_last_time = strtotime(date($year . '-10-01 00:00:00'));
+                    $daterange_end_time_last_time = strtotime(date($year . '-12-31 23:59:59'));
+                } elseif ($month == 4 || $month == 5 || $month == 6) {
+                    $daterange_start_time_last_time = strtotime(date('Y-01-01 00:00:00'));
+                    $daterange_end_time_last_time = strtotime(date("Y-03-31 23:59:59"));
+                } elseif ($month == 7 || $month == 8 || $month == 9) {
+                    $daterange_start_time_last_time = strtotime(date('Y-04-01 00:00:00'));
+                    $daterange_end_time_last_time = strtotime(date("Y-06-30 23:59:59"));
+                } else {
+                    $daterange_start_time_last_time = strtotime(date('Y-07-01 00:00:00'));
+                    $daterange_end_time_last_time = strtotime(date("Y-09-30 23:59:59"));
+                }
+                $timeArr = array($daterange_start_time, $daterange_end_time);
+                $timeArr['last_time'] = array($daterange_start_time_last_time, $daterange_end_time_last_time);
+                break;
+            case 'lastQuarter' :
+                //上季度
+                $month = date('m');
+                if ($month == 1 || $month == 2 || $month == 3) {
+                    $year = date('Y') - 1;
+                    $daterange_start_time = strtotime(date($year . '-10-01 00:00:00'));
+                    $daterange_end_time = strtotime(date($year . '-12-31 23:59:59'));
+                } elseif ($month == 4 || $month == 5 || $month == 6) {
+                    $daterange_start_time = strtotime(date('Y-01-01 00:00:00'));
+                    $daterange_end_time = strtotime(date("Y-03-31 23:59:59"));
+                } elseif ($month == 7 || $month == 8 || $month == 9) {
+                    $daterange_start_time = strtotime(date('Y-04-01 00:00:00'));
+                    $daterange_end_time = strtotime(date("Y-06-30 23:59:59"));
+                } else {
+                    $daterange_start_time = strtotime(date('Y-07-01 00:00:00'));
+                    $daterange_end_time = strtotime(date("Y-09-30 23:59:59"));
+                }
+                //上季度
+                $month = date('m');
+                if ($month == 1 || $month == 2 || $month == 3) {
+                    $year = date('Y') - 2;
+                    $daterange_start_time_last_time = strtotime(date($year . '-10-01 00:00:00'));
+                    $daterange_end_time_last_time = strtotime(date($year . '-12-31 23:59:59'));
+                } elseif ($month == 4 || $month == 5 || $month == 6) {
+                    $daterange_start_time_last_time = strtotime(date('Y-01-01 00:00:00'));
+                    $daterange_end_time_last_time = strtotime(date("Y-03-31 23:59:59"));
+                } elseif ($month == 7 || $month == 8 || $month == 9) {
+                    $daterange_start_time_last_time = strtotime(date('Y-04-01 00:00:00'));
+                    $daterange_end_time_last_time = strtotime(date("Y-06-30 23:59:59"));
+                } else {
+                    $daterange_start_time_last_time = strtotime(date('Y-07-01 00:00:00'));
+                    $daterange_end_time_last_time = strtotime(date("Y-09-30 23:59:59"));
+                }
+                $timeArr = array($daterange_start_time, $daterange_end_time);
+                $timeArr['last_time'] = array($daterange_start_time_last_time, $daterange_end_time_last_time);
+                break;
+            case 'year' :
+                $timeArr = DataTime::year();
+                $timeArr['last_time'] = DataTime::lastYear();
+                break;
+            case 'lastYear' :
+                $timeArr = DataTime::lastYear();
+                $timeArr['last_time'] = DataTime::lastYear(1);
+                break;
+            case 'recent60' :
+                $timeArr = DataTime::recent60();
+                break;
+            case 'recent30' :
+                $timeArr = DataTime::recent30();
+                break;
+            default :
+                $timeArr = DataTime::today();
+                $timeArr['last_time'] = DataTime::yesterday();
+                break;
+        }
+        return $timeArr;
     }
 }
