@@ -184,6 +184,17 @@ class DateUtility
         return $data;
     }
 
+    public static function getYearMonthAndMonthRange($year, $limitToCurrentMonth = true)
+    {
+        $months = DateUtility::getYearMonth($year, $limitToCurrentMonth);
+        $monthRangeList = DateUtility::getYearMonthRange($months);
+
+        return [
+            'months' => $months,
+            'monthRangeList' => $monthRangeList,
+        ];
+    }
+
     public static function getYearMonthDay($monthDay = null, $type = 'first')
     {
         $type = match ($type) {
