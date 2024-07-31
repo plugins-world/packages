@@ -209,32 +209,36 @@ class DateUtility
     /**
      * 仪表盘日志使用
      * 根据类型获取开始结束时间戳数组
-     * @param
+     * 
+     * 
+     * @param string $type today-今天;yesterday-昨天;week-本周;lastWeek-上一周;month-本月;lastMonth-上一个月;quarter-本季度;lastQuarter-上季度;year-本年;lastYear-去年;recent60-最近60天;recent30-最近30天;
+     * 
+     * @return array [0 => "start_time timestamp", 1 => "end_time timestamp", "last_time" => [0 => "previous cycle start_time", 1 => "previous cycle end_time"]]
      */
-    public function getDateTimeInfoByDateType($type = 'today')
+    public static function getDateTimeInfoByDateType($type = 'today')
     {
         switch ($type) {
-            case 'yesterday' :
+            case 'yesterday':
                 $timeArr = DataTime::yesterday();
                 $timeArr['last_time'] = DataTime::yesterday(1);
                 break;
-            case 'week' :
+            case 'week':
                 $timeArr = DataTime::week();
                 $timeArr['last_time'] = DataTime::lastWeek();
                 break;
-            case 'lastWeek' :
+            case 'lastWeek':
                 $timeArr = DataTime::lastWeek();
                 $timeArr['last_time'] = DataTime::lastWeek(1);
                 break;
-            case 'month' :
+            case 'month':
                 $timeArr = DataTime::month();
                 $timeArr['last_time'] = DataTime::lastMonth();
                 break;
-            case 'lastMonth' :
+            case 'lastMonth':
                 $timeArr = DataTime::lastMonth();
                 $timeArr['last_time'] = DataTime::lastMonth(1);
                 break;
-            case 'quarter' :
+            case 'quarter':
                 //本季度
                 $month = date('m');
                 if ($month == 1 || $month == 2 || $month == 3) {
@@ -270,7 +274,7 @@ class DateUtility
                 $timeArr = array($daterange_start_time, $daterange_end_time);
                 $timeArr['last_time'] = array($daterange_start_time_last_time, $daterange_end_time_last_time);
                 break;
-            case 'lastQuarter' :
+            case 'lastQuarter':
                 //上季度
                 $month = date('m');
                 if ($month == 1 || $month == 2 || $month == 3) {
@@ -306,18 +310,18 @@ class DateUtility
                 $timeArr = array($daterange_start_time, $daterange_end_time);
                 $timeArr['last_time'] = array($daterange_start_time_last_time, $daterange_end_time_last_time);
                 break;
-            case 'year' :
+            case 'year':
                 $timeArr = DataTime::year();
                 $timeArr['last_time'] = DataTime::lastYear();
                 break;
-            case 'lastYear' :
+            case 'lastYear':
                 $timeArr = DataTime::lastYear();
                 $timeArr['last_time'] = DataTime::lastYear(1);
                 break;
-            case 'recent60' :
+            case 'recent60':
                 $timeArr = DataTime::recent60();
                 break;
-            case 'recent30' :
+            case 'recent30':
                 $timeArr = DataTime::recent30();
                 break;
             case 'today':

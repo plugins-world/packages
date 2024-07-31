@@ -1,4 +1,5 @@
 <?php
+
 namespace Plugins\MarketManager\Traits;
 
 trait DataTime
@@ -21,10 +22,8 @@ trait DataTime
      *
      * @return array
      */
-    public static function yesterday($type = '')
+    public static function yesterday($type = 1)
     {
-
-
         if ($type == 1) {
             $yesterday = date('d') - 2;
         } else {
@@ -44,7 +43,7 @@ trait DataTime
     public static function recent30()
     {
         $yesterday = date('d') - 30;
-        $date=date('d');
+        $date = date('d');
         return [
             mktime(0, 0, 0, date('m'), $yesterday, date('Y')),
             mktime(23, 59, 59, date('m'), $date, date('Y'))
@@ -59,7 +58,7 @@ trait DataTime
     public static function recent60()
     {
         $yesterday = date('d') - 60;
-        $date=date('d');
+        $date = date('d');
         return [
             mktime(0, 0, 0, date('m'), $yesterday, date('Y')),
             mktime(23, 59, 59, date('m'), $date, date('Y'))
@@ -74,7 +73,7 @@ trait DataTime
     public static function week()
     {
         list($y, $m, $d, $w) = explode('-', date('Y-m-d-w'));
-        if($w == 0) $w = 7; //修正周日的问题
+        if ($w == 0) $w = 7; //修正周日的问题
         return [
             mktime(0, 0, 0, $m, $d - $w + 1, $y), mktime(23, 59, 59, $m, $d - $w + 7, $y)
         ];
@@ -83,7 +82,7 @@ trait DataTime
     /**
      * 返回上周开始和结束的时间戳
      *
-     * @return array
+    * @return array
      */
     public static function lastWeek($type = '')
     {
@@ -170,7 +169,6 @@ trait DataTime
 
     public static function dayOf()
     {
-
     }
 
     /**
@@ -178,6 +176,7 @@ trait DataTime
      *
      * @param int $day 天数
      * @param bool $now 返回现在或者昨天结束时间戳
+     * @param bool $includeToDay 返回现在或者昨天结束时间戳
      * @return array
      */
     public static function dayToNow($day = 1, $now = true)
@@ -186,7 +185,6 @@ trait DataTime
         if (!$now) {
             list($foo, $end) = self::yesterday();
         }
-
         return [
             mktime(0, 0, 0, date('m'), date('d') - $day, date('Y')),
             $end
@@ -241,6 +239,5 @@ trait DataTime
 
     private static function startTimeToEndTime()
     {
-
     }
 }
