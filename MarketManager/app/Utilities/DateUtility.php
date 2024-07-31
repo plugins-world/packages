@@ -143,7 +143,6 @@ class DateUtility
 
         // 创建一个数组来保存12个月份
         $monthsList = [];
-
         for ($i = 1; $i <= 12; $i++) {
             // 数字月份前面补零，比如 '01'，'02'，...，'12'
             $month = str_pad($i, 2, '0', STR_PAD_LEFT);
