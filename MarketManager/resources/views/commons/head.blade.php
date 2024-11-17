@@ -16,8 +16,7 @@
 <!-- jquery throttle and debounce: @see https://stackoverflow.com/questions/27787768/debounce-function-in-jquery -->
 <script src="https://cdn.jsdelivr.net/npm/jquery-throttle-debounce"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/iframe-resizer/js/iframeResizer.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/iframe-resizer/js/iframeResizer.contentWindow.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@iframe-resizer/parent@latest"></script>
 <script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script>
 
 <style>
@@ -51,24 +50,20 @@
         });
 
         // iFrame Resizer
+        $('iframe').iframeResize({ license: 'GPLv3', waitForLoad: true });
+
         $('iframe').each(index => {
             $($('iframe')[index]).on('load', function (obj) {
                 // http://davidjbradshaw.github.io/iframe-resizer/
                 iFrameResize({
                     license: 'GPLv3',
-                    targetOrigin: '*',
-                    sizeWidth: true,
-                    sizeHeight: true,
-                    autoResize: true,
-                    minWidth: '100%',
-                    minHeight: 'calc(100vh - 100px)',
-                    heightCalculationMethod: (navigator.userAgent.indexOf('MSIE') !== -1) ? 'max' : 'lowestElement', // isOldIE ? 'max' : 'lowestElement';
+                    waitForLoad: true,
                     scrolling: true,
                 });
 
                 $(this).find('.form-bottom-wrapper').hide();
             })
-        })
+        });
 
         $(document).on('click', 'form button[type="submit"]', $.debounce(500, function(event) {
             event.preventDefault();
