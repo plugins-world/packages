@@ -31,11 +31,11 @@
         // Ajax global setting
         $.ajaxSetup({
             xhrFields: {
-                withCredentials: true
+                withCredentials: true,
             },
             crossDomain: true,
             headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
             }
         });
 
