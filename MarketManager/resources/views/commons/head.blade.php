@@ -20,6 +20,13 @@
 <script src="https://cdn.jsdelivr.net/npm/iframe-resizer/js/iframeResizer.contentWindow.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script>
 
+<style>
+    iframe {
+        width: 100%;
+        height: calc(100vh - 100px);
+    }
+</style>
+
 <script>
     $(function() {
         // Ajax global setting
@@ -45,9 +52,10 @@
 
         // iFrame Resizer
         $('iframe').each(index => {
-            $($('iframe')[index]).on('load', function () {
+            $($('iframe')[index]).on('load', function (obj) {
                 // http://davidjbradshaw.github.io/iframe-resizer/
-                $(this).iFrameResize({
+                iFrameResize({
+                    license: 'GPLv3',
                     targetOrigin: '*',
                     sizeWidth: true,
                     sizeHeight: true,
