@@ -16,7 +16,7 @@
 <!-- jquery throttle and debounce: @see https://stackoverflow.com/questions/27787768/debounce-function-in-jquery -->
 <script src="https://cdn.jsdelivr.net/npm/jquery-throttle-debounce"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/@iframe-resizer/parent@latest"></script>
+<script src="https://cdn.jsdelivr.net/npm/@iframe-resizer/parent@5.3.2"></script>
 <script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script>
 
 <style>
@@ -48,18 +48,16 @@
         $(document).ajaxComplete(function() {
             topbar.hide()
         });
-
         // iFrame Resizer
-        $('iframe').iframeResize({ license: 'GPLv3', waitForLoad: true });
-
+        // @see http://davidjbradshaw.github.io/iframe-resizer/
         $('iframe').each(index => {
             $($('iframe')[index]).on('load', function (obj) {
-                // http://davidjbradshaw.github.io/iframe-resizer/
-                iFrameResize({
+                iframeResize({
                     license: 'GPLv3',
                     waitForLoad: true,
+                    // warningTimeout: 0,
                     scrolling: true,
-                });
+                }, $(this)[0]);
 
                 $(this).find('.form-bottom-wrapper').hide();
             })
