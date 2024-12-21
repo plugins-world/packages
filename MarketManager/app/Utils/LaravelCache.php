@@ -57,9 +57,9 @@ class LaravelCache
         }
 
         if ($forever) {
-            $data = Cache::rememberForever($cacheKey, $callable);
+            $data = Cache::rememberForever($cacheKey, fn () => $callable($cacheTime, $cacheKey));
         } else {
-            $data = Cache::remember($cacheKey, $cacheTime, $callable);
+            $data = Cache::remember($cacheKey, $cacheTime, fn() => $callable($cacheTime, $cacheKey));
         }
 
         if (!$data) {
