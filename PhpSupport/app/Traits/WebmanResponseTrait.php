@@ -12,6 +12,21 @@ trait WebmanResponseTrait
     public static $responseCodeKey = 1; // 1:code msg、2:code message、3:err_code err_msg、errcode errmsg
     public static $responseSuccessCode = 200; // 0,200
 
+    public function debug($response = null)
+    {
+        if (!$response) {
+            return;
+        }
+
+        $content = $response->getBody()->getContents();
+        $resp = json_decode($content, true);
+        if (!$resp) {
+            return $content;
+        }
+
+        return $resp;
+    }
+
     public static function setResponseCodeKey(int $responseCodeKey = 1)
     {
         static::$responseCodeKey = $responseCodeKey;
