@@ -18,16 +18,22 @@ class LanguageRecognizer
 
     /**
      * current country and area is ISO 639-3
-     * 
+     *
      * @return void
-     * 
+     *
      * @see https://www.iso.org/iso-639-language-codes.html
-     * 
+     *
      * @see ISO 639-1: https://fresns.cn/database/dictionary/language-codes.html
      */
     protected function getCountryAndArea()
     {
         $code = $this->attributes['code'] ?? null;
+        if (!$code) {
+            return [
+                'countryCode' => null,
+                'areaCode' => null,
+            ];
+        }
 
         [$countryCode, $areaCode] = explode('-', $code);
 
@@ -39,7 +45,7 @@ class LanguageRecognizer
 
     /**
      * @return string
-     * 
+     *
      * @see https://fresns.cn/database/dictionary/area-codes.html
      */
     public function getCountryCode()
@@ -49,7 +55,7 @@ class LanguageRecognizer
 
     /**
      * @return string
-     * 
+     *
      * @see https://fresns.cn/database/dictionary/area-codes.html
      */
     public function getAreaCode()
