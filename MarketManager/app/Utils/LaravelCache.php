@@ -34,7 +34,7 @@ class LaravelCache
      * @param  boolean              $forever
      * @return mixed
      */
-    public static function remember(string $cacheKey, callable|Carbon|null $cacheTime = null, callable $callable = null, $forever = false)
+    public static function remember(string $cacheKey, callable|Carbon|null $cacheTime = null, ?callable $callable = null, $forever = false)
     {
         $nullCacheKey = LaravelCache::getNullKeyCacheKey($cacheKey);
 
@@ -81,7 +81,7 @@ class LaravelCache
      * @param  callable|null        $callable
      * @return mixed
      */
-    public static function rememberForever(string $cacheKey, callable|Carbon|null $cacheTime = null, callable $callable = null)
+    public static function rememberForever(string $cacheKey, callable|Carbon|null $cacheTime = null, ?callable $callable = null)
     {
         return LaravelCache::remember($cacheKey, $cacheTime, $callable, true);
     }
