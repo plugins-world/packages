@@ -10,7 +10,7 @@ use Plugins\MarketManager\Utils\LaravelCache;
  */
 trait ConfigServiceTrait
 {
-    public static function findConfig(string $itemKey = null, ?string $itemTag, array $where = []): null|Config
+    public static function findConfig(?string $itemKey = null, ?string $itemTag = null, array $where = []): null|Config
     {
         if (empty($itemKey)) {
             return null;
@@ -74,7 +74,7 @@ trait ConfigServiceTrait
         return $data;
     }
 
-    public static function forgetCache(?string $itemKey)
+    public static function forgetCache(?string $itemKey = null)
     {
         $cacheKey = Config::CACHE_KEY_PREFIX . $itemKey;
         LaravelCache::forget($cacheKey);
